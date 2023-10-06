@@ -6,11 +6,14 @@ namespace Core {
 class Cell {
 public:
 	Cell(int xPosition, int yPosition) noexcept;
-	
-	void link(Cell* cell, const bool isBidirectional = true) noexcept;
-	void unlink(Cell* cell, const bool isBidirectional = true) noexcept;
 
 public:
+	void link(Cell* cell, const bool isBidirectional = true) noexcept;
+	void unlink(Cell* cell, const bool isBidirectional = true) noexcept;
+	
+	[[nodiscard]] const bool isLinked(const Cell* const cell) const noexcept;
+	[[nodiscard]] const std::vector<Cell*>& getLinks() const noexcept;
+	
 	[[nodiscard]] const int getXPosition() const noexcept;
 	[[nodiscard]] const int getYPosition() const noexcept;
 	
@@ -24,8 +27,6 @@ public:
 	void setWest(Cell* cell) noexcept;
 	void setSouth(Cell* cell) noexcept;
 	void setEast(Cell* cell) noexcept;
-	
-	[[nodiscard]] const std::vector<Cell*>& getLinks() noexcept;
 
 private:
 	int xPosition;

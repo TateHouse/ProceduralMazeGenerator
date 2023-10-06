@@ -25,6 +25,14 @@ void Cell::unlink(Core::Cell* cell, const bool isBidirectional) noexcept {
 	links.erase(std::ranges::remove(links, cell).begin(), links.end());
 }
 
+const bool Cell::isLinked(const Cell* const cell) const noexcept {
+	return std::ranges::find(links, cell) != links.end();
+}
+
+const std::vector<Cell*>& Cell::getLinks() const noexcept {
+	return links;
+}
+
 const int Cell::getXPosition() const noexcept {
 	return xPosition;
 }
@@ -75,9 +83,5 @@ void Cell::setSouth(Cell* cell) noexcept {
 
 void Cell::setEast(Cell* cell) noexcept {
 	east = cell;
-}
-
-const std::vector<Cell*>& Cell::getLinks() noexcept {
-	return links;
 }
 }

@@ -5,6 +5,7 @@ PROJECT(${TEST_PROJECT_NAME} VERSION 1.0.0 LANGUAGES CXX)
 SET(HEADER_FILES)
 
 SET(SOURCE_FILES
+		Source/CellAttributeTest.cpp
 		Source/CellLinkingTest.cpp)
 
 SET(ENTRY_POINT

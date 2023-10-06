@@ -1,5 +1,6 @@
 #include <gmock/gmock.h>
 
+#include <array>
 #include <memory>
 
 #include "Cell.hpp"
@@ -32,6 +33,41 @@ TEST_F(CellAttributeTest, GivenTwoCells_WhenGetYPosition_ThenReturnsYPosition) {
 	
 	EXPECT_THAT(firstCell->getYPosition(), testing::Eq(0));
 	EXPECT_THAT(secondCell->getYPosition(), testing::Eq(1));
+}
+
+TEST_F(CellAttributeTest, GivenTwoCellsWithoutNeighbors_WhenGetNeighbors_ThenReturnsEmptyVector) {
+	CustomSetUp({0, 0}, {0, 1});
+	
+	EXPECT_THAT(firstCell->getNeighbors(), testing::IsEmpty());
+	EXPECT_THAT(secondCell->getNeighbors(), testing::IsEmpty());
+}
+
+TEST_F(CellAttributeTest, GivenCellWithAllNeighbors_WhenGetNeighbors_ThenReturnsVectorWithAllNeighbors) {
+	CustomSetUp({0, 0}, {0, 1});
+	
+	std::array<Cell*, 4> directions {};
+	directions[0] = secondCell.get();
+	directions[1] = std::make_unique<Cell>(-1, 0).get();
+	directions[2] = std::make_unique<Cell>(0, -1).get();
+	directions[3] = std::make_unique<Cell>(1, 0).get();
+	
+	firstCell->setNorth(directions[0]);
+	firstCell->setWest(directions[1]);
+	firstCell->setSouth(directions[2]);
+	firstCell->setEast(directions[3]);
+	
+	EXPECT_THAT(firstCell->getNeighbors(), testing::ElementsAreArray(directions));
+}
+
+TEST_F(CellAttributeTest, GivenCellWithTwoNeighbors_WhenGetNeighbors_ThenReturnsVectorWithNeighbors) {
+	CustomSetUp({0, 0}, {0, 1});
+	
+	auto thirdCell {std::make_unique<Cell>(-1, 0)};
+	
+	firstCell->setNorth(secondCell.get());
+	firstCell->setWest(thirdCell.get());
+	
+	EXPECT_THAT(firstCell->getNeighbors(), testing::UnorderedElementsAre(secondCell.get(), thirdCell.get()));
 }
 
 TEST_F(CellAttributeTest, GivenTwoCellsWithoutNorthCell_WhenGetNorth_ThenReturnsNullptr) {

@@ -14,6 +14,7 @@ public:
 	[[nodiscard]] const int getXPosition() const noexcept;
 	[[nodiscard]] const int getYPosition() const noexcept;
 	
+	[[nodiscard]] std::vector<Cell*> getNeighbors() const noexcept;
 	[[nodiscard]] Cell* getNorth() const noexcept;
 	[[nodiscard]] Cell* getWest() const noexcept;
 	[[nodiscard]] Cell* getSouth() const noexcept;

@@ -1,6 +1,8 @@
 #include "Cell.hpp"
 
 #include <algorithm>
+#include <array>
+#include <iterator>
 
 namespace Core {
 Cell::Cell(int xPosition, int yPosition) noexcept: xPosition {xPosition}, yPosition {yPosition} {
@@ -29,6 +31,18 @@ const int Cell::getXPosition() const noexcept {
 
 const int Cell::getYPosition() const noexcept {
 	return yPosition;
+}
+
+std::vector<Cell*> Cell::getNeighbors() const noexcept {
+	std::array<Cell*, 4> directions {north, west, south, east};
+	std::vector<Cell*> neighbors {};
+	neighbors.reserve(directions.size());
+	
+	std::ranges::copy_if(directions, std::back_inserter(neighbors), [](const Cell* const cell) {
+		return cell != nullptr;
+	});
+	
+	return neighbors;
 }
 
 Cell* Cell::getNorth() const noexcept {

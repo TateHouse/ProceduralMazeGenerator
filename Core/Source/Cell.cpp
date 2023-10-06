@@ -1,8 +1,26 @@
 #include "Cell.hpp"
 
+#include <algorithm>
+
 namespace Core {
 Cell::Cell(int xPosition, int yPosition) noexcept: xPosition {xPosition}, yPosition {yPosition} {
 
+}
+
+void Cell::link(Cell* cell, const bool isBidirectional) noexcept {
+	if (isBidirectional) {
+		cell->link(this, false);
+	}
+	
+	links.push_back(cell);
+}
+
+void Cell::unlink(Core::Cell* cell, const bool isBidirectional) noexcept {
+	if (isBidirectional) {
+		cell->unlink(this, false);
+	}
+	
+	links.erase(std::ranges::remove(links, cell).begin(), links.end());
 }
 
 const int Cell::getXPosition() const noexcept {

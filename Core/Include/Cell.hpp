@@ -6,6 +6,9 @@ namespace Core {
 class Cell {
 public:
 	Cell(int xPosition, int yPosition) noexcept;
+	
+	void link(Cell* cell, const bool isBidirectional = true) noexcept;
+	void unlink(Cell* cell, const bool isBidirectional = true) noexcept;
 
 public:
 	[[nodiscard]] const int getXPosition() const noexcept;

@@ -1,0 +1,8 @@
+{
+	"name": "procedural-maze-generator",
+	"version": "1.0.0",
+	"description": "A project for procedurally generating mazes using various algorithms.",
+	"dependencies": [
+		"gtest"
+	]
+}

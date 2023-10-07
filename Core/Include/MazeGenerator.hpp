@@ -14,8 +14,8 @@ public:
 
 public:
 	virtual void generate(const long long* seed) noexcept = 0;
-	const std::string& getMazeGenerationAlgorithmName() const noexcept;
-	const std::optional<unsigned long long> getSeed() const noexcept;
+	[[nodiscard]] const std::string& getMazeGenerationAlgorithmName() const noexcept;
+	[[nodiscard]] const std::optional<unsigned long long> getSeed() const noexcept;
 
 protected:
 	std::mt19937_64& getRandomEngine(const long long* seed) noexcept;

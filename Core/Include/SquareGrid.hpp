@@ -17,6 +17,17 @@ public:
 	}
 
 public:
+	Cell* operator[](const std::pair<const int, const int>& position) const noexcept override {
+		const auto [xPosition, yPosition] {position};
+		
+		if (xPosition < 0 || xPosition >= Size || yPosition < 0 || yPosition >= Size) {
+			return nullptr;
+		}
+		
+		return cells[xPosition][yPosition];
+	}
+
+public:
 	void initialize() noexcept override {
 		instantiateCells();
 		setCellNeighbors();

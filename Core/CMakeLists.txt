@@ -3,7 +3,8 @@ CMAKE_MINIMUM_REQUIRED(VERSION 3.26)
 PROJECT(${CORE_PROJECT_NAME} VERSION 1.0.0 LANGUAGES CXX)
 
 SET(HEADER_FILES
-		Include/Cell.hpp)
+		Include/Cell.hpp
+		Include/Grid.hpp)
 
 SET(SOURCE_FILES
 		Source/Cell.cpp)

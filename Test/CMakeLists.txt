@@ -6,7 +6,8 @@ SET(HEADER_FILES)
 
 SET(SOURCE_FILES
 		Source/CellAttributeTest.cpp
-		Source/CellLinkingTest.cpp)
+		Source/CellLinkingTest.cpp
+		Source/SquareGridTest.cpp)
 
 SET(ENTRY_POINT
 		Source/Main.cpp)

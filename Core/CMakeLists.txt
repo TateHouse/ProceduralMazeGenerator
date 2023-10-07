@@ -4,10 +4,12 @@ PROJECT(${CORE_PROJECT_NAME} VERSION 1.0.0 LANGUAGES CXX)
 
 SET(HEADER_FILES
 		Include/Cell.hpp
-		Include/Grid.hpp)
+		Include/Grid.hpp
+		Include/SquareGrid.hpp)
 
 SET(SOURCE_FILES
-		Source/Cell.cpp)
+		Source/Cell.cpp
+		Source/Grid.cpp)
 
 ADD_LIBRARY(${PROJECT_NAME} STATIC ${HEADER_FILES} ${SOURCE_FILES})
 TARGET_INCLUDE_DIRECTORIES(${PROJECT_NAME} PRIVATE ${PROJECT_SOURCE_DIR}/Include/)

@@ -1,0 +1,28 @@
+#pragma once
+
+#include <optional>
+#include <random>
+#include <string>
+
+namespace Core {
+class MazeGenerator {
+protected:
+	MazeGenerator(const std::string_view mazeGenerationAlgorithmName) noexcept;
+
+public:
+	virtual ~MazeGenerator() noexcept;
+
+public:
+	virtual void generate(const long long* seed) noexcept = 0;
+	const std::string& getMazeGenerationAlgorithmName() const noexcept;
+	const std::optional<unsigned long long> getSeed() const noexcept;
+
+protected:
+	std::mt19937_64& getRandomEngine(const long long* seed) noexcept;
+
+private:
+	std::string mazeGenerationAlgorithmName;
+	unsigned long long* seed {nullptr};
+	std::mt19937_64 randomEngine {};
+};
+}

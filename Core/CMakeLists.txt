@@ -3,13 +3,14 @@ CMAKE_MINIMUM_REQUIRED(VERSION 3.26)
 PROJECT(${CORE_PROJECT_NAME} VERSION 1.0.0 LANGUAGES CXX)
 
 SET(HEADER_FILES
-		Include/BinaryTreeMaze.hpp
+		Include/BinaryTreeMazeGenerator.hpp
 		Include/Cell.hpp
 		Include/Grid.hpp
 		Include/MazeGenerator.hpp
 		Include/SquareGrid.hpp)
 
 SET(SOURCE_FILES
+		Source/BinaryTreeMazeGenerator.cpp
 		Source/Cell.cpp
 		Source/Grid.cpp
 		Source/MazeGenerator.cpp)

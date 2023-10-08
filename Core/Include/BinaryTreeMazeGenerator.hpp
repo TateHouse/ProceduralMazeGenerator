@@ -10,6 +10,6 @@ public:
 	virtual ~BinaryTreeMazeGenerator() noexcept override = default;
 
 public:
-	void generate(Grid* const grid, const long long int* seed) noexcept override;
+	void generate(Grid* const grid, const unsigned long long int* seed) noexcept override;
 };
 }

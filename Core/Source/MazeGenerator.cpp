@@ -17,7 +17,7 @@ const std::optional<unsigned long long> MazeGenerator::getSeed() const noexcept 
 	return seed == nullptr ? std::nullopt : std::optional<unsigned long long>(*seed);
 }
 
-std::mt19937_64& MazeGenerator::getRandomEngine(const long long* seed) noexcept {
+std::mt19937_64& MazeGenerator::getRandomEngine(const unsigned long long* seed) noexcept {
 	delete this->seed;
 	
 	if (seed == nullptr) {

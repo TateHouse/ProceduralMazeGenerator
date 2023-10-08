@@ -5,7 +5,7 @@ BinaryTreeMazeGenerator::BinaryTreeMazeGenerator() noexcept: MazeGenerator {"Bin
 
 }
 
-void BinaryTreeMazeGenerator::generate(Core::Grid* const grid, const long long* seed) noexcept {
+void BinaryTreeMazeGenerator::generate(Core::Grid* const grid, const unsigned long long* seed) noexcept {
 	auto randomEngine {getRandomEngine(seed)};
 	std::uniform_int_distribution<std::size_t> distribution {};
 	

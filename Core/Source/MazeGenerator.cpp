@@ -28,5 +28,6 @@ std::mt19937_64& MazeGenerator::getRandomEngine(const long long* seed) noexcept 
 	}
 	
 	randomEngine.seed(*this->seed);
+	return randomEngine;
 }
 }

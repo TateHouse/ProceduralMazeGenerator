@@ -4,7 +4,12 @@ PROJECT(${TEST_PROJECT_NAME} VERSION 1.0.0 LANGUAGES CXX)
 
 SET(HEADER_FILES)
 
-SET(SOURCE_FILES)
+SET(SOURCE_FILES
+		Source/BinaryTreeMazeGeneratorTest.cpp
+		Source/CellAttributeTest.cpp
+		Source/CellLinkingTest.cpp
+		Source/MazeGeneratorTest.cpp
+		Source/SquareGridTest.cpp)
 
 SET(ENTRY_POINT
 		Source/Main.cpp)

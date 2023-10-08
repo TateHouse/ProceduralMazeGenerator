@@ -8,6 +8,7 @@ SET(SOURCE_FILES
 		Source/BinaryTreeMazeGeneratorTest.cpp
 		Source/CellAttributeTest.cpp
 		Source/CellLinkingTest.cpp
+		Source/MazeGeneratorTest.cpp
 		Source/SquareGridTest.cpp)
 
 SET(ENTRY_POINT

@@ -7,7 +7,7 @@
 namespace Core::Test {
 class SquareGridTest : public testing::Test {
 public:
-	SquareGridTest() noexcept: xSize {grid->getSize().first}, ySize {grid->getSize().second} {
+	SquareGridTest() noexcept {
 		grid->initialize();
 	}
 	
@@ -15,8 +15,8 @@ public:
 
 protected:
 	std::unique_ptr<Grid> grid {std::make_unique<SquareGrid<5>>()};
-	const int xSize;
-	const int ySize;
+	const int width {grid->getSize().first};
+	const int height {grid->getSize().second};
 };
 
 TEST_F(SquareGridTest, GivenSize_WhenInstantiate_ThenGridHasSize) {
@@ -26,8 +26,8 @@ TEST_F(SquareGridTest, GivenSize_WhenInstantiate_ThenGridHasSize) {
 TEST_F(SquareGridTest, GivenSize_WhenInstantiate_ThenGridContainsCorrectNumberOfCells) {
 	auto cellCount {0};
 	
-	for (std::size_t x {0}; x < xSize; ++x) {
-		for (std::size_t y {0}; y < ySize; ++y) {
+	for (std::size_t x {0}; x < width; ++x) {
+		for (std::size_t y {0}; y < height; ++y) {
 			const auto position {std::pair {x, y}};
 			if ((*grid)[position] != nullptr) {
 				++cellCount;
@@ -35,18 +35,18 @@ TEST_F(SquareGridTest, GivenSize_WhenInstantiate_ThenGridContainsCorrectNumberOf
 		}
 	}
 	
-	const auto expectedCellCount {xSize * ySize};
+	const auto expectedCellCount {width * height};
 	EXPECT_THAT(cellCount, testing::Eq(expectedCellCount));
 }
 
 TEST_F(SquareGridTest, GivenSize_WhenInstantiate_ThenGridCellsHaveCorrectNorthNeighbors) {
-	for (std::size_t x {0}; x < xSize; ++x) {
-		for (std::size_t y {0}; y < ySize; ++y) {
+	for (std::size_t x {0}; x < width; ++x) {
+		for (std::size_t y {0}; y < height; ++y) {
 			const auto position {std::pair {x, y}};
 			const auto* const cell {(*grid)[position]};
 			const auto* const northNeighbor {cell->getNorth()};
 			
-			if (y < ySize - 1) {
+			if (y < height - 1) {
 				EXPECT_THAT(northNeighbor, testing::Eq(northNeighbor));
 			} else {
 				EXPECT_THAT(northNeighbor, testing::IsNull());
@@ -56,8 +56,8 @@ TEST_F(SquareGridTest, GivenSize_WhenInstantiate_ThenGridCellsHaveCorrectNorthNe
 }
 
 TEST_F(SquareGridTest, GivenSize_WhenInstantiate_ThenGridCellsHaveCorrectWestNeighbors) {
-	for (std::size_t x {0}; x < xSize; ++x) {
-		for (std::size_t y {0}; y < ySize; ++y) {
+	for (std::size_t x {0}; x < width; ++x) {
+		for (std::size_t y {0}; y < height; ++y) {
 			const auto position {std::pair {x, y}};
 			const auto* const cell {(*grid)[position]};
 			const auto* const westNeighbor {cell->getWest()};
@@ -72,8 +72,8 @@ TEST_F(SquareGridTest, GivenSize_WhenInstantiate_ThenGridCellsHaveCorrectWestNei
 }
 
 TEST_F(SquareGridTest, GivenSize_WhenInstantiate_ThenGridCellsHaveCorrectSouthNeighbors) {
-	for (std::size_t x {0}; x < xSize; ++x) {
-		for (std::size_t y {0}; y < ySize; ++y) {
+	for (std::size_t x {0}; x < width; ++x) {
+		for (std::size_t y {0}; y < height; ++y) {
 			const auto position {std::pair {x, y}};
 			const auto* const cell {(*grid)[position]};
 			const auto* const southNeighbor {cell->getSouth()};
@@ -88,13 +88,13 @@ TEST_F(SquareGridTest, GivenSize_WhenInstantiate_ThenGridCellsHaveCorrectSouthNe
 }
 
 TEST_F(SquareGridTest, GivenSize_WhenInstantiate_ThenGridCellsHaveCorrectEastNeighbors) {
-	for (std::size_t x {0}; x < xSize; ++x) {
-		for (std::size_t y {0}; y < ySize; ++y) {
+	for (std::size_t x {0}; x < width; ++x) {
+		for (std::size_t y {0}; y < height; ++y) {
 			const auto position {std::pair {x, y}};
 			const auto* const cell {(*grid)[position]};
 			const auto* const eastNeighbor {cell->getEast()};
 			
-			if (x < xSize - 1) {
+			if (x < width - 1) {
 				EXPECT_THAT(eastNeighbor, testing::Eq(eastNeighbor));
 			} else {
 				EXPECT_THAT(eastNeighbor, testing::IsNull());
@@ -104,8 +104,8 @@ TEST_F(SquareGridTest, GivenSize_WhenInstantiate_ThenGridCellsHaveCorrectEastNei
 }
 
 TEST_F(SquareGridTest, GivenSize_WhenInstantiate_ThenGridCellsHaveNoLinks) {
-	for (std::size_t x {0}; x < xSize; ++x) {
-		for (std::size_t y {0}; y < ySize; ++y) {
+	for (std::size_t x {0}; x < width; ++x) {
+		for (std::size_t y {0}; y < height; ++y) {
 			const auto position {std::pair {x, y}};
 			const auto* const cell {(*grid)[position]};
 			

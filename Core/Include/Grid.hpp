@@ -12,6 +12,6 @@ public:
 
 public:
 	virtual void initialize() noexcept = 0;
-	[[nodiscard]] virtual const std::pair<int, int> getSize() const noexcept = 0;
+	[[nodiscard]] virtual const std::pair<const int, const int> getSize() const noexcept = 0;
 };
 }

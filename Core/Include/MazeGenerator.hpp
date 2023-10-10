@@ -5,14 +5,15 @@
 #include <string>
 
 #include "Grid.hpp"
+#include "SeedGenerator.hpp"
 
 namespace Core {
 class MazeGenerator {
 protected:
-	MazeGenerator(const std::string_view mazeGenerationAlgorithmName) noexcept;
+	explicit MazeGenerator(const std::string_view mazeGenerationAlgorithmName) noexcept;
 
 public:
-	virtual ~MazeGenerator() noexcept;
+	virtual ~MazeGenerator() noexcept = default;
 
 public:
 	virtual void generate(Grid* const grid, const unsigned long long* seed) noexcept = 0;
@@ -20,11 +21,10 @@ public:
 	[[nodiscard]] const std::optional<unsigned long long> getSeed() const noexcept;
 
 protected:
-	std::mt19937_64& getRandomEngine(const unsigned long long* seed) noexcept;
+	const std::mt19937_64& getRandomEngine(const unsigned long long* seed) noexcept;
 
 private:
 	std::string mazeGenerationAlgorithmName;
-	unsigned long long* seed {nullptr};
-	std::mt19937_64 randomEngine {};
+	SeedGenerator seedGenerator {};
 };
 }

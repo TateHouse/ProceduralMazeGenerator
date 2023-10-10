@@ -2,7 +2,7 @@
 
 #include <memory>
 
-#include "MockMazeGenerator.hpp"
+#include "FakeMazeGenerator.hpp"
 #include "SquareGrid.hpp"
 
 namespace Core::Test {
@@ -16,7 +16,7 @@ public:
 
 protected:
 	std::unique_ptr<Grid> grid {std::make_unique<SquareGrid<5>>()};
-	std::unique_ptr<MockMazeGenerator> mazeGenerator {std::make_unique<MockMazeGenerator>()};
+	std::unique_ptr<MazeGenerator> mazeGenerator {std::make_unique<FakeMazeGenerator>()};
 };
 
 TEST_F(MazeGeneratorTest,
@@ -28,25 +28,14 @@ TEST_F(MazeGeneratorTest, GivenMazeGeneratorThatDoesNotContainSeed_WhenGetSeed_T
 	EXPECT_THAT(mazeGenerator->getSeed(), testing::Eq(std::nullopt));
 }
 
-TEST_F(MazeGeneratorTest, GivenMazeGenerator_WhenGenerateWithoutSeed_ThenUsesRandomSeed) {
-	EXPECT_CALL(*mazeGenerator, generate(grid.get(), nullptr)).Times(1).WillOnce([this](const Grid* const grid,
-	                                                                                    const unsigned long long*) {
-		mazeGenerator->getRandomEngineWrapper(nullptr);
-	});
-	
+TEST_F(MazeGeneratorTest, GivenMazeGenerator_WhenGenerateWithoutSeed_ThenSetsRandomSeed) {
 	mazeGenerator->generate(grid.get(), nullptr);
 	
 	EXPECT_THAT(mazeGenerator->getSeed(), testing::Ne(std::nullopt));
 }
 
-TEST_F(MazeGeneratorTest, GivenMazeGenerator_WhenGenerateWithSeed_ThenUsesSeed) {
-	const unsigned long long seed {123456789};
-	
-	EXPECT_CALL(*mazeGenerator, generate(grid.get(), &seed)).Times(1).WillOnce([this, &seed](const Grid* const grid,
-	                                                                                         const unsigned long long*) {
-		mazeGenerator->getRandomEngineWrapper(&seed);
-	});
-	
+TEST_F(MazeGeneratorTest, GivenMazeGenerator_WhenGenerateWithSeed_ThenSetsSeed) {
+	const unsigned long long seed {100};
 	mazeGenerator->generate(grid.get(), &seed);
 	
 	EXPECT_THAT(mazeGenerator->getSeed(), testing::Eq(seed));

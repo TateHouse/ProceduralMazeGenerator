@@ -7,12 +7,14 @@ SET(HEADER_FILES
 		Include/Cell.hpp
 		Include/Grid.hpp
 		Include/MazeGenerator.hpp
+		Include/SeedGenerator.hpp
 		Include/SquareGrid.hpp)
 
 SET(SOURCE_FILES
-		Source/BinaryTreeMazeGenerator.cpp
 		Source/Cell.cpp
 		Source/Grid.cpp
+		Source/BinaryTreeMazeGenerator.cpp
+		Source/SeedGenerator.cpp
 		Source/MazeGenerator.cpp)
 
 ADD_LIBRARY(${PROJECT_NAME} STATIC ${HEADER_FILES} ${SOURCE_FILES})

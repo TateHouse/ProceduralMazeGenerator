@@ -5,29 +5,15 @@ MazeGenerator::MazeGenerator(const std::string_view mazeGenerationAlgorithmName)
 		mazeGenerationAlgorithmName {mazeGenerationAlgorithmName} {
 }
 
-MazeGenerator::~MazeGenerator() noexcept {
-	delete seed;
-}
-
 const std::string& MazeGenerator::getMazeGenerationAlgorithmName() const noexcept {
 	return mazeGenerationAlgorithmName;
 }
 
 const std::optional<unsigned long long> MazeGenerator::getSeed() const noexcept {
-	return seed == nullptr ? std::nullopt : std::optional<unsigned long long>(*seed);
+	return seedGenerator.getSeed();
 }
 
-std::mt19937_64& MazeGenerator::getRandomEngine(const unsigned long long* seed) noexcept {
-	delete this->seed;
-	
-	if (seed == nullptr) {
-		std::random_device randomDevice {};
-		this->seed = new unsigned long long(randomDevice());
-	} else {
-		this->seed = new unsigned long long(*seed);
-	}
-	
-	randomEngine.seed(*this->seed);
-	return randomEngine;
+const std::mt19937_64& MazeGenerator::getRandomEngine(const unsigned long long* seed) noexcept {
+	return seedGenerator.getRandomEngine(seed);
 }
 }

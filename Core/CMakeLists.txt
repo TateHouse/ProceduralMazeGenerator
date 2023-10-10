@@ -6,6 +6,7 @@ SET(HEADER_FILES
 		Include/BinaryTreeMazeGenerator.hpp
 		Include/Cell.hpp
 		Include/Grid.hpp
+		Include/GridVisualizer.hpp
 		Include/MazeGenerator.hpp
 		Include/SeedGenerator.hpp
 		Include/SquareGrid.hpp)

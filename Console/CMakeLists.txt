@@ -3,10 +3,12 @@ CMAKE_MINIMUM_REQUIRED(VERSION 3.26)
 PROJECT(${CONSOLE_PROJECT_NAME} VERSION 1.0.0 LANGUAGES CXX)
 
 SET(HEADER_FILES
-		Include/ConsoleGridVisualizer.hpp)
+		Include/ConsoleGridVisualizer.hpp
+		Include/ImageGridVisualizer.hpp)
 
 SET(SOURCE_FILES
-		Source/ConsoleGridVisualizer.cpp)
+		Source/ConsoleGridVisualizer.cpp
+		Source/ImageGridVisualizer.cpp)
 
 SET(ENTRY_POINT
 		Source/Main.cpp)

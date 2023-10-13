@@ -12,8 +12,7 @@ int main(int argc, char* argv[]) {
 	std::unique_ptr<Core::Grid> maze {std::make_unique<Core::SquareGrid<MAZE_SIZE>>()};
 	maze->initialize();
 	
-	std::unique_ptr<Core::GridVisualizer> imageGrid {std::make_unique<Console::ImageGridVisualizer>(maze.get(),
-	                                                                                                10,
+	std::unique_ptr<Core::GridVisualizer> imageGrid {std::make_unique<Console::ImageGridVisualizer>(maze.get(), 50,
 	                                                                                                1,
 	                                                                                                "Images/Grid.png",
 	                                                                                                cv::Scalar(255,

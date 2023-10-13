@@ -26,19 +26,31 @@ void ImageGridVisualizer::display() noexcept {
 	
 	auto image {cv::Mat {imageHeight, imageWidth, CV_8UC3, backgroundColor}};
 	
-	for (std::size_t x {0}; x <= gridWidth; ++x) {
+	for (std::size_t x {1}; x < gridWidth; ++x) {
 		const auto topPoint {cv::Point {static_cast<int>(x * cellSize + borderSize), static_cast<int>(borderSize)}};
 		const auto bottomPoint {cv::Point {static_cast<int>(x * cellSize + borderSize),
-		                                   static_cast<int>(imageHeight - borderSize)}};
+		                                   static_cast<int>(imageHeight - borderSize - 1)}};
 		cv::line(image, topPoint, bottomPoint, gridColor);
 	}
 	
-	for (std::size_t y {0}; y <= gridHeight; ++y) {
+	for (std::size_t y {1}; y < gridHeight; ++y) {
 		const auto leftPoint {cv::Point {static_cast<int>(borderSize), static_cast<int>(y * cellSize + borderSize)}};
-		const auto rightPoint {cv::Point {static_cast<int>(imageWidth - borderSize),
+		const auto rightPoint {cv::Point {static_cast<int>(imageWidth - borderSize - 1),
 		                                  static_cast<int>(y * cellSize + borderSize)}};
 		cv::line(image, leftPoint, rightPoint, gridColor);
 	}
+	
+	// Drawing outer walls
+	cv::line(image, cv::Point(borderSize, borderSize), cv::Point(imageWidth - borderSize - 1, borderSize), gridColor);
+	cv::line(image, cv::Point(borderSize, borderSize), cv::Point(borderSize, imageHeight - borderSize - 1), gridColor);
+	cv::line(image,
+	         cv::Point(borderSize, imageHeight - borderSize - 1),
+	         cv::Point(imageWidth - borderSize - 1, imageHeight - borderSize - 1),
+	         gridColor);
+	cv::line(image,
+	         cv::Point(imageWidth - borderSize - 1, borderSize),
+	         cv::Point(imageWidth - borderSize - 1, imageHeight - borderSize - 1),
+	         gridColor);
 	
 	cv::imwrite(imagePath, image);
 }

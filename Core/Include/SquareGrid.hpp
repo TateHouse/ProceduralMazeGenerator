@@ -11,13 +11,14 @@ public:
 	~SquareGrid() noexcept override;
 
 public:
-	Cell* operator[](const std::pair<const int, const int>& position) const noexcept override;
-
+	Cell* operator[](const std::pair<const int, const int>& position) noexcept override;
+	const Cell* const operator[](const std::pair<const int, const int>& position) const noexcept override;
 public:
 	void initialize() noexcept override;
 	[[nodiscard]] const std::pair<const int, const int> getSize() const noexcept override;
 
 private:
+	Cell* getCell(const std::pair<const int, const int>& position) noexcept;
 	void instantiateCells() noexcept;
 	void setCellNeighbors() noexcept;
 
@@ -35,14 +36,13 @@ SquareGrid<Size>::~SquareGrid() noexcept {
 }
 
 template<std::size_t Size>
-Cell* SquareGrid<Size>::operator[](const std::pair<const int, const int>& position) const noexcept {
-	const auto [xPosition, yPosition] {position};
-	
-	if (xPosition < 0 || xPosition >= Size || yPosition < 0 || yPosition >= Size) {
-		return nullptr;
-	}
-	
-	return cells[xPosition][yPosition];
+Cell* SquareGrid<Size>::operator[](const std::pair<const int, const int>& position) noexcept {
+	return getCell(position);
+}
+
+template<std::size_t Size>
+const Cell* const SquareGrid<Size>::operator[](const std::pair<const int, const int>& position) const noexcept {
+	return getCell(position);
 }
 
 template<std::size_t Size>
@@ -57,6 +57,17 @@ const std::pair<const int, const int> SquareGrid<Size>::getSize() const noexcept
 	constexpr auto ySize {static_cast<int>(Size)};
 	
 	return {xSize, ySize};
+}
+
+template<std::size_t Size>
+Cell* SquareGrid<Size>::getCell(const std::pair<const int, const int>& position) noexcept {
+	const auto [xPosition, yPosition] {position};
+	
+	if (xPosition < 0 || xPosition >= Size || yPosition < 0 || yPosition >= Size) {
+		return nullptr;
+	}
+	
+	return cells[xPosition][yPosition];
 }
 
 template<std::size_t Size>

@@ -18,7 +18,7 @@ public:
 	[[nodiscard]] const std::pair<const int, const int> getSize() const noexcept override;
 
 private:
-	Cell* getCell(const std::pair<const int, const int>& position) noexcept;
+	const bool validateCellPosition(const std::pair<const int, const int>& position) const noexcept;
 	void instantiateCells() noexcept;
 	void setCellNeighbors() noexcept;
 
@@ -37,12 +37,16 @@ SquareGrid<Size>::~SquareGrid() noexcept {
 
 template<std::size_t Size>
 Cell* SquareGrid<Size>::operator[](const std::pair<const int, const int>& position) noexcept {
-	return getCell(position);
+	const auto isValidPosition {validateCellPosition(position)};
+	
+	return isValidPosition ? cells[position.first][position.second] : nullptr;
 }
 
 template<std::size_t Size>
 const Cell* const SquareGrid<Size>::operator[](const std::pair<const int, const int>& position) const noexcept {
-	return getCell(position);
+	const auto isValidPosition {validateCellPosition(position)};
+	
+	return isValidPosition ? cells[position.first][position.second] : nullptr;
 }
 
 template<std::size_t Size>
@@ -60,14 +64,14 @@ const std::pair<const int, const int> SquareGrid<Size>::getSize() const noexcept
 }
 
 template<std::size_t Size>
-Cell* SquareGrid<Size>::getCell(const std::pair<const int, const int>& position) noexcept {
+const bool SquareGrid<Size>::validateCellPosition(const std::pair<const int, const int>& position) const noexcept {
 	const auto [xPosition, yPosition] {position};
 	
 	if (xPosition < 0 || xPosition >= Size || yPosition < 0 || yPosition >= Size) {
-		return nullptr;
+		return false;
 	}
 	
-	return cells[xPosition][yPosition];
+	return true;
 }
 
 template<std::size_t Size>

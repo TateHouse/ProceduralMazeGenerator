@@ -31,29 +31,35 @@ TEST_F(BinaryTreeMazeGeneratorTest,
 		const auto* const cell {(*grid)[{xPosition, yPosition}]};
 		ASSERT_THAT(cell->getNorth(), testing::IsNull());
 		
-		const auto possibleLinks {std::array<Cell*, 3> {cell->getWest(), cell->getSouth(), cell->getEast()}};
-		const auto& links {cell->getLinks()};
-		
-		EXPECT_THAT(links, testing::IsSubsetOf(possibleLinks));
-		EXPECT_THAT(links, testing::SizeIs(testing::AnyOf(1, 2, 3)));
+		if (x == 0) {
+			EXPECT_THAT(cell->getLinks(), testing::Contains(cell->getEast()));
+			EXPECT_THAT(cell->getWest(), testing::IsNull());
+		} else if (x == width - 1) {
+			EXPECT_THAT(cell->getLinks(), testing::Contains(cell->getWest()));
+			EXPECT_THAT(cell->getEast(), testing::IsNull());
+		} else {
+			EXPECT_THAT(cell->getLinks(), testing::Contains(cell->getEast()));
+			EXPECT_THAT(cell->getEast(), testing::NotNull());
+		}
 	}
 }
 
 TEST_F(BinaryTreeMazeGeneratorTest,
        GivenBinaryTreeMazeGenerator_WhenGenerate_ThenEastmostCellsAreLinkedToCreateVerticalPassage) {
 	static constexpr auto xPosition {4};
+	auto northLinkedCellCount {0};
 	
 	for (std::size_t y {0}; y < height; ++y) {
 		const auto yPosition {static_cast<int>(y)};
 		const auto* const cell {(*grid)[{xPosition, yPosition}]};
 		ASSERT_THAT(cell->getEast(), testing::IsNull());
 		
-		const auto possibleLinks {std::array<Cell*, 3> {cell->getNorth(), cell->getWest(), cell->getSouth()}};
-		const auto& links {cell->getLinks()};
-		
-		EXPECT_THAT(links, testing::IsSubsetOf(possibleLinks));
-		EXPECT_THAT(links, testing::SizeIs(testing::AnyOf(1, 2, 3)));
+		if (cell->isLinked(cell->getNorth())) {
+			++northLinkedCellCount;
+		}
 	}
+	
+	EXPECT_THAT(northLinkedCellCount, testing::Eq(height - 1));
 }
 
 TEST_F(BinaryTreeMazeGeneratorTest, GivenBinaryTreeMazeGenerator_WhenGenerate_ThenEveryCellHasBetweenOneAndThreeLinks) {

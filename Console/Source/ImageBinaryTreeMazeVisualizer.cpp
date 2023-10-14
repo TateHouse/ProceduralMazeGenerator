@@ -42,12 +42,14 @@ void ImageBinaryTreeMazeVisualizer::visualize() noexcept {
 			const auto* const southNeighbor {cell->getSouth()};
 			
 			if (column != gridWidth - 1 && (eastNeighbor == nullptr || !cell->isLinked(eastNeighbor))) {
-				const auto [topPoint, bottomPoint] {calculateVerticalPoints(row, topLeftX, topLeftY)};
+				const bool isFirstRow {row == 0};
+				const auto [topPoint, bottomPoint] {calculateVerticalPoints(isFirstRow, topLeftX, topLeftY)};
 				cv::line(image, topPoint, bottomPoint, gridColor);
 			}
 			
 			if (row != 0 && (southNeighbor == nullptr || !cell->isLinked(southNeighbor))) {
-				const auto [leftPoint, rightPoint] {calculateHorizontalPoints(topLeftX, topLeftY)};
+				const bool isLastColumn {column == gridWidth - 1};
+				const auto [leftPoint, rightPoint] {calculateHorizontalPoints(isLastColumn, topLeftX, topLeftY)};
 				cv::line(image, leftPoint, rightPoint, gridColor);
 			}
 		}
@@ -61,11 +63,11 @@ void ImageBinaryTreeMazeVisualizer::visualize() noexcept {
 	cv::imwrite(imagePath, image);
 }
 
-std::pair<const cv::Point, const cv::Point> ImageBinaryTreeMazeVisualizer::calculateVerticalPoints(const int row,
+std::pair<const cv::Point, const cv::Point> ImageBinaryTreeMazeVisualizer::calculateVerticalPoints(const bool isFirstRow,
                                                                                                    const int topLeftX,
                                                                                                    const int topLeftY) const noexcept {
 	auto adjustedTopLeftY {topLeftY};
-	if (row == 0) {
+	if (isFirstRow) {
 		adjustedTopLeftY -= 1;
 	}
 	
@@ -75,10 +77,16 @@ std::pair<const cv::Point, const cv::Point> ImageBinaryTreeMazeVisualizer::calcu
 	return {topPoint, bottomPoint};
 }
 
-std::pair<const cv::Point, const cv::Point> ImageBinaryTreeMazeVisualizer::calculateHorizontalPoints(const int topLeftX,
+std::pair<const cv::Point, const cv::Point> ImageBinaryTreeMazeVisualizer::calculateHorizontalPoints(const bool isLastColumn,
+                                                                                                     const int topLeftX,
                                                                                                      const int topLeftY) const noexcept {
+	auto adjustedTopLeftX {topLeftX};
+	if (isLastColumn) {
+		adjustedTopLeftX -= 1;
+	}
+	
 	const auto leftPoint {cv::Point(topLeftX, topLeftY + cellSize)};
-	const auto rightPoint {cv::Point(topLeftX + cellSize, topLeftY + cellSize)};
+	const auto rightPoint {cv::Point(adjustedTopLeftX + cellSize, topLeftY + cellSize)};
 	
 	return {leftPoint, rightPoint};
 }

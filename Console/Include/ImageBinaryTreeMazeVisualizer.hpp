@@ -18,10 +18,10 @@ public:
 	virtual void visualize() noexcept override;
 
 private:
-	std::pair<const cv::Point, const cv::Point> calculateVerticalPoints(const int row,
+	std::pair<const cv::Point, const cv::Point> calculateVerticalPoints(const bool isFirstRow,
 	                                                                    const int topLeftX,
 	                                                                    const int topLeftY) const noexcept;
-	std::pair<const cv::Point, const cv::Point> calculateHorizontalPoints(const int topLeftX,
+	std::pair<const cv::Point, const cv::Point> calculateHorizontalPoints(const bool isLastColumn, const int topLeftX,
 	                                                                      const int topLeftY) const noexcept;
 	void drawOuterNorthWall(const int imageWidth, const cv::Mat& image) const noexcept;
 	void drawOuterWestWall(const int imageHeight, const cv::Mat& image) const noexcept;

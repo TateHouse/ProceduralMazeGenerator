@@ -15,7 +15,7 @@ public:
 	                             const cv::Scalar& backgroundColor,
 	                             const cv::Scalar& gridColor);
 	
-	virtual void display() noexcept override;
+	virtual void visualize() noexcept override;
 
 private:
 	std::pair<const cv::Point, const cv::Point> calculateVerticalPoints(const int column,

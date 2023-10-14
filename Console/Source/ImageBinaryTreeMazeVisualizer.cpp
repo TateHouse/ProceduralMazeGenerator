@@ -22,7 +22,7 @@ ImageBinaryTreeMazeVisualizer::ImageBinaryTreeMazeVisualizer(const Core::Grid* c
 	}
 }
 
-void ImageBinaryTreeMazeVisualizer::display() noexcept {
+void ImageBinaryTreeMazeVisualizer::visualize() noexcept {
 	const auto [gridWidth, gridHeight] {grid->getSize()};
 	
 	const auto imageWidth {cellSize * gridWidth + (2 * borderSize)};

@@ -9,7 +9,7 @@ public:
 	explicit ConsoleMazeVisualizer(const Core::Grid* const grid) noexcept;
 	virtual ~ConsoleMazeVisualizer() = default;
 	
-	virtual void display() noexcept override;
+	virtual void visualize() noexcept override;
 
 private:
 	const Core::Grid* const grid;

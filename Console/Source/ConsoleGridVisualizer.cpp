@@ -8,7 +8,7 @@ ConsoleGridVisualizer::ConsoleGridVisualizer(const Core::Grid* const grid) noexc
 
 }
 
-void ConsoleGridVisualizer::display() noexcept {
+void ConsoleGridVisualizer::visualize() noexcept {
 	std::stringstream stringStream {};
 	
 	stringStream << '+';

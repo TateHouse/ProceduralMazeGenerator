@@ -20,7 +20,7 @@ ImageGridVisualizer::ImageGridVisualizer(const Core::Grid* const grid, const int
 	}
 }
 
-void ImageGridVisualizer::display() noexcept {
+void ImageGridVisualizer::visualize() noexcept {
 	const auto [gridWidth, gridHeight] {grid->getSize()};
 	
 	const auto imageWidth {static_cast<int>(cellSize * gridWidth + (2 * borderSize))};

@@ -8,7 +8,7 @@ ConsoleMazeVisualizer::ConsoleMazeVisualizer(const Core::Grid* const grid) noexc
 
 }
 
-void ConsoleMazeVisualizer::display() noexcept {
+void ConsoleMazeVisualizer::visualize() noexcept {
 	std::stringstream stringStream {};
 	
 	stringStream << '+';

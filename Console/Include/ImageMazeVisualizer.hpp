@@ -8,12 +8,14 @@
 #include "GridVisualizer.hpp"
 
 namespace Console {
-class ImageBinaryTreeMazeVisualizer : public Core::GridVisualizer {
+class ImageMazeVisualizer : public Core::GridVisualizer {
 public:
-	explicit ImageBinaryTreeMazeVisualizer(const Core::Grid* const grid, const int cellSize, const int borderSize,
-	                                       const std::string_view imagePath,
-	                                       const cv::Scalar& backgroundColor,
-	                                       const cv::Scalar& gridColor);
+	explicit ImageMazeVisualizer(const Core::Grid* const grid,
+	                             const int cellSize,
+	                             const int borderSize,
+	                             const std::string_view imagePath,
+	                             const cv::Scalar& backgroundColor,
+	                             const cv::Scalar& gridColor);
 	
 	virtual void visualize() noexcept override;
 

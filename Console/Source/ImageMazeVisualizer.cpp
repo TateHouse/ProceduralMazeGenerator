@@ -1,12 +1,12 @@
-#include "ImageBinaryTreeMazeVisualizer.hpp"
+#include "ImageMazeVisualizer.hpp"
 
 namespace Console {
-ImageBinaryTreeMazeVisualizer::ImageBinaryTreeMazeVisualizer(const Core::Grid* const grid,
-                                                             const int cellSize,
-                                                             const int borderSize,
-                                                             const std::string_view imagePath,
-                                                             const cv::Scalar& backgroundColor,
-                                                             const cv::Scalar& gridColor) :
+ImageMazeVisualizer::ImageMazeVisualizer(const Core::Grid* const grid,
+                                         const int cellSize,
+                                         const int borderSize,
+                                         const std::string_view imagePath,
+                                         const cv::Scalar& backgroundColor,
+                                         const cv::Scalar& gridColor) :
 		grid {grid},
 		cellSize {cellSize},
 		borderSize {borderSize},
@@ -22,7 +22,7 @@ ImageBinaryTreeMazeVisualizer::ImageBinaryTreeMazeVisualizer(const Core::Grid* c
 	}
 }
 
-void ImageBinaryTreeMazeVisualizer::visualize() noexcept {
+void ImageMazeVisualizer::visualize() noexcept {
 	const auto [gridWidth, gridHeight] {grid->getSize()};
 	
 	const auto imageWidth {cellSize * gridWidth + (2 * borderSize)};
@@ -63,9 +63,9 @@ void ImageBinaryTreeMazeVisualizer::visualize() noexcept {
 	cv::imwrite(imagePath, image);
 }
 
-std::pair<const cv::Point, const cv::Point> ImageBinaryTreeMazeVisualizer::calculateVerticalPoints(const bool isFirstRow,
-                                                                                                   const int topLeftX,
-                                                                                                   const int topLeftY) const noexcept {
+std::pair<const cv::Point, const cv::Point> ImageMazeVisualizer::calculateVerticalPoints(const bool isFirstRow,
+                                                                                         const int topLeftX,
+                                                                                         const int topLeftY) const noexcept {
 	auto adjustedTopLeftY {topLeftY};
 	if (isFirstRow) {
 		adjustedTopLeftY -= 1;
@@ -77,9 +77,9 @@ std::pair<const cv::Point, const cv::Point> ImageBinaryTreeMazeVisualizer::calcu
 	return {topPoint, bottomPoint};
 }
 
-std::pair<const cv::Point, const cv::Point> ImageBinaryTreeMazeVisualizer::calculateHorizontalPoints(const bool isLastColumn,
-                                                                                                     const int topLeftX,
-                                                                                                     const int topLeftY) const noexcept {
+std::pair<const cv::Point, const cv::Point> ImageMazeVisualizer::calculateHorizontalPoints(const bool isLastColumn,
+                                                                                           const int topLeftX,
+                                                                                           const int topLeftY) const noexcept {
 	auto adjustedTopLeftX {topLeftX};
 	if (isLastColumn) {
 		adjustedTopLeftX -= 1;
@@ -91,32 +91,28 @@ std::pair<const cv::Point, const cv::Point> ImageBinaryTreeMazeVisualizer::calcu
 	return {leftPoint, rightPoint};
 }
 
-void ImageBinaryTreeMazeVisualizer::drawOuterNorthWall(int imageWidth, const cv::Mat& image) const noexcept {
+void ImageMazeVisualizer::drawOuterNorthWall(int imageWidth, const cv::Mat& image) const noexcept {
 	const auto leftPoint {cv::Point(borderSize, borderSize)};
 	const auto rightPoint {cv::Point(imageWidth - borderSize - 1, borderSize)};
 	
 	cv::line(image, leftPoint, rightPoint, gridColor);
 }
 
-void ImageBinaryTreeMazeVisualizer::drawOuterWestWall(int imageHeight, const cv::Mat& image) const noexcept {
+void ImageMazeVisualizer::drawOuterWestWall(int imageHeight, const cv::Mat& image) const noexcept {
 	const auto topPoint {cv::Point(borderSize, borderSize)};
 	const auto bottomPoint {cv::Point(borderSize, imageHeight - borderSize - 1)};
 	
 	cv::line(image, topPoint, bottomPoint, gridColor);
 }
 
-void ImageBinaryTreeMazeVisualizer::drawOuterSouthWall(int imageWidth,
-                                                       int imageHeight,
-                                                       const cv::Mat& image) const noexcept {
+void ImageMazeVisualizer::drawOuterSouthWall(int imageWidth, int imageHeight, const cv::Mat& image) const noexcept {
 	const auto leftPoint {cv::Point(borderSize, imageHeight - borderSize - 1)};
 	const auto rightPoint {cv::Point(imageWidth - borderSize - 1, imageHeight - borderSize - 1)};
 	
 	cv::line(image, leftPoint, rightPoint, gridColor);
 }
 
-void ImageBinaryTreeMazeVisualizer::drawOuterEastWall(int imageWidth,
-                                                      int imageHeight,
-                                                      const cv::Mat& image) const noexcept {
+void ImageMazeVisualizer::drawOuterEastWall(int imageWidth, int imageHeight, const cv::Mat& image) const noexcept {
 	const auto topPoint {cv::Point(imageWidth - borderSize - 1, borderSize)};
 	const auto bottomPoint {cv::Point(imageWidth - borderSize - 1, imageHeight - borderSize - 1)};
 	

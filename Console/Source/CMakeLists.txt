@@ -4,6 +4,6 @@ SET(SOURCE_FILES
 		ConsoleGridVisualizer.cpp
 		ConsoleMazeVisualizer.cpp
 		ImageGridVisualizer.cpp
-		ImageBinaryTreeMazeVisualizer.cpp)
+		ImageMazeVisualizer.cpp)
 
 TARGET_SOURCES(${PROJECT_NAME} PRIVATE ${SOURCE_FILES})

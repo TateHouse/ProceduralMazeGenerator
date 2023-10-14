@@ -35,7 +35,7 @@ void SidewinderMazeGenerator::generate(Core::Grid* const grid, const unsigned lo
 				auto runDistribution {std::uniform_int_distribution<std::size_t> {0, run.size() - 1}};
 				const auto index {runDistribution(randomEngine) % run.size()};
 				
-				if (auto* member {run[index]}; member->getNorth() != nullptr && member->getLinks().size() < 3) {
+				if (auto* member {run[index]}; member->getNorth() != nullptr) {
 					member->link(member->getNorth());
 				}
 				

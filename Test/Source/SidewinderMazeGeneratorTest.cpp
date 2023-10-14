@@ -44,7 +44,7 @@ TEST_F(SidewinderMazeGeneratorTest,
 	}
 }
 
-TEST_F(SidewinderMazeGeneratorTest, GivenSidewinderMazeGenerator_WhenGenerate_ThenEveryCellHasBetweenOneAndThreeLinks) {
+TEST_F(SidewinderMazeGeneratorTest, GivenSidewinderMazeGenerator_WhenGenerate_ThenEveryCellHasBetweenOneAndFourLinks) {
 	for (std::size_t x {0}; x < width; ++x) {
 		for (std::size_t y {0}; y < height; ++y) {
 			const auto xPos {static_cast<int>(x)};
@@ -52,7 +52,7 @@ TEST_F(SidewinderMazeGeneratorTest, GivenSidewinderMazeGenerator_WhenGenerate_Th
 			const auto* const cell {(*grid)[{xPos, yPos}]};
 			const auto& links {cell->getLinks()};
 			
-			EXPECT_THAT(links, testing::SizeIs(testing::AnyOf(1, 2, 3)));
+			EXPECT_THAT(links, testing::SizeIs(testing::AnyOf(1, 2, 3, 4)));
 		}
 	}
 }

@@ -5,6 +5,7 @@ SET(SOURCE_FILES
 		Cell.cpp
 		Grid.cpp
 		MazeGenerator.cpp
-		SeedGenerator.cpp)
+		SeedGenerator.cpp
+		SidewinderMazeGenerator.cpp)
 
 TARGET_SOURCES(${PROJECT_NAME} PRIVATE ${SOURCE_FILES})

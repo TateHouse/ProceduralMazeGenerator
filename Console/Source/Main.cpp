@@ -1,30 +1,41 @@
-#include <memory>
-
-#include "ConsoleGridVisualizer.hpp"
+#include "BinaryTreeMazeGenerator.hpp"
+#include "ImageBinaryTreeMazeVisualizer.hpp"
 #include "ImageGridVisualizer.hpp"
 #include "SquareGrid.hpp"
 
 int main(int argc, char* argv[]) {
-	static constexpr std::size_t GRID_SIZE {10};
-	std::unique_ptr<Core::Grid> grid {std::make_unique<Core::SquareGrid<GRID_SIZE>>()};
+	static constexpr auto GRID_WIDTH {20};
+	Core::Grid* grid {new Core::SquareGrid<GRID_WIDTH>};
 	grid->initialize();
 	
-	std::unique_ptr<Core::GridVisualizer> consoleGrid {std::make_unique<Console::ConsoleGridVisualizer>(grid.get())};
-	consoleGrid->display();
+	static constexpr auto CELL_SIZE {20};
+	static constexpr auto BORDER_SIZE {2};
+	static const cv::Scalar BACKGROUND_COLOR {255, 255, 255};
+	static const cv::Scalar GRID_COLOR {0, 0, 0};
 	
-	static constexpr unsigned int CELL_SIZE {50};
-	static constexpr unsigned int BORDER_SIZE {10};
-	static constexpr std::string_view IMAGE_PATH {"Images/Grid.png"};
-	const cv::Scalar backgroundColor {255, 255, 255};
-	const cv::Scalar gridColor {0, 0, 0};
+	Core::GridVisualizer* imageVisualizer {new Console::ImageGridVisualizer(grid,
+	                                                                        CELL_SIZE,
+	                                                                        BORDER_SIZE,
+	                                                                        "Grid.png",
+	                                                                        BACKGROUND_COLOR,
+	                                                                        GRID_COLOR)};
+	imageVisualizer->visualize();
 	
-	std::unique_ptr<Core::GridVisualizer> imageGrid {std::make_unique<Console::ImageGridVisualizer>(grid.get(),
-	                                                                                                CELL_SIZE,
-	                                                                                                BORDER_SIZE,
-	                                                                                                IMAGE_PATH,
-	                                                                                                backgroundColor,
-	                                                                                                gridColor)};
-	imageGrid->display();
+	Core::MazeGenerator* mazeGenerator {new Core::BinaryTreeMazeGenerator()};
+	mazeGenerator->generate(grid, nullptr);
+	
+	delete imageVisualizer;
+	imageVisualizer = new Console::ImageBinaryTreeMazeVisualizer(grid,
+	                                                             CELL_SIZE,
+	                                                             BORDER_SIZE,
+	                                                             "Maze.png",
+	                                                             BACKGROUND_COLOR,
+	                                                             GRID_COLOR);
+	imageVisualizer->visualize();
+	
+	delete imageVisualizer;
+	delete mazeGenerator;
+	delete grid;
 	
 	return 0;
 }

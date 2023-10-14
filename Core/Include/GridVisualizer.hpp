@@ -5,6 +5,6 @@ class GridVisualizer {
 public:
 	virtual ~GridVisualizer() noexcept = default;
 	
-	virtual void display() noexcept = 0;
+	virtual void visualize() noexcept = 0;
 };
 }

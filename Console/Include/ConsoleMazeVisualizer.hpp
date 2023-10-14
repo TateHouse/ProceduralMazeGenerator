@@ -4,10 +4,10 @@
 #include "GridVisualizer.hpp"
 
 namespace Console {
-class ConsoleGridVisualizer : public Core::GridVisualizer {
+class ConsoleMazeVisualizer : public Core::GridVisualizer {
 public:
-	explicit ConsoleGridVisualizer(const Core::Grid* const grid) noexcept;
-	virtual ~ConsoleGridVisualizer() = default;
+	explicit ConsoleMazeVisualizer(const Core::Grid* const grid) noexcept;
+	virtual ~ConsoleMazeVisualizer() = default;
 	
 	virtual void visualize() noexcept override;
 

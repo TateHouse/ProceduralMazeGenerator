@@ -11,13 +11,14 @@ public:
 	~SquareGrid() noexcept override;
 
 public:
-	Cell* operator[](const std::pair<const int, const int>& position) const noexcept override;
-
+	Cell* operator[](const std::pair<const int, const int>& position) noexcept override;
+	const Cell* const operator[](const std::pair<const int, const int>& position) const noexcept override;
 public:
 	void initialize() noexcept override;
 	[[nodiscard]] const std::pair<const int, const int> getSize() const noexcept override;
 
 private:
+	const bool validateCellPosition(const std::pair<const int, const int>& position) const noexcept;
 	void instantiateCells() noexcept;
 	void setCellNeighbors() noexcept;
 
@@ -35,14 +36,17 @@ SquareGrid<Size>::~SquareGrid() noexcept {
 }
 
 template<std::size_t Size>
-Cell* SquareGrid<Size>::operator[](const std::pair<const int, const int>& position) const noexcept {
-	const auto [xPosition, yPosition] {position};
+Cell* SquareGrid<Size>::operator[](const std::pair<const int, const int>& position) noexcept {
+	const auto isValidPosition {validateCellPosition(position)};
 	
-	if (xPosition < 0 || xPosition >= Size || yPosition < 0 || yPosition >= Size) {
-		return nullptr;
-	}
+	return isValidPosition ? cells[position.first][position.second] : nullptr;
+}
+
+template<std::size_t Size>
+const Cell* const SquareGrid<Size>::operator[](const std::pair<const int, const int>& position) const noexcept {
+	const auto isValidPosition {validateCellPosition(position)};
 	
-	return cells[xPosition][yPosition];
+	return isValidPosition ? cells[position.first][position.second] : nullptr;
 }
 
 template<std::size_t Size>
@@ -57,6 +61,17 @@ const std::pair<const int, const int> SquareGrid<Size>::getSize() const noexcept
 	constexpr auto ySize {static_cast<int>(Size)};
 	
 	return {xSize, ySize};
+}
+
+template<std::size_t Size>
+const bool SquareGrid<Size>::validateCellPosition(const std::pair<const int, const int>& position) const noexcept {
+	const auto [xPosition, yPosition] {position};
+	
+	if (xPosition < 0 || xPosition >= Size || yPosition < 0 || yPosition >= Size) {
+		return false;
+	}
+	
+	return true;
 }
 
 template<std::size_t Size>

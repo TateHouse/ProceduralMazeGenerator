@@ -5,6 +5,7 @@ SET(SOURCE_FILES
 		CellAttributeTest.cpp
 		CellLinkingTest.cpp
 		MazeGeneratorTest.cpp
+		SidewinderMazeGeneratorTest.cpp
 		SquareGridTest.cpp)
 
 TARGET_SOURCES(${PROJECT_NAME} PRIVATE ${SOURCE_FILES})

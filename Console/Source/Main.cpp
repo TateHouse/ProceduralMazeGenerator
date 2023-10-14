@@ -1,6 +1,7 @@
 #include "BinaryTreeMazeGenerator.hpp"
-#include "ImageBinaryTreeMazeVisualizer.hpp"
 #include "ImageGridVisualizer.hpp"
+#include "ImageMazeVisualizer.hpp"
+#include "SidewinderMazeGenerator.hpp"
 #include "SquareGrid.hpp"
 
 int main(int argc, char* argv[]) {
@@ -25,12 +26,30 @@ int main(int argc, char* argv[]) {
 	mazeGenerator->generate(grid, nullptr);
 	
 	delete imageVisualizer;
-	imageVisualizer = new Console::ImageBinaryTreeMazeVisualizer(grid,
-	                                                             CELL_SIZE,
-	                                                             BORDER_SIZE,
-	                                                             "Maze.png",
-	                                                             BACKGROUND_COLOR,
-	                                                             GRID_COLOR);
+	imageVisualizer = new Console::ImageMazeVisualizer(grid,
+	                                                   CELL_SIZE,
+	                                                   BORDER_SIZE,
+	                                                   "Binary_Tree_Maze.png",
+	                                                   BACKGROUND_COLOR,
+	                                                   GRID_COLOR);
+	imageVisualizer->visualize();
+	
+	delete imageVisualizer;
+	delete mazeGenerator;
+	delete grid;
+	
+	grid = new Core::SquareGrid<GRID_WIDTH>;
+	grid->initialize();
+	
+	mazeGenerator = new Core::SidewinderMazeGenerator();
+	mazeGenerator->generate(grid, nullptr);
+	
+	imageVisualizer = new Console::ImageMazeVisualizer(grid,
+	                                                   CELL_SIZE,
+	                                                   BORDER_SIZE,
+	                                                   "Sidewinder_Maze.png",
+	                                                   BACKGROUND_COLOR,
+	                                                   GRID_COLOR);
 	imageVisualizer->visualize();
 	
 	delete imageVisualizer;

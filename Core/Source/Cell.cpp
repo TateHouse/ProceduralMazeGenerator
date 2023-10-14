@@ -10,6 +10,10 @@ Cell::Cell(int xPosition, int yPosition) noexcept: xPosition {xPosition}, yPosit
 }
 
 void Cell::link(Cell* cell, const bool isBidirectional) noexcept {
+	if (isLinked(cell)) {
+		return;
+	}
+	
 	if (isBidirectional) {
 		cell->link(this, false);
 	}
@@ -18,6 +22,10 @@ void Cell::link(Cell* cell, const bool isBidirectional) noexcept {
 }
 
 void Cell::unlink(Core::Cell* cell, const bool isBidirectional) noexcept {
+	if (!isLinked(cell)) {
+		return;
+	}
+	
 	if (isBidirectional) {
 		cell->unlink(this, false);
 	}

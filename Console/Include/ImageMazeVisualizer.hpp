@@ -8,20 +8,22 @@
 #include "GridVisualizer.hpp"
 
 namespace Console {
-class ImageBinaryTreeMazeVisualizer : public Core::GridVisualizer {
+class ImageMazeVisualizer : public Core::GridVisualizer {
 public:
-	explicit ImageBinaryTreeMazeVisualizer(const Core::Grid* const grid, const int cellSize, const int borderSize,
-	                                       const std::string_view imagePath,
-	                                       const cv::Scalar& backgroundColor,
-	                                       const cv::Scalar& gridColor);
+	explicit ImageMazeVisualizer(const Core::Grid* const grid,
+	                             const int cellSize,
+	                             const int borderSize,
+	                             const std::string_view imagePath,
+	                             const cv::Scalar& backgroundColor,
+	                             const cv::Scalar& gridColor);
 	
 	virtual void visualize() noexcept override;
 
 private:
-	std::pair<const cv::Point, const cv::Point> calculateVerticalPoints(const int row,
+	std::pair<const cv::Point, const cv::Point> calculateVerticalPoints(const bool isFirstRow,
 	                                                                    const int topLeftX,
 	                                                                    const int topLeftY) const noexcept;
-	std::pair<const cv::Point, const cv::Point> calculateHorizontalPoints(const int topLeftX,
+	std::pair<const cv::Point, const cv::Point> calculateHorizontalPoints(const bool isLastColumn, const int topLeftX,
 	                                                                      const int topLeftY) const noexcept;
 	void drawOuterNorthWall(const int imageWidth, const cv::Mat& image) const noexcept;
 	void drawOuterWestWall(const int imageHeight, const cv::Mat& image) const noexcept;

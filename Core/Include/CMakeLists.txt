@@ -7,6 +7,7 @@ SET(HEADER_FILES
 		GridVisualizer.hpp
 		MazeGenerator.hpp
 		SeedGenerator.hpp
+		SidewinderMazeGenerator.hpp
 		SquareGrid.hpp)
 
 TARGET_SOURCES(${PROJECT_NAME} PUBLIC ${HEADER_FILES})

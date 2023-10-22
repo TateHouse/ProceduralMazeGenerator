@@ -2,8 +2,13 @@
 #include <glfw/glfw3.h>
 #include <glm/glm.hpp>
 
+#include <array>
 #include <format>
 #include <iostream>
+
+#include "Shader.hpp"
+#include "ShaderCompilationException.hpp"
+#include "ShaderLinkingException.hpp"
 
 static constexpr auto WINDOW_WIDTH {1280};
 static constexpr auto WINDOW_HEIGHT {720};
@@ -70,6 +75,40 @@ int main(int argc, char* argv[]) {
 	
 	auto backgroundColor {glm::vec3(0.0f, 0.0f, 0.0f)};
 	
+	const std::array<const float, 9> vertices {-0.5f, -0.5f, 0.0f, 0.5f, -0.5f, 0.0f, 0.0f, 0.5f, 0.0f};
+	
+	GLuint vao {0};
+	GLuint vbo {0};
+	
+	glGenVertexArrays(1, &vao);
+	glGenBuffers(1, &vbo);
+	
+	glBindVertexArray(vao);
+	
+	glBindBuffer(GL_ARRAY_BUFFER, vbo);
+	glBufferData(GL_ARRAY_BUFFER, vertices.size() * sizeof(float), vertices.data(), GL_STATIC_DRAW);
+	
+	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), nullptr);
+	glEnableVertexAttribArray(0);
+	
+	glBindBuffer(GL_ARRAY_BUFFER, 0);
+	glBindVertexArray(0);
+	
+	Renderer::Shader* shader;
+	
+	try {
+		shader = new Renderer::Shader("Shaders/Test.vert", "Shaders/Test.frag");
+		
+	} catch (const Renderer::ShaderCompilationException& exception) {
+		std::cerr << exception.what() << '\n';
+		shader = nullptr;
+		glfwSetWindowShouldClose(window, GLFW_TRUE);
+	} catch (const Renderer::ShaderLinkingException& exception) {
+		std::cerr << exception.what() << '\n';
+		shader = nullptr;
+		glfwSetWindowShouldClose(window, GLFW_TRUE);
+	}
+	
 	while (!glfwWindowShouldClose(window)) {
 		const auto currentFrame {calculateDeltaTime(deltaTime, lastFrame)};
 		
@@ -82,9 +121,22 @@ int main(int argc, char* argv[]) {
 		glClearColor(backgroundColor.x, backgroundColor.y, backgroundColor.z, 1.0f);
 		glClear(GL_COLOR_BUFFER_BIT);
 		
+		if (shader != nullptr) {
+			shader->use();
+			
+			glBindVertexArray(vao);
+			glDrawArrays(GL_TRIANGLES, 0, 3);
+			glBindVertexArray(0);
+		}
+		
 		glfwSwapBuffers(window);
 		glfwPollEvents();
 	}
+	
+	glDeleteBuffers(1, &vbo);
+	glDeleteVertexArrays(1, &vao);
+	
+	delete shader;
 	
 	glfwDestroyWindow(window);
 	glfwTerminate();

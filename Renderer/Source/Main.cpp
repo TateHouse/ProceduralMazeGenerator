@@ -1,6 +1,7 @@
 #include <glad/glad.h>
 #include <glfw/glfw3.h>
 #include <glm/glm.hpp>
+#include <glm/gtc/matrix_transform.hpp>
 
 #include <format>
 #include <iostream>
@@ -16,8 +17,10 @@ static constexpr auto WINDOW_WIDTH {1280};
 static constexpr auto WINDOW_HEIGHT {720};
 static constexpr auto WINDOW_TITLE {"Procedural Maze Generator Renderer"};
 
+static constexpr auto UNIT_SCALE {0.01f}; // 1 unit = 1 cm
+
 static constexpr auto SQUARE_GRID_SIZE {20};
-static constexpr auto CELL_SIZE {0.075f};
+static constexpr auto CELL_SIZE {25.0f * UNIT_SCALE};
 
 void framebufferSizeCallback(GLFWwindow* window, int width, int height) {
 	glViewport(0, 0, width, height);
@@ -27,6 +30,18 @@ void keyCallback(GLFWwindow* window, int key, int scancode, int action, int mods
 	if (key == GLFW_KEY_ESCAPE && action == GLFW_PRESS) {
 		glfwSetWindowShouldClose(window, GLFW_TRUE);
 	}
+}
+
+glm::mat4 createOrthographicProjection(const float width,
+                                       const float height,
+                                       const float near,
+                                       const float far) noexcept {
+	const auto left {-width * 0.5f};
+	const auto right {width * 0.5f};
+	const auto top {height * 0.5f};
+	const auto bottom {-height * 0.5f};
+	
+	return glm::ortho(left, right, bottom, top, near, far);
 }
 
 float calculateDeltaTime(float& deltaTime, float& lastFrame) noexcept {
@@ -110,6 +125,8 @@ int main(int argc, char* argv[]) {
 	
 	glfwSetFramebufferSizeCallback(window, framebufferSizeCallback);
 	glfwSetKeyCallback(window, keyCallback);
+	
+	auto projection {createOrthographicProjection(WINDOW_WIDTH * UNIT_SCALE, WINDOW_HEIGHT * UNIT_SCALE, -1.0f, 1.0f)};
 	
 	auto deltaTime {0.0f};
 	auto lastFrame {0.0f};
@@ -211,6 +228,8 @@ int main(int argc, char* argv[]) {
 		
 		if (shader != nullptr) {
 			shader->use();
+			
+			shader->setMat4x4("projection", projection);
 			
 			glBindVertexArray(vao);
 			glDrawArrays(GL_LINES, 0, vertexCount);

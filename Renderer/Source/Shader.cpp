@@ -1,5 +1,7 @@
 #include "Shader.hpp"
 
+#include <glm/gtc/type_ptr.hpp>
+
 #include <array>
 #include <filesystem>
 
@@ -51,6 +53,13 @@ Shader::~Shader() noexcept {
 
 void Shader::use() const noexcept {
 	glUseProgram(shaderProgram);
+}
+
+void Shader::setMat4x4(const std::string_view uniformName,
+                       const glm::mat4& matrix,
+                       const bool transpose) const noexcept {
+	const auto uniformLocation {glGetUniformLocation(shaderProgram, uniformName.data())};
+	glUniformMatrix4fv(uniformLocation, 1, transpose, glm::value_ptr(matrix));
 }
 
 GLuint Shader::createShader(const std::filesystem::path& shaderPath, const GLenum shaderType) {

@@ -1,6 +1,7 @@
 #pragma once
 
 #include <glad/glad.h>
+#include <glm/glm.hpp>
 
 #include <filesystem>
 
@@ -18,6 +19,9 @@ public:
 
 public:
 	void use() const noexcept;
+	void setMat4x4(const std::string_view uniformName,
+	               const glm::mat4& matrix,
+	               const bool transpose = false) const noexcept;
 
 private:
 	static GLuint createShader(const std::filesystem::path& shaderPath, const GLenum shaderType);

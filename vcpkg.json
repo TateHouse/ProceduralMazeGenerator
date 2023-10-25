@@ -12,6 +12,14 @@
 				"gl-api-46"
 			]
 		},
-		"glm"
+		"glm",
+		{
+			"name": "imgui",
+			"features": [
+				"glfw-binding",
+				"opengl3-binding",
+				"docking-experimental"
+			]
+		}
 	]
 }

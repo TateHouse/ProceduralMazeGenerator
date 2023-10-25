@@ -1,7 +1,11 @@
 #include <glad/glad.h>
 #include <glfw/glfw3.h>
 #include <glm/glm.hpp>
+#include <glm/gtc/type_ptr.hpp>
 #include <glm/gtc/matrix_transform.hpp>
+#include <imgui.h>
+#include <imgui_impl_glfw.h>
+#include <imgui_impl_opengl3.h>
 
 #include <format>
 #include <iostream>
@@ -218,10 +222,40 @@ int main(int argc, char* argv[]) {
 		glfwSetWindowShouldClose(window, GLFW_TRUE);
 	}
 	
+	IMGUI_CHECKVERSION();
+	ImGui::CreateContext();
+	auto& io {ImGui::GetIO()};
+	io.ConfigFlags |= ImGuiConfigFlags_NavEnableKeyboard;
+	io.ConfigFlags |= ImGuiConfigFlags_NavEnableGamepad;
+	io.ConfigFlags |= ImGuiConfigFlags_DockingEnable;
+	
+	ImGui_ImplGlfw_InitForOpenGL(window, true);
+	ImGui_ImplOpenGL3_Init("#version 460 core");
+	
 	while (!glfwWindowShouldClose(window)) {
 		const auto currentFrame {calculateDeltaTime(deltaTime, lastFrame)};
 		
 		setWindowTitleWithFPS(window, deltaTime);
+		
+		ImGui_ImplOpenGL3_NewFrame();
+		ImGui_ImplGlfw_NewFrame();
+		ImGui::NewFrame();
+		ImGui::Begin("Maze Generator");
+		ImGui::Text("Hello World");
+		if (ImGui::Button("Save")) {
+			std::cout << "Saved maze!" << '\n';
+		}
+		
+		ImGui::ColorPicker3("Background Color", glm::value_ptr(backgroundColor));
+		
+		float samples[100];
+		for (auto number {0}; number < 100; ++number) {
+			samples[number] = std::sinf(number * 0.2f + ImGui::GetTime() * 1.5f);
+		}
+		
+		ImGui::PlotLines("Samples", samples, 100);
+		
+		ImGui::End();
 		
 		glClearColor(backgroundColor.x, backgroundColor.y, backgroundColor.z, 1.0f);
 		glClear(GL_COLOR_BUFFER_BIT);
@@ -236,9 +270,16 @@ int main(int argc, char* argv[]) {
 			glBindVertexArray(0);
 		}
 		
+		ImGui::Render();
+		ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
+		
 		glfwSwapBuffers(window);
 		glfwPollEvents();
 	}
+	
+	ImGui_ImplOpenGL3_Shutdown();
+	ImGui_ImplGlfw_Shutdown();
+	ImGui::DestroyContext();
 	
 	delete shader;
 	

@@ -7,7 +7,7 @@
 #include "Grid.hpp"
 #include "GridVisualizer.hpp"
 
-namespace Console {
+namespace Core {
 class ImageMazeVisualizer : public Core::GridVisualizer {
 public:
 	explicit ImageMazeVisualizer(const Core::Grid* const grid,

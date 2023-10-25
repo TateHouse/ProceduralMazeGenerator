@@ -1,6 +1,6 @@
 #include "ImageMazeVisualizer.hpp"
 
-namespace Console {
+namespace Core {
 ImageMazeVisualizer::ImageMazeVisualizer(const Core::Grid* const grid,
                                          const int cellSize,
                                          const int borderSize,

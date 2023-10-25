@@ -4,6 +4,8 @@ SET(SOURCE_FILES
 		BinaryTreeMazeGenerator.cpp
 		Cell.cpp
 		Grid.cpp
+		ImageGridVisualizer.cpp
+		ImageMazeVisualizer.cpp
 		MazeGenerator.cpp
 		SeedGenerator.cpp
 		SidewinderMazeGenerator.cpp)

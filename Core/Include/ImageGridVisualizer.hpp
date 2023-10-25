@@ -7,7 +7,7 @@
 #include "Grid.hpp"
 #include "GridVisualizer.hpp"
 
-namespace Console {
+namespace Core {
 class ImageGridVisualizer : public Core::GridVisualizer {
 public:
 	explicit ImageGridVisualizer(const Core::Grid* const grid, const int cellSize, const int borderSize,

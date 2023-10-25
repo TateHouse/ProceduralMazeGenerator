@@ -1,6 +1,6 @@
 #include "ImageGridVisualizer.hpp"
 
-namespace Console {
+namespace Core {
 ImageGridVisualizer::ImageGridVisualizer(const Core::Grid* const grid, const int cellSize, const int borderSize,
                                          const std::string_view imagePath,
                                          const cv::Scalar& backgroundColor,

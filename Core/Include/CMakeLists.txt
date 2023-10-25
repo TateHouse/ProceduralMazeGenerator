@@ -5,6 +5,8 @@ SET(HEADER_FILES
 		Cell.hpp
 		Grid.hpp
 		GridVisualizer.hpp
+		ImageGridVisualizer.hpp
+		ImageMazeVisualizer.hpp
 		MazeGenerator.hpp
 		SeedGenerator.hpp
 		SidewinderMazeGenerator.hpp

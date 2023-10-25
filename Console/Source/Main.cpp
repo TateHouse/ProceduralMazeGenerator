@@ -14,19 +14,19 @@ int main(int argc, char* argv[]) {
 	static const cv::Scalar BACKGROUND_COLOR {255, 255, 255};
 	static const cv::Scalar GRID_COLOR {0, 0, 0};
 	
-	Core::GridVisualizer* imageVisualizer {new Console::ImageGridVisualizer(grid,
-	                                                                        CELL_SIZE,
-	                                                                        BORDER_SIZE,
-	                                                                        "Grid.png",
-	                                                                        BACKGROUND_COLOR,
-	                                                                        GRID_COLOR)};
+	Core::GridVisualizer* imageVisualizer {new Core::ImageGridVisualizer(grid,
+	                                                                     CELL_SIZE,
+	                                                                     BORDER_SIZE,
+	                                                                     "Grid.png",
+	                                                                     BACKGROUND_COLOR,
+	                                                                     GRID_COLOR)};
 	imageVisualizer->visualize();
 	
 	Core::MazeGenerator* mazeGenerator {new Core::BinaryTreeMazeGenerator()};
 	mazeGenerator->generate(grid, nullptr);
 	
 	delete imageVisualizer;
-	imageVisualizer = new Console::ImageMazeVisualizer(grid,
+	imageVisualizer = new Core::ImageMazeVisualizer(grid,
 	                                                   CELL_SIZE,
 	                                                   BORDER_SIZE,
 	                                                   "Binary_Tree_Maze.png",
@@ -44,12 +44,12 @@ int main(int argc, char* argv[]) {
 	mazeGenerator = new Core::SidewinderMazeGenerator();
 	mazeGenerator->generate(grid, nullptr);
 	
-	imageVisualizer = new Console::ImageMazeVisualizer(grid,
-	                                                   CELL_SIZE,
-	                                                   BORDER_SIZE,
-	                                                   "Sidewinder_Maze.png",
-	                                                   BACKGROUND_COLOR,
-	                                                   GRID_COLOR);
+	imageVisualizer = new Core::ImageMazeVisualizer(grid,
+	                                                CELL_SIZE,
+	                                                BORDER_SIZE,
+	                                                "Sidewinder_Maze.png",
+	                                                BACKGROUND_COLOR,
+	                                                GRID_COLOR);
 	imageVisualizer->visualize();
 	
 	delete imageVisualizer;

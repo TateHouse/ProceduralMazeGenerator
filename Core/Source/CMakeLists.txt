@@ -5,8 +5,8 @@ SET(SOURCE_FILES
 		Cell.cpp
 		SquareGrid.cpp
 		Grid.cpp
-		ImageGridVisualizer.cpp
-		ImageMazeVisualizer.cpp
+		ImageVisualizer.cpp
+		ImageVisualizerBuilder.cpp
 		MazeGenerator.cpp
 		SeedGenerator.cpp
 		SidewinderMazeGenerator.cpp)

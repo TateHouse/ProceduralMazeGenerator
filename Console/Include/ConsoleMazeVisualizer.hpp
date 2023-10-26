@@ -8,8 +8,8 @@ class ConsoleMazeVisualizer : public Core::GridVisualizer {
 public:
 	explicit ConsoleMazeVisualizer(const Core::Grid* const grid) noexcept;
 	virtual ~ConsoleMazeVisualizer() = default;
-	
-	virtual void visualize() noexcept override;
+
+    virtual void visualize() const noexcept override;
 
 private:
 	const Core::Grid* const grid;

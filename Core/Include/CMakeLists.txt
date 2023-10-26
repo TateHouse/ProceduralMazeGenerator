@@ -6,8 +6,8 @@ SET(HEADER_FILES
 		SquareGrid.hpp
 		Grid.hpp
 		GridVisualizer.hpp
-		ImageGridVisualizer.hpp
-		ImageMazeVisualizer.hpp
+		ImageVisualizer.hpp
+		ImageVisualizerBuilder.hpp
 		MazeGenerator.hpp
 		SeedGenerator.hpp
 		SidewinderMazeGenerator.hpp

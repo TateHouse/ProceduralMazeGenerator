@@ -16,7 +16,7 @@ public:
 	virtual ~SidewinderMazeGeneratorTest() noexcept = default;
 
 protected:
-	std::unique_ptr<Grid> grid {std::make_unique<SquareGrid<5>>()};
+    std::unique_ptr<Grid> grid {std::make_unique<SquareGrid>(5)};
 	std::unique_ptr<MazeGenerator> mazeGenerator {std::make_unique<SidewinderMazeGenerator>()};
 	const int width {grid->getSize().first};
 	const int height {grid->getSize().second};

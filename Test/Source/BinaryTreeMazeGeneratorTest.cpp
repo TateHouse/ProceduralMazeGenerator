@@ -16,7 +16,7 @@ public:
 	virtual ~BinaryTreeMazeGeneratorTest() noexcept = default;
 
 protected:
-	std::unique_ptr<Grid> grid {std::make_unique<SquareGrid<5>>()};
+    std::unique_ptr<Grid> grid {std::make_unique<SquareGrid>(5)};
 	std::unique_ptr<MazeGenerator> mazeGenerator {std::make_unique<BinaryTreeMazeGenerator>()};
 	const int width {grid->getSize().first};
 	const int height {grid->getSize().second};

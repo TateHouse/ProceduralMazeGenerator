@@ -49,6 +49,25 @@ const std::pair<const int, const int> SquareGrid::getSize() const noexcept {
     return {xSize, ySize};
 }
 
+void SquareGrid::reset() noexcept {
+    const auto size {cells.size()};
+
+    for (std::size_t x {0}; x < size; ++x) {
+        for (std::size_t y {0}; y < size; ++y) {
+            delete cells[x][y];
+        }
+    }
+
+    cells.clear();
+    cells.resize(size);
+
+    for (std::size_t x {0}; x < size; ++x) {
+        cells[x].resize(size);
+    }
+
+    initialize();
+}
+
 const bool SquareGrid::validateCellPosition(const std::pair<const int, const int>& position) const noexcept {
     const auto [xPosition, yPosition] {position};
     const auto size {cells.size()};

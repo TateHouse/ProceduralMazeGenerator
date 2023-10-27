@@ -114,4 +114,15 @@ TEST_F(DynamicSizeSquareGridTest, GivenSize_WhenInstantiate_ThenGridCellsHaveNoL
         }
     }
 }
+
+TEST_F(DynamicSizeSquareGridTest, WhenReset_ThenGridCellsHaveNoLinks) {
+    for (std::size_t x {0}; x < width; ++x) {
+        for (std::size_t y {0}; y < height; ++y) {
+            const auto position {std::pair {x, y}};
+            const auto* const cell {(*grid)[position]};
+
+            EXPECT_THAT(cell->getLinks(), testing::IsEmpty());
+        }
+    }
+}
 }

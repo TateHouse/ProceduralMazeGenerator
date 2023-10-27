@@ -17,6 +17,7 @@ public:
 public:
     void initialize() override;
     [[nodiscard]] const std::pair<const int, const int> getSize() const noexcept override;
+    void reset() noexcept override;
 
 private:
     const bool validateCellPosition(const std::pair<const int, const int>& position) const noexcept;

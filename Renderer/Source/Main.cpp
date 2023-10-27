@@ -7,16 +7,15 @@
 #include <imgui_impl_glfw.h>
 #include <imgui_impl_opengl3.h>
 
+#include <array>
 #include <format>
 #include <iostream>
 
 #include "Utility/DeltaTimeCalculator.hpp"
 #include "Utility/UnitScale.hpp"
 #include "BinaryTreeMazeGenerator.hpp"
+#include "MazeGenerationAlgorithm.hpp"
 #include "MazeRenderer.hpp"
-#include "Shader.hpp"
-#include "ShaderCompilationException.hpp"
-#include "ShaderLinkingException.hpp"
 #include "SidewinderMazeGenerator.hpp"
 #include "SquareGrid.hpp"
 #include "Window.hpp"
@@ -71,11 +70,15 @@ int main(int argc, char* argv[]) {
     auto gridColor {glm::vec3(1.0f, 1.0f, 1.0f)};
     auto gridLineThickness {MIN_GRID_LINE_THICKNESS};
 
+    auto binaryTreeMazeGenerator {std::make_unique<Core::BinaryTreeMazeGenerator>()};
+    auto sidewinderMazeGenerator {std::make_unique<Core::SidewinderMazeGenerator>()};
+    const auto mazeGenerators {std::array<std::unique_ptr<Core::MazeGenerator>, 2> {
+            std::move(binaryTreeMazeGenerator),
+            std::move(sidewinderMazeGenerator)
+    }};
+
     auto squareGrid {Core::SquareGrid {SQUARE_GRID_SIZE}};
     squareGrid.initialize();
-
-    auto sidewinderMazeGenerator {Core::SidewinderMazeGenerator {}};
-    sidewinderMazeGenerator.generate(&squareGrid, nullptr);
 
     auto mazeRenderer {Renderer::MazeRenderer {&squareGrid, cellSize}};
     mazeRenderer.updateVertices();
@@ -97,6 +100,8 @@ int main(int argc, char* argv[]) {
             }
     }};
 
+    auto selectedMazeGeneratorIndex {0};
+
     while (!window.getShouldClose()) {
         const auto currentFrame {deltaTimeCalculator.update()};
 
@@ -106,12 +111,37 @@ int main(int argc, char* argv[]) {
         ImGui_ImplGlfw_NewFrame();
         ImGui::NewFrame();
         ImGui::Begin("Maze Generator");
-        ImGui::Text("Hello World");
         if (ImGui::Button("Save")) {
             std::cout << "Saved maze!" << '\n';
         }
 
-        if (ImGui::Button("Update Maze")) {
+        if (ImGui::BeginCombo("Maze Generator",
+                              Renderer::getMazeGenerationAlgorithmName(mazeGenerators[selectedMazeGeneratorIndex].get()).c_str())) {
+            for (auto index {0}; index < mazeGenerators.size(); ++index) {
+                auto isSelected {selectedMazeGeneratorIndex == index};
+
+                if (ImGui::Selectable(Renderer::getMazeGenerationAlgorithmName(mazeGenerators[index].get()).c_str(),
+                                      isSelected)) {
+                    selectedMazeGeneratorIndex = index;
+                }
+
+                if (isSelected) {
+                    ImGui::SetItemDefaultFocus();
+                }
+            }
+
+            ImGui::EndCombo();
+        }
+
+        if (ImGui::Button("Generate Maze")) {
+            squareGrid.reset();
+            mazeGenerators[selectedMazeGeneratorIndex]->generate(&squareGrid, nullptr);
+            mazeRenderer.updateVertices();
+        }
+
+        if (ImGui::Button("Generate Grid")) {
+            squareGrid.reset();
+            squareGrid.initialize();
             mazeRenderer.updateVertices();
         }
 
@@ -129,13 +159,6 @@ int main(int argc, char* argv[]) {
 
         ImGui::ColorPicker3("Background Color", glm::value_ptr(backgroundColor));
         ImGui::ColorPicker3("Grid Color", glm::value_ptr(gridColor));
-
-        float samples[100];
-        for (auto number {0}; number < 100; ++number) {
-            samples[number] = std::sinf(number * 0.2f + ImGui::GetTime() * 1.5f);
-        }
-
-        ImGui::PlotLines("Samples", samples, 100);
 
         ImGui::End();
 

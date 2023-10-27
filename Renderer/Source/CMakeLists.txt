@@ -1,6 +1,7 @@
 CMAKE_MINIMUM_REQUIRED(VERSION 3.26)
 
 SET(SOURCE_FILES
+		MazeRenderer.cpp
 		Shader.cpp
 		ShaderCompilationException.cpp
 		ShaderLinkingException.cpp

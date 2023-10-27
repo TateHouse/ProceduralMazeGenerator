@@ -4,7 +4,8 @@ SET(HEADER_FILES
 		Shader.hpp
 		ShaderCompilationException.hpp
 		ShaderLinkingException.hpp
-		ShaderTypeStringConverter.hpp)
+		ShaderTypeStringConverter.hpp
+		Window.hpp)
 
 TARGET_SOURCES(${PROJECT_NAME} PRIVATE ${HEADER_FILES})
 

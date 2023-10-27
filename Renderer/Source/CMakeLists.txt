@@ -4,7 +4,8 @@ SET(SOURCE_FILES
 		Shader.cpp
 		ShaderCompilationException.cpp
 		ShaderLinkingException.cpp
-		ShaderTypeStringConverter.cpp)
+		ShaderTypeStringConverter.cpp
+		Window.cpp)
 
 TARGET_SOURCES(${PROJECT_NAME} PRIVATE ${SOURCE_FILES})
 

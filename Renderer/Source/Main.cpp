@@ -16,6 +16,7 @@
 #include "ShaderLinkingException.hpp"
 #include "SidewinderMazeGenerator.hpp"
 #include "SquareGrid.hpp"
+#include "Window.hpp"
 
 static constexpr auto WINDOW_WIDTH {1280};
 static constexpr auto WINDOW_HEIGHT {720};
@@ -25,16 +26,6 @@ static constexpr auto UNIT_SCALE {0.01f}; // 1 unit = 1 cm
 
 static constexpr auto SQUARE_GRID_SIZE {20};
 static constexpr auto CELL_SIZE {25.0f * UNIT_SCALE};
-
-void framebufferSizeCallback(GLFWwindow* window, int width, int height) {
-    glViewport(0, 0, width, height);
-}
-
-void keyCallback(GLFWwindow* window, int key, int scancode, int action, int mods) {
-    if (key == GLFW_KEY_ESCAPE && action == GLFW_PRESS) {
-        glfwSetWindowShouldClose(window, GLFW_TRUE);
-    }
-}
 
 glm::mat4 createOrthographicProjection(const float width,
                                        const float height,
@@ -54,12 +45,6 @@ float calculateDeltaTime(float& deltaTime, float& lastFrame) noexcept {
     lastFrame = currentFrame;
 
     return currentFrame;
-}
-
-void setWindowTitleWithFPS(GLFWwindow* window, float deltaTime) noexcept {
-    const auto fps {1.0f / deltaTime};
-    const auto title {std::format("{} - FPS: {:.2f}", WINDOW_TITLE, fps)};
-    glfwSetWindowTitle(window, (title.c_str()));
 }
 
 void insertNorthernWallVertices(std::vector<float>& vertices, const float halfWidth, const float halfHeight) noexcept {
@@ -104,31 +89,21 @@ int main(int argc, char* argv[]) {
         return -1;
     }
 
-    glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 4);
-    glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 6);
-    glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
-    glfwSwapInterval(1);
-
-    auto* window {glfwCreateWindow(WINDOW_WIDTH, WINDOW_HEIGHT, WINDOW_TITLE, nullptr, nullptr)};
-    if (window == nullptr) {
-        std::cerr << "ERROR: Failed to create GLFW window" << '\n';
+    auto window {Renderer::Window {WINDOW_WIDTH, WINDOW_HEIGHT, WINDOW_TITLE}};
+    if (!window.initialize()) {
+        std::cerr << "ERROR: Failed to initialize window" << '\n';
         glfwTerminate();
         return -1;
     }
-
-    glfwMakeContextCurrent(window);
 
     if (!gladLoadGLLoader(reinterpret_cast<GLADloadproc>(glfwGetProcAddress))) {
         std::cerr << "ERROR: Failed to initialize GLAD" << '\n';
-        glfwDestroyWindow(window);
+        window.close();
         glfwTerminate();
         return -1;
     }
 
-    glViewport(0, 0, WINDOW_WIDTH, WINDOW_HEIGHT);
-
-    glfwSetFramebufferSizeCallback(window, framebufferSizeCallback);
-    glfwSetKeyCallback(window, keyCallback);
+    window.setCallbacks();
 
     auto projection {createOrthographicProjection(WINDOW_WIDTH * UNIT_SCALE, WINDOW_HEIGHT * UNIT_SCALE, -1.0f, 1.0f)};
 
@@ -216,10 +191,10 @@ int main(int argc, char* argv[]) {
 
     } catch (const Renderer::ShaderCompilationException& exception) {
         std::cerr << exception.what() << '\n';
-        glfwSetWindowShouldClose(window, GLFW_TRUE);
+        window.setShouldClose(true);
     } catch (const Renderer::ShaderLinkingException& exception) {
         std::cerr << exception.what() << '\n';
-        glfwSetWindowShouldClose(window, GLFW_TRUE);
+        window.setShouldClose(true);
     }
 
     IMGUI_CHECKVERSION();
@@ -229,13 +204,14 @@ int main(int argc, char* argv[]) {
     io.ConfigFlags |= ImGuiConfigFlags_NavEnableGamepad;
     io.ConfigFlags |= ImGuiConfigFlags_DockingEnable;
 
-    ImGui_ImplGlfw_InitForOpenGL(window, true);
-    ImGui_ImplOpenGL3_Init("#version 460 core");
+    ImGui::StyleColorsLight();
 
-    while (!glfwWindowShouldClose(window)) {
+    window.initializeImGui();
+
+    while (!window.getShouldClose()) {
         const auto currentFrame {calculateDeltaTime(deltaTime, lastFrame)};
 
-        setWindowTitleWithFPS(window, deltaTime);
+        window.update(deltaTime);
 
         ImGui_ImplOpenGL3_NewFrame();
         ImGui_ImplGlfw_NewFrame();
@@ -245,6 +221,12 @@ int main(int argc, char* argv[]) {
         if (ImGui::Button("Save")) {
             std::cout << "Saved maze!" << '\n';
         }
+
+        const auto windowWidthString {std::format("Window Width: {}", window.getWidth())};
+        ImGui::Text(windowWidthString.c_str());
+
+        const auto windowHeightString {std::format("Window Height: {}", window.getHeight())};
+        ImGui::Text(windowHeightString.c_str());
 
         ImGui::ColorPicker3("Background Color", glm::value_ptr(backgroundColor));
 
@@ -273,20 +255,16 @@ int main(int argc, char* argv[]) {
         ImGui::Render();
         ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
 
-        glfwSwapBuffers(window);
-        glfwPollEvents();
+        window.render();
     }
 
-    ImGui_ImplOpenGL3_Shutdown();
-    ImGui_ImplGlfw_Shutdown();
-    ImGui::DestroyContext();
 
     delete shader;
 
     glDeleteBuffers(1, &vbo);
     glDeleteVertexArrays(1, &vao);
 
-    glfwDestroyWindow(window);
+    window.close();
     glfwTerminate();
 
     return 0;

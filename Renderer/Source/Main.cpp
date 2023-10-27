@@ -27,6 +27,8 @@ static constexpr auto UNIT_SCALE {0.01f}; // 1 unit = 1 cm
 
 static constexpr auto SQUARE_GRID_SIZE {20};
 static constexpr auto CELL_SIZE {25.0f * UNIT_SCALE};
+static constexpr auto MIN_GRID_LINE_THICKNESS {0.002f};
+static constexpr auto MAX_GRID_LINE_THICKNESS {0.03f};
 
 glm::mat4 createOrthographicProjection(const float width,
                                        const float height,
@@ -98,10 +100,12 @@ int main(int argc, char* argv[]) {
 
     window.setCallbacks();
 
-    auto projection {createOrthographicProjection(WINDOW_WIDTH * UNIT_SCALE, WINDOW_HEIGHT * UNIT_SCALE, -1.0f, 1.0f)};
+    auto projection {createOrthographicProjection(static_cast<float>(window.getWidth()) * UNIT_SCALE,
+                                                  static_cast<float>(window.getHeight()) * UNIT_SCALE, -1.0f, 1.0f)};
 
     auto backgroundColor {glm::vec3(0.0f, 0.0f, 0.0f)};
     auto gridColor {glm::vec3(1.0f, 1.0f, 1.0f)};
+    auto gridLineThickness {MIN_GRID_LINE_THICKNESS};
 
     auto squareGrid {Core::SquareGrid {SQUARE_GRID_SIZE}};
     squareGrid.initialize();
@@ -178,7 +182,7 @@ int main(int argc, char* argv[]) {
     Renderer::Shader* shader {nullptr};
 
     try {
-        shader = new Renderer::Shader("Shaders/Test.vert", "Shaders/Test.frag");
+        shader = new Renderer::Shader("Shaders/Test.vert", "Shaders/Test.frag", "Shaders/Test.geom");
 
     } catch (const Renderer::ShaderCompilationException& exception) {
         std::cerr << exception.what() << '\n';
@@ -219,6 +223,8 @@ int main(int argc, char* argv[]) {
             std::cout << "Saved maze!" << '\n';
         }
 
+        ImGui::SliderFloat("Grid Line Thickness", &gridLineThickness, MIN_GRID_LINE_THICKNESS, MAX_GRID_LINE_THICKNESS);
+
         const auto currentFrameString {std::format("Current Frame: {}", currentFrame)};
         ImGui::Text(currentFrameString.c_str());
 
@@ -247,6 +253,12 @@ int main(int argc, char* argv[]) {
             shader->use();
 
             shader->setUniformMatrix4x4fv("projection", projection);
+
+            shader->setUniform1f("lineThickness", gridLineThickness);
+
+            auto aspectRatio {static_cast<float>(window.getWidth()) / static_cast<float>(window.getHeight())};
+            shader->setUniform1f("aspectRatio", aspectRatio);
+
             shader->setUniform3fv("color", gridColor);
 
             glBindVertexArray(vao);

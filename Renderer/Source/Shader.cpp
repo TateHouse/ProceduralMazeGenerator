@@ -10,9 +10,12 @@
 #include "ShaderLinkingException.hpp"
 
 namespace Renderer {
-Shader::Shader(const std::filesystem::path& vertexShaderPath, const std::filesystem::path& fragmentShaderPath) {
+Shader::Shader(const std::filesystem::path& vertexShaderPath,
+               const std::filesystem::path& fragmentShaderPath,
+               std::optional<std::filesystem::path> geometryShaderPath) {
     GLuint vertexShader {0};
     GLuint fragmentShader {0};
+    GLuint geometryShader {0};
 
     try {
         vertexShader = Shader::createShader(vertexShaderPath, GL_VERTEX_SHADER);
@@ -21,6 +24,12 @@ Shader::Shader(const std::filesystem::path& vertexShaderPath, const std::filesys
         shaderProgram = glCreateProgram();
         glAttachShader(shaderProgram, vertexShader);
         glAttachShader(shaderProgram, fragmentShader);
+
+        if (geometryShaderPath.has_value()) {
+            geometryShader = Shader::createShader(geometryShaderPath.value(), GL_GEOMETRY_SHADER);
+            glAttachShader(shaderProgram, geometryShader);
+        }
+
         glLinkProgram(shaderProgram);
 
         auto success {0};
@@ -34,15 +43,11 @@ Shader::Shader(const std::filesystem::path& vertexShaderPath, const std::filesys
 
         glDeleteShader(vertexShader);
         glDeleteShader(fragmentShader);
+        glDeleteShader(geometryShader);
     } catch (...) {
-        if (vertexShader != 0) {
-            glDeleteShader(vertexShader);
-        }
-
-        if (fragmentShader != 0) {
-            glDeleteShader(fragmentShader);
-        }
-
+        glDeleteShader(vertexShader);
+        glDeleteShader(fragmentShader);
+        glDeleteShader(geometryShader);
         throw;
     }
 }
@@ -53,6 +58,11 @@ Shader::~Shader() noexcept {
 
 void Shader::use() const noexcept {
     glUseProgram(shaderProgram);
+}
+
+void Shader::setUniform1f(const std::string_view uniformName, const float value) const noexcept {
+    const auto uniformLocation {glGetUniformLocation(shaderProgram, uniformName.data())};
+    glUniform1f(uniformLocation, value);
 }
 
 void Shader::setUniform3fv(const std::string_view uniformName, const glm::vec3& vector) const noexcept {

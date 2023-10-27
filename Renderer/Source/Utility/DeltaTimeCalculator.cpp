@@ -1,8 +1,12 @@
 #include "Utility/DeltaTimeCalculator.hpp"
 
-namespace Renderer::Utility {
-DeltaTimeCalculator::DeltaTimeCalculator(std::function<float()> timeSource) noexcept: timeSource {timeSource} {
+#include <stdexcept>
 
+namespace Renderer::Utility {
+DeltaTimeCalculator::DeltaTimeCalculator(const std::function<float()>& timeSource) : timeSource {timeSource} {
+    if (timeSource == nullptr) {
+        throw std::invalid_argument {"The time source function must be specified."};
+    }
 }
 
 const float DeltaTimeCalculator::update() noexcept {

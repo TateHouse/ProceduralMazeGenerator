@@ -198,7 +198,11 @@ int main(int argc, char* argv[]) {
 
     window.initializeImGui();
 
-    auto deltaTimeCalculator {Renderer::Utility::DeltaTimeCalculator {glfwGetTime}};
+    auto deltaTimeCalculator {Renderer::Utility::DeltaTimeCalculator {
+            []() noexcept {
+                return static_cast<float>(glfwGetTime());
+            }
+    }};
 
     while (!window.getShouldClose()) {
         const auto currentFrame {deltaTimeCalculator.update()};

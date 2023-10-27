@@ -11,6 +11,7 @@
 #include <iostream>
 
 #include "BinaryTreeMazeGenerator.hpp"
+#include "Utility/DeltaTimeCalculator.hpp"
 #include "Shader.hpp"
 #include "ShaderCompilationException.hpp"
 #include "ShaderLinkingException.hpp"
@@ -37,14 +38,6 @@ glm::mat4 createOrthographicProjection(const float width,
     const auto bottom {-height * 0.5f};
 
     return glm::ortho(left, right, bottom, top, near, far);
-}
-
-float calculateDeltaTime(float& deltaTime, float& lastFrame) noexcept {
-    auto currentFrame {static_cast<float>(glfwGetTime())};
-    deltaTime = currentFrame - lastFrame;
-    lastFrame = currentFrame;
-
-    return currentFrame;
 }
 
 void insertNorthernWallVertices(std::vector<float>& vertices, const float halfWidth, const float halfHeight) noexcept {
@@ -106,9 +99,6 @@ int main(int argc, char* argv[]) {
     window.setCallbacks();
 
     auto projection {createOrthographicProjection(WINDOW_WIDTH * UNIT_SCALE, WINDOW_HEIGHT * UNIT_SCALE, -1.0f, 1.0f)};
-
-    auto deltaTime {0.0f};
-    auto lastFrame {0.0f};
 
     auto backgroundColor {glm::vec3(0.0f, 0.0f, 0.0f)};
 
@@ -208,10 +198,12 @@ int main(int argc, char* argv[]) {
 
     window.initializeImGui();
 
-    while (!window.getShouldClose()) {
-        const auto currentFrame {calculateDeltaTime(deltaTime, lastFrame)};
+    auto deltaTimeCalculator {Renderer::Utility::DeltaTimeCalculator {glfwGetTime}};
 
-        window.update(deltaTime);
+    while (!window.getShouldClose()) {
+        const auto currentFrame {deltaTimeCalculator.update()};
+
+        window.update(deltaTimeCalculator.getDeltaTime());
 
         ImGui_ImplOpenGL3_NewFrame();
         ImGui_ImplGlfw_NewFrame();
@@ -221,6 +213,9 @@ int main(int argc, char* argv[]) {
         if (ImGui::Button("Save")) {
             std::cout << "Saved maze!" << '\n';
         }
+
+        const auto currentFrameString {std::format("Current Frame: {}", currentFrame)};
+        ImGui::Text(currentFrameString.c_str());
 
         const auto windowWidthString {std::format("Window Width: {}", window.getWidth())};
         ImGui::Text(windowWidthString.c_str());
@@ -257,7 +252,6 @@ int main(int argc, char* argv[]) {
 
         window.render();
     }
-
 
     delete shader;
 

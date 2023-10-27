@@ -101,6 +101,7 @@ int main(int argc, char* argv[]) {
     auto projection {createOrthographicProjection(WINDOW_WIDTH * UNIT_SCALE, WINDOW_HEIGHT * UNIT_SCALE, -1.0f, 1.0f)};
 
     auto backgroundColor {glm::vec3(0.0f, 0.0f, 0.0f)};
+    auto gridColor {glm::vec3(1.0f, 1.0f, 1.0f)};
 
     auto squareGrid {Core::SquareGrid {SQUARE_GRID_SIZE}};
     squareGrid.initialize();
@@ -228,6 +229,7 @@ int main(int argc, char* argv[]) {
         ImGui::Text(windowHeightString.c_str());
 
         ImGui::ColorPicker3("Background Color", glm::value_ptr(backgroundColor));
+        ImGui::ColorPicker3("Grid Color", glm::value_ptr(gridColor));
 
         float samples[100];
         for (auto number {0}; number < 100; ++number) {
@@ -244,7 +246,8 @@ int main(int argc, char* argv[]) {
         if (shader != nullptr) {
             shader->use();
 
-            shader->setMat4x4("projection", projection);
+            shader->setUniformMatrix4x4fv("projection", projection);
+            shader->setUniform3fv("color", gridColor);
 
             glBindVertexArray(vao);
             glDrawArrays(GL_LINES, 0, vertexCount);

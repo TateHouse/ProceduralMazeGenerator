@@ -8,6 +8,7 @@ class OrthographicCamera;
 }
 
 namespace Renderer::Utility {
+// TODO: Refactor to use a component manager base class.
 class CameraManager final {
 public:
     void addCamera(const std::string& name, Renderer::OrthographicCamera* camera);

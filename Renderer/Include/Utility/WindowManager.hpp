@@ -7,6 +7,7 @@ namespace Renderer {
 class Window;
 }
 namespace Renderer::Utility {
+// TODO: Refactor to use a component manager base class.
 class WindowManager final {
 public:
     void addWindow(const std::string& name, Renderer::Window* window);

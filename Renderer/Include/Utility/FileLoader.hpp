@@ -7,7 +7,7 @@
 namespace Renderer::Utility {
 class FileLoader final {
 public:
-    explicit FileLoader(const std::filesystem::path& filePath) noexcept;
+    explicit FileLoader(const std::filesystem::path& filePath);
 
 public:
     [[nodiscard]] std::string load() noexcept;

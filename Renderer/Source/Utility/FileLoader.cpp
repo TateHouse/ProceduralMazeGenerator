@@ -4,7 +4,7 @@
 #include <sstream>
 
 namespace Renderer::Utility {
-FileLoader::FileLoader(const std::filesystem::path& filePath) noexcept {
+FileLoader::FileLoader(const std::filesystem::path& filePath) {
     if (!std::filesystem::exists(filePath)) {
         const auto message {std::format("File \"{}\" does not exist.", filePath.string())};
         throw std::filesystem::filesystem_error {message, std::make_error_code(std::errc::no_such_file_or_directory)};

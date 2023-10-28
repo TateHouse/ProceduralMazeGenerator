@@ -6,6 +6,7 @@ SET(SOURCE_FILES
 		ShaderCompilationException.cpp
 		ShaderLinkingException.cpp
 		ShaderTypeStringConverter.cpp
+		UserInterface.cpp
 		Window.cpp)
 
 TARGET_SOURCES(${PROJECT_NAME} PRIVATE ${SOURCE_FILES})

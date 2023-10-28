@@ -16,12 +16,7 @@ SquareGrid::SquareGrid(const std::size_t size) {
 }
 
 SquareGrid::~SquareGrid() noexcept {
-    const auto size {cells.size()};
-    for (std::size_t x {0}; x < size; ++x) {
-        for (std::size_t y {0}; y < size; ++y) {
-            delete cells[x][y];
-        }
-    }
+    deleteCells();
 }
 
 Cell* SquareGrid::operator[](const std::pair<const int, const int>& position) noexcept {
@@ -41,22 +36,10 @@ void SquareGrid::initialize() {
     setCellNeighbors();
 }
 
-const std::pair<const int, const int> SquareGrid::getSize() const noexcept {
-    const auto size {cells.size()};
-    const auto xSize {static_cast<int>(size)};
-    const auto ySize {static_cast<int>(size)};
-
-    return {xSize, ySize};
-}
-
 void SquareGrid::reset() noexcept {
     const auto size {cells.size()};
 
-    for (std::size_t x {0}; x < size; ++x) {
-        for (std::size_t y {0}; y < size; ++y) {
-            delete cells[x][y];
-        }
-    }
+    deleteCells();
 
     cells.clear();
     cells.resize(size);
@@ -66,6 +49,14 @@ void SquareGrid::reset() noexcept {
     }
 
     initialize();
+}
+
+const std::pair<const int, const int> SquareGrid::getSize() const noexcept {
+    const auto size {cells.size()};
+    const auto xSize {static_cast<int>(size)};
+    const auto ySize {static_cast<int>(size)};
+
+    return {xSize, ySize};
 }
 
 const bool SquareGrid::validateCellPosition(const std::pair<const int, const int>& position) const noexcept {
@@ -113,6 +104,16 @@ void SquareGrid::setCellNeighbors() noexcept {
             if (x < size - 1) {
                 cell->setEast(cells[x + 1][y]);
             }
+        }
+    }
+}
+
+void SquareGrid::deleteCells() noexcept {
+    const auto size {cells.size()};
+
+    for (std::size_t x {0}; x < size; ++x) {
+        for (std::size_t y {0}; y < size; ++y) {
+            delete cells[x][y];
         }
     }
 }

@@ -16,13 +16,14 @@ public:
 
 public:
     void initialize() override;
-    [[nodiscard]] const std::pair<const int, const int> getSize() const noexcept override;
     void reset() noexcept override;
+    [[nodiscard]] const std::pair<const int, const int> getSize() const noexcept override;
 
 private:
-    const bool validateCellPosition(const std::pair<const int, const int>& position) const noexcept;
+    [[nodiscard]] const bool validateCellPosition(const std::pair<const int, const int>& position) const noexcept;
     void instantiateCells();
     void setCellNeighbors() noexcept;
+    void deleteCells() noexcept;
 
 private:
     std::vector<std::vector<Cell*>> cells {};

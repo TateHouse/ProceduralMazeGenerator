@@ -16,7 +16,7 @@ public:
     const bool initializeImGui() noexcept;
     void update(const float deltaTime) noexcept;
     void render() noexcept;
-    void close() noexcept;
+    void destroy() noexcept;
 
     const unsigned int getWidth() const noexcept;
     const unsigned int getHeight() const noexcept;

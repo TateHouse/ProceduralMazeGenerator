@@ -2,6 +2,7 @@ CMAKE_MINIMUM_REQUIRED(VERSION 3.26)
 
 SET(SOURCE_FILES
 		DeltaTimeCalculator.cpp
-		FileLoader.cpp)
+		FileLoader.cpp
+		UnitScale.cpp)
 
 TARGET_SOURCES(${PROJECT_NAME} PRIVATE ${SOURCE_FILES})

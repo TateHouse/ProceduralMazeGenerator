@@ -20,7 +20,7 @@ Window::Window(const unsigned int width, const unsigned int height, const std::s
 }
 
 Window::~Window() noexcept {
-    close();
+    destroy();
 }
 
 const bool Window::initialize() noexcept {
@@ -56,14 +56,10 @@ void Window::render() noexcept {
     glfwPollEvents();
 }
 
-void Window::close() noexcept {
+void Window::destroy() noexcept {
     if (window == nullptr) {
         return;
     }
-
-    ImGui_ImplOpenGL3_Shutdown();
-    ImGui_ImplGlfw_Shutdown();
-    ImGui::DestroyContext();
 
     glfwDestroyWindow(window);
     window = nullptr;

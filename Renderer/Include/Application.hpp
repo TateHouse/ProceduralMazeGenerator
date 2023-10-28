@@ -23,7 +23,6 @@ public:
     [[nodiscard]] const bool getIsRunning() const noexcept;
 
 private:
-    bool isRunning {true};
     Context context;
     std::unique_ptr<OrthographicCamera> camera;
     std::unique_ptr<Window> window;

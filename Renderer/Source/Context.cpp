@@ -16,6 +16,14 @@ void Context::update() noexcept {
     deltaTimeManager->update();
 }
 
+const bool Context::getIsRunning() const noexcept {
+    return isRunning;
+}
+
+void Context::stopRunning() noexcept {
+    isRunning = false;
+}
+
 Utility::DeltaTimeManager* const Context::getDeltaTimeManager() noexcept {
     return deltaTimeManager.get();
 }

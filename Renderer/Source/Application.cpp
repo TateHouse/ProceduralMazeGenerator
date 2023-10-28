@@ -77,6 +77,6 @@ void Application::destroy() {
 }
 
 const bool Application::getIsRunning() const noexcept {
-    return isRunning && !window->getWindowShouldClose();
+    return context.getIsRunning() && !window->getWindowShouldClose();
 }
 }

@@ -12,7 +12,8 @@ public:
 	virtual const Cell* const operator[](const std::pair<const int, const int>& position) const noexcept = 0;
 
 public:
-	virtual void initialize() noexcept = 0;
+    virtual void initialize() = 0;
 	[[nodiscard]] virtual const std::pair<const int, const int> getSize() const noexcept = 0;
+    virtual void reset() noexcept = 0;
 };
 }

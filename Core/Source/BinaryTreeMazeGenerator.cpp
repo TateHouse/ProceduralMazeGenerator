@@ -1,7 +1,7 @@
 #include "BinaryTreeMazeGenerator.hpp"
 
 namespace Core {
-BinaryTreeMazeGenerator::BinaryTreeMazeGenerator() noexcept: MazeGenerator {"Binary Tree Maze Algorithm"} {
+BinaryTreeMazeGenerator::BinaryTreeMazeGenerator() noexcept: MazeGenerator {"Binary Tree"} {
 
 }
 

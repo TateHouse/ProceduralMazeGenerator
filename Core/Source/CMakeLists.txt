@@ -3,9 +3,10 @@ CMAKE_MINIMUM_REQUIRED(VERSION 3.26)
 SET(SOURCE_FILES
 		BinaryTreeMazeGenerator.cpp
 		Cell.cpp
+		SquareGrid.cpp
 		Grid.cpp
-		ImageGridVisualizer.cpp
-		ImageMazeVisualizer.cpp
+		ImageVisualizer.cpp
+		ImageVisualizerBuilder.cpp
 		MazeGenerator.cpp
 		SeedGenerator.cpp
 		SidewinderMazeGenerator.cpp)

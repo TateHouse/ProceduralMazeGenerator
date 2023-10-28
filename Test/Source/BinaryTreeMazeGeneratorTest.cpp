@@ -16,7 +16,7 @@ public:
 	virtual ~BinaryTreeMazeGeneratorTest() noexcept = default;
 
 protected:
-	std::unique_ptr<Grid> grid {std::make_unique<SquareGrid<5>>()};
+    std::unique_ptr<Grid> grid {std::make_unique<SquareGrid>(5)};
 	std::unique_ptr<MazeGenerator> mazeGenerator {std::make_unique<BinaryTreeMazeGenerator>()};
 	const int width {grid->getSize().first};
 	const int height {grid->getSize().second};
@@ -77,6 +77,6 @@ TEST_F(BinaryTreeMazeGeneratorTest, GivenBinaryTreeMazeGenerator_WhenGenerate_Th
 
 TEST_F(BinaryTreeMazeGeneratorTest,
        GivenBinaryTreeMazeGenerator_WhenGetMazeGenerationAlgorithmName_ThenReturnBinaryTree) {
-	EXPECT_THAT(mazeGenerator->getMazeGenerationAlgorithmName(), testing::StrCaseEq("Binary Tree Maze Algorithm"));
+    EXPECT_THAT(mazeGenerator->getMazeGenerationAlgorithmName(), testing::StrCaseEq("Binary Tree"));
 }
 }

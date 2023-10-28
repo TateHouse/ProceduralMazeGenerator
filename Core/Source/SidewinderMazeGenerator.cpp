@@ -3,7 +3,7 @@
 #include <vector>
 
 namespace Core {
-SidewinderMazeGenerator::SidewinderMazeGenerator() noexcept: MazeGenerator {"Sidewinder Maze Algorithm"} {
+SidewinderMazeGenerator::SidewinderMazeGenerator() noexcept: MazeGenerator {"Sidewinder"} {
 
 }
 

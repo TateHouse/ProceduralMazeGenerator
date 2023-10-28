@@ -23,6 +23,7 @@ public:
     void postRender();
     void destroy();
 
+public:
     [[nodiscard]] const bool getIsRunning() const noexcept;
 
 private:
@@ -30,7 +31,6 @@ private:
     std::unique_ptr<SquareMaze> squareMaze;
     std::unique_ptr<OrthographicCamera> camera;
     std::unique_ptr<Window> window;
-
     std::unique_ptr<Core::SquareGrid> grid;
     CellSettings cellSettings {};
 

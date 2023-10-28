@@ -27,7 +27,6 @@ public:
     void link() const;
     void reload();
     void use() const;
-
     void setUniform1f(const std::string_view name, const float x) const;
     void setUniform3fv(const std::string_view name, const glm::vec3& vector) const;
     void setUniformMatrix4x4fv(const std::string_view name,

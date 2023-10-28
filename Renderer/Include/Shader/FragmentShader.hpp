@@ -7,11 +7,11 @@ class FragmentShader final : public Shader {
 public:
     explicit FragmentShader(const std::filesystem::path& path) noexcept;
     FragmentShader(const FragmentShader&) = delete;
-    FragmentShader(FragmentShader&&) noexcept = delete;
+    FragmentShader(FragmentShader&&) noexcept = default;
     virtual ~FragmentShader() noexcept = default;
 
 public:
     FragmentShader& operator=(const FragmentShader&) = delete;
-    FragmentShader& operator=(FragmentShader&&) noexcept = delete;
+    FragmentShader& operator=(FragmentShader&&) noexcept = default;
 };
 }

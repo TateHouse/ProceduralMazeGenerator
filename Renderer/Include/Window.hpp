@@ -22,10 +22,9 @@ public:
     virtual void postRender() override;
     virtual void destroy() override;
 
+public:
     [[nodiscard]] const bool getWindowShouldClose() const noexcept;
     void setWindowShouldClose() noexcept;
-
-public:
     static void framebufferSizeCallback(GLFWwindow* window, int width, int height) noexcept;
     static void keyCallback(GLFWwindow* window, int key, int scancode, int action, int mods) noexcept;
 

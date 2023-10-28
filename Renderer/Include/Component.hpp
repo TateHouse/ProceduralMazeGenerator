@@ -11,6 +11,7 @@ public:
 
     virtual ~Component() noexcept = default;
 
+public:
     virtual void initialize() = 0;
     virtual void postInitialize() = 0;
     virtual void update() = 0;

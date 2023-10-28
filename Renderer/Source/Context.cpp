@@ -8,6 +8,7 @@ Context::Context() noexcept {
         return static_cast<float>(glfwGetTime());
     }};
 
+    cameraManager = std::make_unique<Utility::CameraManager>();
     deltaTimeManager = std::make_unique<Utility::DeltaTimeManager>(timeFunction);
     windowManager = std::make_unique<Utility::WindowManager>();
 }
@@ -22,6 +23,10 @@ const bool Context::getIsRunning() const noexcept {
 
 void Context::stopRunning() noexcept {
     isRunning = false;
+}
+
+Utility::CameraManager* const Context::getCameraManager() noexcept {
+    return cameraManager.get();
 }
 
 Utility::DeltaTimeManager* const Context::getDeltaTimeManager() noexcept {

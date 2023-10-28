@@ -26,6 +26,9 @@ public:
     virtual void destroy() override;
 
 public:
+    [[nodiscard]] const glm::mat4& getProjection() const noexcept;
+    [[nodiscard]] const glm::mat4& getView() const noexcept;
+    [[nodiscard]] const glm::mat4& getViewProjection() const noexcept;
     [[nodiscard]] const glm::vec3& getPosition() const noexcept;
     void setPosition(const glm::vec3& position) noexcept;
     [[nodiscard]] const float getRotation() const noexcept;

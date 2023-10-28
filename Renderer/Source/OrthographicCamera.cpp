@@ -26,6 +26,7 @@ OrthographicCamera::OrthographicCamera(Context& context,
 void OrthographicCamera::initialize() {
     projection = glm::ortho(left, right, bottom, top, near, far);
     viewProjection = projection * view;
+    isDirty = true;
 }
 
 void OrthographicCamera::postInitialize() {
@@ -58,6 +59,18 @@ void OrthographicCamera::postRender() {
 
 void OrthographicCamera::destroy() {
 
+}
+
+const glm::mat4& OrthographicCamera::getProjection() const noexcept {
+    return projection;
+}
+
+const glm::mat4& OrthographicCamera::getView() const noexcept {
+    return view;
+}
+
+const glm::mat4& OrthographicCamera::getViewProjection() const noexcept {
+    return viewProjection;
 }
 
 const glm::vec3& OrthographicCamera::getPosition() const noexcept {

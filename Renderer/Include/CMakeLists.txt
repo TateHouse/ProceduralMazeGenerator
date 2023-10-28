@@ -2,8 +2,10 @@ CMAKE_MINIMUM_REQUIRED(VERSION 3.26)
 
 SET(HEADER_FILES
 		Application.hpp
-		Context.hpp
+		CellSettings.hpp
 		Component.hpp
+		Context.hpp
+		Maze.hpp
 		OrthographicCamera.hpp
 		OrthographicCameraDefaults.hpp
 		Window.hpp)

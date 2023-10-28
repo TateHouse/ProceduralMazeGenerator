@@ -2,7 +2,9 @@ CMAKE_MINIMUM_REQUIRED(VERSION 3.26)
 
 SET(SOURCE_FILES
 		Application.cpp
+		CellSettings.cpp
 		Context.cpp
+		Maze.cpp
 		OrthographicCamera.cpp
 		Window.cpp)
 

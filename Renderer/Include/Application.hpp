@@ -2,8 +2,11 @@
 
 #include <memory>
 
+#include "CellSettings.hpp"
 #include "Context.hpp"
+#include "Maze.hpp"
 #include "OrthographicCamera.hpp"
+#include "SquareGrid.hpp"
 #include "Window.hpp"
 
 namespace Renderer {
@@ -24,7 +27,12 @@ public:
 
 private:
     Context context;
+    std::unique_ptr<SquareMaze> squareMaze;
     std::unique_ptr<OrthographicCamera> camera;
     std::unique_ptr<Window> window;
+
+    std::unique_ptr<Core::SquareGrid> grid;
+    CellSettings cellSettings {};
+
 };
 }

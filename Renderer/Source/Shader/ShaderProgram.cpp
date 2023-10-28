@@ -1,9 +1,17 @@
 #include "Shader/ShaderProgram.hpp"
 
+#include <glm/gtc/type_ptr.hpp>
+
 #include <array>
 #include <stdexcept>
 
 namespace Renderer::Shader {
+ShaderProgram::ShaderProgram(Renderer::Shader::VertexShader&& vertexShader,
+                             Renderer::Shader::FragmentShader&& fragmentShader) {
+    attachShader(std::move(vertexShader));
+    attachShader(std::move(fragmentShader));
+}
+
 ShaderProgram::~ShaderProgram() {
     glDeleteProgram(id);
 }
@@ -60,5 +68,23 @@ void ShaderProgram::use() const {
     }
 
     glUseProgram(id);
+}
+
+void ShaderProgram::setUniform1f(const std::string_view name, const float x) const {
+    glUniform1f(getUniformLocation(name), x);
+}
+
+void ShaderProgram::setUniform3fv(const std::string_view name, const glm::vec3& vector) const {
+    glUniform3fv(getUniformLocation(name), 1, glm::value_ptr(vector));
+}
+
+void ShaderProgram::setUniformMatrix4x4fv(const std::string_view name,
+                                          const glm::mat4& matrix,
+                                          const bool transpose) const {
+    glUniformMatrix4fv(getUniformLocation(name), 1, transpose, glm::value_ptr(matrix));
+}
+
+GLuint ShaderProgram::getUniformLocation(const std::string_view name) const {
+    return glGetUniformLocation(id, name.data());
 }
 }

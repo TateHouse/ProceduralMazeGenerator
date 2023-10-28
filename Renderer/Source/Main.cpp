@@ -101,7 +101,6 @@ int main(int argc, char* argv[]) {
     }
 
     mazeRenderer.destroy();
-    userInterface.destroy();
     window.destroy();
     glfwTerminate();
 

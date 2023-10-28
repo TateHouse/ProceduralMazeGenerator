@@ -3,6 +3,7 @@
 #include <memory>
 
 #include "Context.hpp"
+#include "OrthographicCamera.hpp"
 #include "Window.hpp"
 
 namespace Renderer {
@@ -24,6 +25,7 @@ public:
 private:
     bool isRunning {true};
     Context context;
+    std::unique_ptr<OrthographicCamera> camera;
     std::unique_ptr<Window> window;
 };
 }

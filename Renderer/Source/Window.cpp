@@ -85,16 +85,4 @@ void Window::keyCallback(GLFWwindow* window, int key, int scancode, int action, 
         glfwSetWindowShouldClose(window, GLFW_TRUE);
     }
 }
-
-constexpr int Window::getWidth() noexcept {
-    return width;
-}
-
-constexpr int Window::getHeight() noexcept {
-    return height;
-}
-
-constexpr float Window::getAspectRatio() noexcept {
-    return static_cast<float>(width) / static_cast<float>(height);
-}
 }

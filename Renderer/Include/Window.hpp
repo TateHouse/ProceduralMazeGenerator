@@ -28,9 +28,18 @@ public:
 public:
     static void framebufferSizeCallback(GLFWwindow* window, int width, int height) noexcept;
     static void keyCallback(GLFWwindow* window, int key, int scancode, int action, int mods) noexcept;
-    [[nodiscard]] static constexpr int getWidth() noexcept;
-    [[nodiscard]] static constexpr int getHeight() noexcept;
-    [[nodiscard]] static constexpr float getAspectRatio() noexcept;
+
+    [[nodiscard]] static constexpr int getWidth() noexcept {
+        return width;
+    }
+
+    [[nodiscard]] static constexpr int getHeight() noexcept {
+        return height;
+    }
+
+    [[nodiscard]] static constexpr float getAspectRatio() noexcept {
+        return static_cast<float>(width) / static_cast<float>(height);
+    }
 
 private:
     GLFWwindow* window {nullptr};

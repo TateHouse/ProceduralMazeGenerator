@@ -2,6 +2,7 @@ CMAKE_MINIMUM_REQUIRED(VERSION 3.26)
 
 SET(SOURCE_FILES
 		DeltaTimeManager.cpp
-		FileLoader.cpp)
+		FileLoader.cpp
+		WindowManager.cpp)
 
 TARGET_SOURCES(${PROJECT_NAME} PRIVATE ${SOURCE_FILES})

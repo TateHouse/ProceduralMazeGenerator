@@ -9,6 +9,7 @@ Context::Context() noexcept {
     }};
 
     deltaTimeManager = std::make_unique<Utility::DeltaTimeManager>(timeFunction);
+    windowManager = std::make_unique<Utility::WindowManager>();
 }
 
 void Context::update() noexcept {
@@ -17,5 +18,9 @@ void Context::update() noexcept {
 
 Utility::DeltaTimeManager* const Context::getDeltaTimeManager() noexcept {
     return deltaTimeManager.get();
+}
+
+Utility::WindowManager* const Context::getWindowManager() noexcept {
+    return windowManager.get();
 }
 }

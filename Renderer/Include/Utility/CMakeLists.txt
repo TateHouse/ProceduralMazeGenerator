@@ -1,6 +1,7 @@
 CMAKE_MINIMUM_REQUIRED(VERSION 3.26)
 
 SET(HEADER_FILES
-		DeltaTimeManager.hpp)
+		DeltaTimeManager.hpp
+		FileLoader.hpp)
 
 TARGET_SOURCES(${PROJECT_NAME} PRIVATE ${HEADER_FILES})

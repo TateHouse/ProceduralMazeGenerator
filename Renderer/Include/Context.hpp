@@ -3,6 +3,7 @@
 #include <memory>
 
 #include "Utility/DeltaTimeManager.hpp"
+#include "Utility/UnitScale.hpp"
 
 namespace Renderer {
 class Context {

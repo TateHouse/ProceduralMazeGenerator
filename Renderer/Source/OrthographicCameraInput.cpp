@@ -31,8 +31,8 @@ void OrthographicCameraInput::update() {
     }};
 
     const auto isAnyMovementKeyPressed {
-            std::any_of(areMovementKeysPressed.begin(), areMovementKeysPressed.end(), [](const bool isPressed) {
-                return isPressed;
+            std::ranges::any_of(areMovementKeysPressed, [](const bool isKeyPressed) {
+                return isKeyPressed;
             })};
 
     if (isAnyMovementKeyPressed) {

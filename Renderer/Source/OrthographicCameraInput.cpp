@@ -3,6 +3,9 @@
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
 
+#include <algorithm>
+#include <array>
+
 #include "OrthographicCamera.hpp"
 #include "Window.hpp"
 
@@ -17,13 +20,21 @@ void OrthographicCameraInput::postInitialize() {
 
 void OrthographicCameraInput::update() {
     const auto* window {context.getWindowManager()->getWindow("Main")};
+    const auto areMovementKeysPressed {std::array<bool, 6> {
+            window->getIsKeyDown(GLFW_KEY_W),
+            window->getIsKeyDown(GLFW_KEY_S),
+            window->getIsKeyDown(GLFW_KEY_A),
+            window->getIsKeyDown(GLFW_KEY_D),
+            window->getIsKeyDown(GLFW_KEY_Q),
+            window->getIsKeyDown(GLFW_KEY_E)
+    }};
 
-    const auto isForwardKeyDown {window->getIsKeyDown(GLFW_KEY_W)};
-    const auto isBackwardKeyDown {window->getIsKeyDown(GLFW_KEY_S)};
-    const auto isLeftKeyDown {window->getIsKeyDown(GLFW_KEY_A)};
-    const auto isRightKeyDown {window->getIsKeyDown(GLFW_KEY_D)};
+    const auto isAnyMovementKeyPressed {
+            std::any_of(areMovementKeysPressed.begin(), areMovementKeysPressed.end(), [](const bool isPressed) {
+                return isPressed;
+            })};
 
-    if (isForwardKeyDown || isBackwardKeyDown || isLeftKeyDown || isRightKeyDown) {
+    if (isAnyMovementKeyPressed) {
         onKeyDown();
     }
 }
@@ -48,7 +59,9 @@ void OrthographicCameraInput::onKeyDown() {
     const auto* window {context.getWindowManager()->getWindow("Main")};
     auto* camera {context.getCameraManager()->getCamera("Main")};
     const auto currentPosition {camera->getPosition()};
+    const auto currentRotation {camera->getRotation()};
     glm::vec3 moveDirection {};
+    float updatedRotation {};
 
     if (window->getIsKeyDown(GLFW_KEY_W)) {
         moveDirection = moveDirection + glm::vec3 {0.0f, moveSpeed, 0.0f};
@@ -64,5 +77,14 @@ void OrthographicCameraInput::onKeyDown() {
 
     const auto nextPosition {currentPosition + moveDirection};
     camera->setPosition(nextPosition);
+
+    if (window->getIsKeyDown(GLFW_KEY_Q)) {
+        updatedRotation = updatedRotation - rotationSpeed;
+    } else if (window->getIsKeyDown(GLFW_KEY_E)) {
+        updatedRotation = updatedRotation + rotationSpeed;
+    }
+
+    const auto nextRotation {currentRotation + updatedRotation};
+    camera->setRotation(nextRotation);
 }
 }

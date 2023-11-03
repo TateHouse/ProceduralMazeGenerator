@@ -3,6 +3,7 @@
 #include <glm/gtc/matrix_transform.hpp>
 
 #include <algorithm>
+#include <iostream>
 
 #include "Window.hpp"
 
@@ -37,11 +38,14 @@ void OrthographicCamera::update() {
     if (isDirty) {
         const auto translationMatrix = glm::translate(glm::mat4(1.0f), position);
         const auto rotationMatrix = glm::rotate(glm::mat4(1.0f), rotation, glm::vec3(0.0f, 0.0f, 1.0f));
-        const auto transform = translationMatrix * rotationMatrix;
+        const auto transform = rotationMatrix * translationMatrix;
 
         view = glm::inverse(transform);
         viewProjection = projection * view;
         isDirty = false;
+
+        std::cout << "Position: " << position.x << ", " << position.y << ", " << position.z << "\n";
+        std::cout << "Rotation: " << rotation << "\n";
     }
 }
 

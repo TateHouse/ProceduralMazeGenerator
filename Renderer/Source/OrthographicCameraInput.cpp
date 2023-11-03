@@ -20,14 +20,17 @@ void OrthographicCameraInput::postInitialize() {
 
 void OrthographicCameraInput::update() {
     const auto* window {context.getWindowManager()->getWindow("Main")};
-    const auto areMovementKeysPressed {std::array<bool, 7> {
+    const auto areMovementKeysPressed {std::array<bool, 9> {
             window->getIsKeyDown(GLFW_KEY_W),
             window->getIsKeyDown(GLFW_KEY_S),
             window->getIsKeyDown(GLFW_KEY_A),
             window->getIsKeyDown(GLFW_KEY_D),
             window->getIsKeyDown(GLFW_KEY_Q),
             window->getIsKeyDown(GLFW_KEY_E),
-            window->getIsKeyDown(GLFW_KEY_R)
+            window->getIsKeyDown(GLFW_KEY_R),
+            window->getIsKeyDown(GLFW_KEY_Z),
+            window->getIsKeyDown(GLFW_KEY_C)
+
     }};
 
     const auto isAnyMovementKeyPressed {
@@ -61,12 +64,15 @@ void OrthographicCameraInput::onKeyDown() {
     auto* camera {context.getCameraManager()->getCamera("Main")};
     const auto currentPosition {camera->getPosition()};
     const auto currentRotation {camera->getRotation()};
+    const auto currentZoomLevel {camera->getZoomLevel()};
     glm::vec3 moveDirection {};
     float updatedRotation {};
+    float updatedZoomLevel {};
 
     if (window->getIsKeyDown(GLFW_KEY_R)) {
-        camera->setPosition(glm::vec3 {0.0f, 0.0f, 0.0f});
-        camera->setRotation(0.0f);
+        camera->setPosition(OrthographicCameraDefaults::getDefaultPosition());
+        camera->setRotation(OrthographicCameraDefaults::getDefaultRotation());
+        camera->setZoomLevel(OrthographicCameraDefaults::getDefaultZoomLevel());
         return;
     }
 
@@ -83,7 +89,9 @@ void OrthographicCameraInput::onKeyDown() {
     }
 
     const auto nextPosition {currentPosition + moveDirection};
-    camera->setPosition(nextPosition);
+    if (nextPosition != currentPosition) {
+        camera->setPosition(nextPosition);
+    }
 
     if (window->getIsKeyDown(GLFW_KEY_Q)) {
         updatedRotation = updatedRotation - rotationSpeed;
@@ -92,6 +100,20 @@ void OrthographicCameraInput::onKeyDown() {
     }
 
     const auto nextRotation {currentRotation + updatedRotation};
-    camera->setRotation(nextRotation);
+    if (nextRotation != 0) {
+        camera->setRotation(nextRotation);
+    }
+
+    if (window->getIsKeyDown(GLFW_KEY_Z)) {
+        updatedZoomLevel = -zoomSpeed;
+
+    } else if (window->getIsKeyDown(GLFW_KEY_C)) {
+        updatedZoomLevel = zoomSpeed;
+    }
+
+    const auto nextZoomLevel {currentZoomLevel + updatedZoomLevel};
+    if (nextZoomLevel != currentZoomLevel) {
+        camera->setZoomLevel(nextZoomLevel);
+    }
 }
 }

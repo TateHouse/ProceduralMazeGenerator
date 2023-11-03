@@ -32,7 +32,7 @@ public:
     [[nodiscard]] const float getRotation() const noexcept;
     void setRotation(const float rotation) noexcept;
     [[nodiscard]] const float getZoomLevel() const noexcept;
-    void setZoomLevel(const float zoomLevel, const float zoomSpeed) noexcept;
+    void setZoomLevel(const float zoomLevel) noexcept;
 
 private:
     float left;

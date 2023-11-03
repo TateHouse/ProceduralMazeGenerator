@@ -20,9 +20,19 @@ public:
         return zoomLevel;
     }
 
+    static constexpr float getMinZoomLevel() noexcept {
+        return minZoomLevel;
+    }
+
+    static constexpr float getMaxZoomLevel() noexcept {
+        return maxZoomLevel;
+    }
+
 private:
     static constexpr glm::vec3 position {0.0f, 0.0f, 0.0f};
     static constexpr float rotation {0.0f};
-    static constexpr float zoomLevel {1.0f};
+    static constexpr float zoomLevel {0.5f};
+    static constexpr float minZoomLevel {0.1f};
+    static constexpr float maxZoomLevel {2.0f};
 };
 }

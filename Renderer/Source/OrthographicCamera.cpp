@@ -25,9 +25,8 @@ OrthographicCamera::OrthographicCamera(Context& context,
 }
 
 void OrthographicCamera::initialize() {
-    projection = glm::ortho(left, right, bottom, top, near, far);
+    setZoomLevel(zoomLevel);
     viewProjection = projection * view;
-    isDirty = true;
 }
 
 void OrthographicCamera::postInitialize() {
@@ -46,6 +45,7 @@ void OrthographicCamera::update() {
 
         std::cout << "Position: " << position.x << ", " << position.y << ", " << position.z << "\n";
         std::cout << "Rotation: " << rotation << "\n";
+        std::cout << "Zoom Level: " << zoomLevel << "\n";
     }
 }
 
@@ -99,22 +99,23 @@ const float OrthographicCamera::getZoomLevel() const noexcept {
     return zoomLevel;
 }
 
-void OrthographicCamera::setZoomLevel(const float zoomLevel, const float zoomSpeed) noexcept {
-    static constexpr auto minZoomLevel {-10.0f};
-    static constexpr auto maxZoomLevel {10.0f};
+void OrthographicCamera::setZoomLevel(const float zoomLevel) noexcept {
+    this->zoomLevel = std::clamp(zoomLevel,
+                                 OrthographicCameraDefaults::getMinZoomLevel(),
+                                 OrthographicCameraDefaults::getMaxZoomLevel());
 
-    this->zoomLevel = std::clamp(zoomLevel, minZoomLevel, maxZoomLevel);
-    const auto zoomFactor = std::pow(zoomSpeed, this->zoomLevel);
     const auto aspectRatio {Renderer::Window::getAspectRatio()};
-    const auto halfWidth {(right - left) / 2.0f / zoomFactor};
-    const auto halfHeight {(top - bottom) / 2.0f / zoomFactor};
+    const auto updatedLeft {-aspectRatio / (this->zoomLevel * 2.0f)};
+    const auto updatedRight {aspectRatio / (this->zoomLevel * 2.0f)};
+    const auto updatedBottom {-1.0f / (this->zoomLevel * 2.0f)};
+    const auto updatedTop {1.0f / (this->zoomLevel * 2.0f)};
 
-    const auto updatedLeft {-halfWidth * aspectRatio};
-    const auto updatedRight {halfWidth * aspectRatio};
-    const auto updatedBottom {-halfHeight};
-    const auto updatedTop {halfHeight};
+    left = updatedLeft;
+    right = updatedRight;
+    bottom = updatedBottom;
+    top = updatedTop;
 
-    projection = glm::ortho(updatedLeft, updatedRight, updatedBottom, updatedTop, near, far);
+    projection = glm::ortho(left, right, bottom, top, near, far);
     isDirty = true;
 }
 }

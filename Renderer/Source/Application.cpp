@@ -5,7 +5,7 @@
 
 #include <stdexcept>
 
-#include "CellSettings.hpp"
+#include "OrthographicCameraInput.hpp"
 #include "SquareGrid.hpp"
 
 namespace Renderer {
@@ -45,12 +45,19 @@ void Application::initialize() {
     grid->initialize();
     squareMaze = std::make_unique<SquareMaze>(context, grid.get(), cellSettings);
     squareMaze->initialize();
+
+    inputComponents = std::vector<std::unique_ptr<InputComponent>> {};
+    inputComponents.emplace_back(std::make_unique<OrthographicCameraInput>(context));
 }
 
 void Application::postInitialize() {
     window->postInitialize();
     camera->postInitialize();
     squareMaze->postInitialize();
+
+    for (const auto& inputComponent : inputComponents) {
+        inputComponent->initialize();
+    }
 }
 
 void Application::update() {
@@ -58,12 +65,20 @@ void Application::update() {
     window->update();
     camera->update();
     squareMaze->update();
+
+    for (const auto& inputComponent : inputComponents) {
+        inputComponent->update();
+    }
 }
 
 void Application::postUpdate() {
     window->postUpdate();
     camera->postUpdate();
     squareMaze->postUpdate();
+
+    for (const auto& inputComponent : inputComponents) {
+        inputComponent->postUpdate();
+    }
 
     glfwPollEvents();
 }
@@ -75,18 +90,30 @@ void Application::render() {
     squareMaze->render();
     camera->render();
     window->render();
+
+    for (const auto& inputComponent : inputComponents) {
+        inputComponent->render();
+    }
 }
 
 void Application::postRender() {
     squareMaze->postRender();
     camera->postRender();
     window->postRender();
+
+    for (const auto& inputComponent : inputComponents) {
+        inputComponent->postRender();
+    }
 }
 
 void Application::destroy() {
     window->destroy();
     camera->destroy();
     squareMaze->destroy();
+
+    for (const auto& inputComponent : inputComponents) {
+        inputComponent->destroy();
+    }
 
     glfwTerminate();
 }

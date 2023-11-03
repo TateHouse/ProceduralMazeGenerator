@@ -1,7 +1,5 @@
 #pragma once
 
-#include <glm/glm.hpp>
-
 #include "Component.hpp"
 #include "OrthographicCameraDefaults.hpp"
 
@@ -34,7 +32,7 @@ public:
     [[nodiscard]] const float getRotation() const noexcept;
     void setRotation(const float rotation) noexcept;
     [[nodiscard]] const float getZoomLevel() const noexcept;
-    void setZoomLevel(const float zoomLevel) noexcept;
+    void setZoomLevel(const float zoomLevel, const float zoomSpeed) noexcept;
 
 private:
     float left;

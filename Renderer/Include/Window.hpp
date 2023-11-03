@@ -23,6 +23,7 @@ public:
     virtual void destroy() override;
 
 public:
+    [[nodiscard]] const bool getIsKeyDown(const int key) const noexcept;
     [[nodiscard]] const bool getWindowShouldClose() const noexcept;
     void setWindowShouldClose() noexcept;
     static void framebufferSizeCallback(GLFWwindow* window, int width, int height) noexcept;

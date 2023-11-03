@@ -95,10 +95,9 @@ const float OrthographicCamera::getZoomLevel() const noexcept {
     return zoomLevel;
 }
 
-void OrthographicCamera::setZoomLevel(const float zoomLevel) noexcept {
+void OrthographicCamera::setZoomLevel(const float zoomLevel, const float zoomSpeed) noexcept {
     static constexpr auto minZoomLevel {-10.0f};
     static constexpr auto maxZoomLevel {10.0f};
-    static constexpr auto zoomSpeed {1.25f};
 
     this->zoomLevel = std::clamp(zoomLevel, minZoomLevel, maxZoomLevel);
     const auto zoomFactor = std::pow(zoomSpeed, this->zoomLevel);

@@ -66,6 +66,10 @@ void Window::destroy() {
     window = nullptr;
 }
 
+const bool Window::getIsKeyDown(const int key) const noexcept {
+    return glfwGetKey(window, key) == GLFW_PRESS;
+}
+
 const bool Window::getWindowShouldClose() const noexcept {
     return glfwWindowShouldClose(window);
 }

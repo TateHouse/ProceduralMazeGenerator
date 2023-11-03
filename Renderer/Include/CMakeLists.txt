@@ -5,9 +5,11 @@ SET(HEADER_FILES
 		CellSettings.hpp
 		Component.hpp
 		Context.hpp
+		InputComponent.hpp
 		Maze.hpp
 		OrthographicCamera.hpp
 		OrthographicCameraDefaults.hpp
+		OrthographicCameraInput.hpp
 		Window.hpp)
 
 TARGET_SOURCES(${PROJECT_NAME} PRIVATE ${HEADER_FILES})

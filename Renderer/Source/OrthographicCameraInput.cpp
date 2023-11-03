@@ -20,13 +20,14 @@ void OrthographicCameraInput::postInitialize() {
 
 void OrthographicCameraInput::update() {
     const auto* window {context.getWindowManager()->getWindow("Main")};
-    const auto areMovementKeysPressed {std::array<bool, 6> {
+    const auto areMovementKeysPressed {std::array<bool, 7> {
             window->getIsKeyDown(GLFW_KEY_W),
             window->getIsKeyDown(GLFW_KEY_S),
             window->getIsKeyDown(GLFW_KEY_A),
             window->getIsKeyDown(GLFW_KEY_D),
             window->getIsKeyDown(GLFW_KEY_Q),
-            window->getIsKeyDown(GLFW_KEY_E)
+            window->getIsKeyDown(GLFW_KEY_E),
+            window->getIsKeyDown(GLFW_KEY_R)
     }};
 
     const auto isAnyMovementKeyPressed {
@@ -62,6 +63,12 @@ void OrthographicCameraInput::onKeyDown() {
     const auto currentRotation {camera->getRotation()};
     glm::vec3 moveDirection {};
     float updatedRotation {};
+
+    if (window->getIsKeyDown(GLFW_KEY_R)) {
+        camera->setPosition(glm::vec3 {0.0f, 0.0f, 0.0f});
+        camera->setRotation(0.0f);
+        return;
+    }
 
     if (window->getIsKeyDown(GLFW_KEY_W)) {
         moveDirection = moveDirection + glm::vec3 {0.0f, moveSpeed, 0.0f};

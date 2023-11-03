@@ -3,8 +3,9 @@
 #include "OrthographicCamera.hpp"
 #include "Window.hpp"
 
-#include <iostream>
 #include <stdexcept>
+
+// TODO: Convert to use indices instead of vertices and AZDO.
 
 namespace Renderer {
 SquareMaze::SquareMaze(Context& context, const Core::SquareGrid* const grid, const CellSettings& cellSettings)

@@ -6,13 +6,7 @@
 namespace Renderer {
 class OrthographicCamera : public Component {
 public:
-    OrthographicCamera(Context& context,
-                       const float left,
-                       const float right,
-                       const float bottom,
-                       const float top,
-                       const float near = -1.0f,
-                       const float far = 1.0f) noexcept;
+    OrthographicCamera(Context& context) noexcept;
 
 public:
     virtual void initialize() override;
@@ -39,8 +33,8 @@ private:
     float right;
     float bottom;
     float top;
-    float near;
-    float far;
+    float near {-1.0f};
+    float far {1.0f};
     glm::mat4 projection;
     glm::mat4 view {glm::mat4(1.0f)};
     glm::mat4 viewProjection;

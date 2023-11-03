@@ -3,25 +3,11 @@
 #include <glm/gtc/matrix_transform.hpp>
 
 #include <algorithm>
-#include <iostream>
 
 #include "Window.hpp"
 
 namespace Renderer {
-OrthographicCamera::OrthographicCamera(Context& context,
-                                       const float left,
-                                       const float right,
-                                       const float bottom,
-                                       const float top,
-                                       const float near,
-                                       const float far) noexcept:
-        Component {context},
-        left {left},
-        right {right},
-        bottom {bottom},
-        top {top},
-        near {near},
-        far {far} {
+OrthographicCamera::OrthographicCamera(Context& context) noexcept: Component {context} {
 }
 
 void OrthographicCamera::initialize() {
@@ -42,10 +28,6 @@ void OrthographicCamera::update() {
         view = glm::inverse(transform);
         viewProjection = projection * view;
         isDirty = false;
-
-        std::cout << "Position: " << position.x << ", " << position.y << ", " << position.z << "\n";
-        std::cout << "Rotation: " << rotation << "\n";
-        std::cout << "Zoom Level: " << zoomLevel << "\n";
     }
 }
 

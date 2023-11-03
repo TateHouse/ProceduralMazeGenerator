@@ -31,13 +31,7 @@ void Application::initialize() {
         throw std::runtime_error {"Failed to initialize GLAD."};
     }
 
-    const auto left {-Renderer::Window::getAspectRatio()};
-    const auto right {Renderer::Window::getAspectRatio()};
-    const auto bottom {-1.0f};
-    const auto top {1.0f};
-    const auto near {-1.0f};
-    const auto far {1.0f};
-    camera = std::make_unique<OrthographicCamera>(context, left, right, bottom, top, near, far);
+    camera = std::make_unique<OrthographicCamera>(context);
     context.getCameraManager()->addCamera("Main", camera.get());
     camera->initialize();
 

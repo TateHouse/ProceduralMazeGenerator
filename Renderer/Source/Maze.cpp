@@ -1,8 +1,8 @@
 #include "Maze.hpp"
 
+#include "Shader/GeometryShader.hpp"
 #include "OrthographicCamera.hpp"
 #include "Window.hpp"
-
 #include <stdexcept>
 
 // TODO: Convert to use indices instead of vertices and AZDO.
@@ -13,12 +13,20 @@ SquareMaze::SquareMaze(Context& context, const Core::SquareGrid* const grid, con
     if (grid == nullptr) {
         throw std::invalid_argument {"SquareMaze::SquareMaze: grid cannot be nullptr."};
     }
-
-    glGenVertexArrays(1, &vao);
-    glGenBuffers(1, &vbo);
 }
 
 void SquareMaze::initialize() {
+    if (vao != 0) {
+        glDeleteVertexArrays(1, &vao);
+    }
+
+    if (vbo != 0) {
+        glDeleteBuffers(1, &vbo);
+    }
+
+    glGenVertexArrays(1, &vao);
+    glGenBuffers(1, &vbo);
+
     const auto [gridWidth, gridHeight] = grid->getSize();
     const auto centerHorizontalOffset {static_cast<float>(gridWidth) * cellSettings.getSize() * 0.5f};
     const auto centerVerticalOffset {static_cast<float>(gridHeight) * cellSettings.getSize() * 0.5f};
@@ -64,7 +72,9 @@ void SquareMaze::initialize() {
 void SquareMaze::postInitialize() {
     auto vertexShader {Renderer::Shader::VertexShader {"Shaders/Maze.vert"}};
     auto fragmentShader {Renderer::Shader::FragmentShader {"Shaders/Maze.frag"}};
+    auto geometryShader {Renderer::Shader::GeometryShader {"Shaders/Maze.geom"}};
     shaderProgram = std::make_unique<Shader::ShaderProgram>(std::move(vertexShader), std::move(fragmentShader));
+    shaderProgram->attachShader(std::move(geometryShader));
     shaderProgram->link();
 }
 
@@ -83,6 +93,8 @@ void SquareMaze::render() {
     shaderProgram->setUniformMatrix4x4fv("model", glm::mat4 {1.0f});
 
     shaderProgram->setUniform3fv("wallColor", cellSettings.getWallColor());
+    shaderProgram->setUniform1f("wallThickness", cellSettings.getWallThickness());
+    shaderProgram->setUniform1f("aspectRatio", Window::getAspectRatio());
 
     glBindVertexArray(vao);
     glDrawArrays(GL_LINES, 0, vertexCount);

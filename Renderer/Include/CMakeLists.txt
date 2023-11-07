@@ -10,6 +10,7 @@ SET(HEADER_FILES
 		OrthographicCamera.hpp
 		OrthographicCameraDefaults.hpp
 		OrthographicCameraInput.hpp
+		UserInterface.hpp
 		Window.hpp)
 
 TARGET_SOURCES(${PROJECT_NAME} PRIVATE ${HEADER_FILES})

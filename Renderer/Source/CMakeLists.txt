@@ -7,6 +7,7 @@ SET(SOURCE_FILES
 		Maze.cpp
 		OrthographicCamera.cpp
 		OrthographicCameraInput.cpp
+		UserInterface.cpp
 		Window.cpp)
 
 TARGET_SOURCES(${PROJECT_NAME} PRIVATE ${SOURCE_FILES})

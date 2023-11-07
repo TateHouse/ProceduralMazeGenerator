@@ -9,6 +9,7 @@
 #include "Maze.hpp"
 #include "OrthographicCamera.hpp"
 #include "SquareGrid.hpp"
+#include "UserInterface.hpp"
 #include "Window.hpp"
 
 namespace Renderer {
@@ -31,10 +32,12 @@ public:
 private:
     Context context;
     std::vector<std::unique_ptr<InputComponent>> inputComponents;
-    std::unique_ptr<SquareMaze> squareMaze;
-    std::unique_ptr<OrthographicCamera> camera;
-    std::unique_ptr<Window> window;
     std::unique_ptr<Core::SquareGrid> grid;
     CellSettings cellSettings {};
+    std::unique_ptr<SquareMaze> squareMaze;
+    std::vector<std::unique_ptr<Core::MazeGenerator>> mazeGenerators;
+    std::unique_ptr<OrthographicCamera> camera;
+    std::unique_ptr<Window> window;
+    std::unique_ptr<UserInterface> userInterface;
 };
 }

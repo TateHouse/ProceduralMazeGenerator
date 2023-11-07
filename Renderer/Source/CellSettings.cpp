@@ -39,4 +39,20 @@ void CellSettings::setWallColor(const glm::vec3& wallColor) {
 
     this->wallColor = wallColor;
 }
+
+const glm::vec3& CellSettings::getBackgroundColor() const noexcept {
+    return backgroundColor;
+}
+
+void CellSettings::setBackgroundColor(const glm::vec3& backgroundColor) {
+    for (auto index {0}; index < 2; ++index) {
+        const auto element {backgroundColor[index]};
+
+        if (element < 0.0f || element > 1.0f) {
+            throw std::invalid_argument("Background color must be in the range [0, 1]");
+        }
+    }
+
+    this->backgroundColor = backgroundColor;
+}
 }

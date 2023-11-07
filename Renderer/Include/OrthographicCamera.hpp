@@ -1,0 +1,46 @@
+#pragma once
+
+#include "Component.hpp"
+#include "OrthographicCameraDefaults.hpp"
+
+namespace Renderer {
+class OrthographicCamera : public Component {
+public:
+    OrthographicCamera(Context& context) noexcept;
+
+public:
+    virtual void initialize() override;
+    virtual void postInitialize() override;
+    virtual void update() override;
+    virtual void postUpdate() override;
+    virtual void render() override;
+    virtual void postRender() override;
+    virtual void destroy() override;
+
+public:
+    [[nodiscard]] const glm::mat4& getProjection() const noexcept;
+    [[nodiscard]] const glm::mat4& getView() const noexcept;
+    [[nodiscard]] const glm::mat4& getViewProjection() const noexcept;
+    [[nodiscard]] const glm::vec3& getPosition() const noexcept;
+    void setPosition(const glm::vec3& position) noexcept;
+    [[nodiscard]] const float getRotation() const noexcept;
+    void setRotation(const float rotation) noexcept;
+    [[nodiscard]] const float getZoomLevel() const noexcept;
+    void setZoomLevel(const float zoomLevel) noexcept;
+
+private:
+    float left;
+    float right;
+    float bottom;
+    float top;
+    float near {-1.0f};
+    float far {1.0f};
+    glm::mat4 projection;
+    glm::mat4 view {glm::mat4(1.0f)};
+    glm::mat4 viewProjection;
+    bool isDirty {true};
+    glm::vec3 position {OrthographicCameraDefaults::getDefaultPosition()};
+    float rotation {OrthographicCameraDefaults::getDefaultRotation()};
+    float zoomLevel {OrthographicCameraDefaults::getDefaultZoomLevel()};
+};
+}

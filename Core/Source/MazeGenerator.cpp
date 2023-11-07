@@ -1,12 +1,12 @@
 #include "MazeGenerator.hpp"
 
 namespace Core {
-MazeGenerator::MazeGenerator(const std::string_view mazeGenerationAlgorithmName) noexcept:
-		mazeGenerationAlgorithmName {mazeGenerationAlgorithmName} {
+MazeGenerator::MazeGenerator(const std::string_view algorithmName) noexcept:
+        algorithmName {algorithmName} {
 }
 
-const std::string& MazeGenerator::getMazeGenerationAlgorithmName() const noexcept {
-	return mazeGenerationAlgorithmName;
+const std::string& MazeGenerator::getAlgorithmName() const noexcept {
+    return algorithmName;
 }
 
 const std::optional<unsigned long long> MazeGenerator::getSeed() const noexcept {

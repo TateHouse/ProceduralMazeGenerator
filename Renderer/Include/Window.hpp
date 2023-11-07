@@ -1,37 +1,50 @@
 #pragma once
 
 #include <glad/glad.h>
-#include <glfw/glfw3.h>
+#include <GLFW/glfw3.h>
 
 #include <string>
 
+#include "Component.hpp"
+
 namespace Renderer {
-class Window final {
+class Window final : public Component {
 public:
-    Window(const unsigned int width, const unsigned int height, const std::string_view title);
-    ~Window() noexcept;
+    explicit Window(Context& context) noexcept;
+    ~Window() noexcept override = default;
 
 public:
-    const bool initialize() noexcept;
-    const bool initializeImGui() noexcept;
-    void update(const float deltaTime) noexcept;
-    void render() noexcept;
-    void destroy() noexcept;
-
-    const unsigned int getWidth() const noexcept;
-    const unsigned int getHeight() const noexcept;
-    const bool getShouldClose() const noexcept;
-    void setShouldClose(const bool shouldClose) noexcept;
-    void setCallbacks() noexcept;
+    virtual void initialize() override;
+    virtual void postInitialize() override;
+    virtual void update() override;
+    virtual void postUpdate() override;
+    virtual void render() override;
+    virtual void postRender() override;
+    virtual void destroy() override;
 
 public:
-    static void framebufferSizeCallback(GLFWwindow* window, int width, int height);
-    static void keyCallback(GLFWwindow* window, int key, int scancode, int action, int mods);
+    [[nodiscard]] const bool getIsKeyDown(const int key) const noexcept;
+    [[nodiscard]] const bool getWindowShouldClose() const noexcept;
+    void setWindowShouldClose() noexcept;
+    static void framebufferSizeCallback(GLFWwindow* window, int width, int height) noexcept;
+    static void keyCallback(GLFWwindow* window, int key, int scancode, int action, int mods) noexcept;
+
+    [[nodiscard]] static constexpr int getWidth() noexcept {
+        return width;
+    }
+
+    [[nodiscard]] static constexpr int getHeight() noexcept {
+        return height;
+    }
+
+    [[nodiscard]] static constexpr float getAspectRatio() noexcept {
+        return static_cast<float>(width) / static_cast<float>(height);
+    }
 
 private:
     GLFWwindow* window {nullptr};
-    unsigned int width;
-    unsigned int height;
-    std::string title;
+    static constexpr int width {1280};
+    static constexpr int height {720};
+    const std::string title {"Maze Generator"};
 };
 }

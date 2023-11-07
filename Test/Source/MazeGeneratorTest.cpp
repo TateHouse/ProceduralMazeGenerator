@@ -21,7 +21,7 @@ protected:
 
 TEST_F(MazeGeneratorTest,
        GivenMazeGenerator_WhenGetMazeGenerationAlgorithmName_ThenReturnsMazeGenerationAlgorithmName) {
-	EXPECT_THAT(mazeGenerator->getMazeGenerationAlgorithmName(), testing::Eq("Mock Maze Generator"));
+	EXPECT_THAT(mazeGenerator->getAlgorithmName(), testing::Eq("Mock Maze Generator"));
 }
 
 TEST_F(MazeGeneratorTest, GivenMazeGeneratorThatDoesNotContainSeed_WhenGetSeed_ThenReturnsNullopt) {

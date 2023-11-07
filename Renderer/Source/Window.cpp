@@ -7,99 +7,85 @@
 #include <stdexcept>
 
 namespace Renderer {
+Window::Window(Context& context) noexcept: Component {context} {
 
-Window::Window(const unsigned int width, const unsigned int height, const std::string_view title) :
-        width {width}, height {height}, title {title.data()} {
-    if (width < 800 || height < 600) {
-        throw std::invalid_argument {"The minimum window size is 800x600."};
-    }
-
-    if (title.empty()) {
-        throw std::invalid_argument {"The window title cannot be empty."};
-    }
 }
 
-Window::~Window() noexcept {
-    destroy();
-}
+void Window::initialize() {
+    glfwWindowHint(GLFW_RESIZABLE, GLFW_FALSE);
 
-const bool Window::initialize() noexcept {
     window = glfwCreateWindow(width, height, title.c_str(), nullptr, nullptr);
     if (window == nullptr) {
-        return false;
+        // TODO: Log error.
+        // TODO: Throw custom exception.
+        throw std::runtime_error {"Failed to create GLFW window."};
     }
 
     glfwMakeContextCurrent(window);
-
-    return true;
 }
 
-const bool Window::initializeImGui() noexcept {
-    if (window == nullptr) {
-        return false;
-    }
+void Window::postInitialize() {
+    glfwSetWindowUserPointer(window, this);
+    glfwSetFramebufferSizeCallback(window, framebufferSizeCallback);
+    glfwSetKeyCallback(window, keyCallback);
+
+    IMGUI_CHECKVERSION();
+    ImGui::CreateContext();
+
+    auto& io {ImGui::GetIO()};
+    io.ConfigFlags |= ImGuiConfigFlags_DockingEnable;
+    io.ConfigFlags |= ImGuiConfigFlags_NavEnableKeyboard;
+
+    ImGui::StyleColorsLight();
 
     ImGui_ImplGlfw_InitForOpenGL(window, true);
     ImGui_ImplOpenGL3_Init("#version 460 core");
-
-    return true;
 }
 
-void Window::update(const float deltaTime) noexcept {
-    const auto fps {1.0f / deltaTime};
-    const auto formattedTitle {std::format("{} - FPS: {:.2f}", title, fps)};
-    glfwSetWindowTitle(window, (formattedTitle).c_str());
+void Window::update() {
+    const auto framesPerSecond {context.getDeltaTimeManager()->getFramesPerSecond()};
+    const auto updatedTitle {std::format("{} - FPS: {:.2f}", title, framesPerSecond)};
+    glfwSetWindowTitle(window, updatedTitle.c_str());
 }
 
-void Window::render() noexcept {
+void Window::postUpdate() {
+
+}
+
+void Window::render() {
     glfwSwapBuffers(window);
-    glfwPollEvents();
 }
 
-void Window::destroy() noexcept {
-    if (window == nullptr) {
-        return;
-    }
+void Window::postRender() {
 
+}
+
+void Window::destroy() {
     glfwDestroyWindow(window);
     window = nullptr;
 }
 
-const unsigned int Window::getWidth() const noexcept {
-    return width;
+const bool Window::getIsKeyDown(const int key) const noexcept {
+    return glfwGetKey(window, key) == GLFW_PRESS;
 }
 
-const unsigned int Window::getHeight() const noexcept {
-    return height;
-}
-
-const bool Window::getShouldClose() const noexcept {
+const bool Window::getWindowShouldClose() const noexcept {
     return glfwWindowShouldClose(window);
 }
 
-void Window::setShouldClose(const bool shouldClose) noexcept {
-    glfwSetWindowShouldClose(window, shouldClose);
+void Window::setWindowShouldClose() noexcept {
+    glfwSetWindowShouldClose(window, GLFW_TRUE);
 }
 
-void Window::setCallbacks() noexcept {
-    glfwSetWindowUserPointer(window, this);
-    glfwSetFramebufferSizeCallback(window, framebufferSizeCallback);
-    glfwSetKeyCallback(window, keyCallback);
-}
-
-void Window::framebufferSizeCallback(GLFWwindow* window, int width, int height) {
-    auto* const currentWindow {static_cast<Window*>(glfwGetWindowUserPointer(window))};
-    currentWindow->width = width;
-    currentWindow->height = height;
-
+void Window::framebufferSizeCallback(GLFWwindow* window, int width, int height) noexcept {
     glViewport(0, 0, width, height);
 }
 
-void Window::keyCallback(GLFWwindow* window, int key, int scancode, int action, int mods) {
+void Window::keyCallback(GLFWwindow* window, int key, int scancode, int action, int mods) noexcept {
     auto* const currentWindow {static_cast<Window*>(glfwGetWindowUserPointer(window))};
 
     if (key == GLFW_KEY_ESCAPE && action == GLFW_PRESS) {
-        glfwSetWindowShouldClose(currentWindow->window, GLFW_TRUE);
+        glfwSetWindowShouldClose(window, GLFW_TRUE);
     }
 }
 }

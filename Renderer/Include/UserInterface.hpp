@@ -1,42 +1,38 @@
 #pragma once
 
-#include <imgui.h>
-
-#include <array>
 #include <memory>
+#include <vector>
 
+#include "Component.hpp"
+#include "CellSettings.hpp"
+#include "Maze.hpp"
 #include "MazeGenerator.hpp"
-#include "MazeRenderer.hpp"
 #include "SquareGrid.hpp"
-#include "Window.hpp"
 
 namespace Renderer {
-class UserInterface final {
+class UserInterface final : public Component {
 public:
-    UserInterface(const std::array<std::unique_ptr<Core::MazeGenerator>, 2>& mazeGenerators,
-                  MazeRenderer* const mazeRenderer,
-                  Core::Grid* const grid,
-                  const Window& window) noexcept;
-    ~UserInterface() noexcept;
+    UserInterface(Context& context,
+                  CellSettings& cellSettings,
+                  Core::SquareGrid& grid,
+                  SquareMaze& squareMaze,
+                  const std::vector<std::unique_ptr<Core::MazeGenerator>>& mazeGenerators);
+    virtual ~UserInterface() noexcept = default;
 
 public:
-    void initialize();
-    void update(const float currentFrame);
-    void render() const;
-    void destroy();
-
-    [[nodiscard]] const glm::vec3& getBackgroundColor() const noexcept;
-    [[nodiscard]] const glm::vec3& getGridColor() const noexcept;
+    virtual void initialize() override;
+    virtual void postInitialize() override;
+    virtual void update() override;
+    virtual void postUpdate() override;
+    virtual void render() override;
+    virtual void postRender() override;
+    virtual void destroy() override;
 
 private:
-    ImGuiContext* context {nullptr};
-    ImGuiIO* io {nullptr};
-    const std::array<std::unique_ptr<Core::MazeGenerator>, 2>& mazeGenerators;
-    MazeRenderer* const mazeRenderer;
-    Core::Grid* const grid {nullptr};
-    const Window& window;
+    CellSettings& cellSettings;
+    Core::SquareGrid& grid;
+    SquareMaze& squareMaze;
+    const std::vector<std::unique_ptr<Core::MazeGenerator>>& mazeGenerators;
     std::size_t selectedMazeGeneratorIndex {0};
-    glm::vec3 backgroundColor {0.0f, 0.0f, 0.0f};
-    glm::vec3 gridColor {1.0f, 1.0f, 1.0f};
 };
 }

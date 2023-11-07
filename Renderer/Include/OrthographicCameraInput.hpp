@@ -26,6 +26,6 @@ public:
 private:
     float moveSpeed {0.0075f};
     float rotationSpeed {0.0075f};
-    float zoomSpeed {0.0075f};
+    float zoomSpeed {0.00075f};
 };
 }

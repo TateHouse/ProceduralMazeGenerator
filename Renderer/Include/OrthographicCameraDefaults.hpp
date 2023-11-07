@@ -32,7 +32,7 @@ private:
     static constexpr glm::vec3 position {0.0f, 0.0f, 0.0f};
     static constexpr float rotation {0.0f};
     static constexpr float zoomLevel {0.5f};
-    static constexpr float minZoomLevel {0.1f};
-    static constexpr float maxZoomLevel {2.0f};
+    static constexpr float minZoomLevel {0.01f};
+    static constexpr float maxZoomLevel {5.0f};
 };
 }

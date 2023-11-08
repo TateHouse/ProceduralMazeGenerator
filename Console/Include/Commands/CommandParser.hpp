@@ -1,24 +1,20 @@
 #pragma once
 
-#include "CommandRepository.hpp"
 #include "ParsedCommandInput.hpp"
 
 namespace Console {
 class CommandParser final {
 public:
-    explicit CommandParser(CommandRepository& commandRepository) noexcept;
+    CommandParser() noexcept = delete;
     CommandParser(const CommandParser& other) noexcept = delete;
     CommandParser(CommandParser&& other) noexcept = delete;
-    ~CommandParser() noexcept = default;
+    ~CommandParser() noexcept = delete;
 
 public:
     CommandParser& operator=(const CommandParser& other) noexcept = delete;
     CommandParser& operator=(CommandParser&& other) noexcept = delete;
 
 public:
-    [[nodiscard]] ParsedCommandInput interpret(const std::string& input) const;
-
-private:
-    CommandRepository& commandRepository;
+    [[nodiscard]] static ParsedCommandInput parse(const std::string& input);
 };
 }

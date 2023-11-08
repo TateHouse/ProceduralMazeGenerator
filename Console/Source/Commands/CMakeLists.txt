@@ -5,6 +5,7 @@ SET(SOURCE_FILES
 		CommandParser.cpp
 		CommandRepository.cpp
 		InMemoryCommandRepository.cpp
-		ParsedCommandInput.cpp)
+		ParsedCommandInput.cpp
+		QuitCommand.cpp)
 
 TARGET_SOURCES(${PROJECT_NAME} PRIVATE ${SOURCE_FILES})

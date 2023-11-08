@@ -8,13 +8,12 @@
 int main(int argc, char* argv[]) {
     Console::Context context;
     Console::InMemoryCommandRepository commandRepository {context};
-    Console::CommandParser commandInterpreter {commandRepository};
 
     std::string input {};
     while (context.getIsRunning()) {
         try {
-            std::cin >> input;
-            const auto parsedCommand {commandInterpreter.interpret(input)};
+            std::getline(std::cin, input);
+            const auto parsedCommand {Console::CommandParser::parse(input)};
             commandRepository.execute(parsedCommand.getName(), parsedCommand.getParameters());
         } catch (const std::invalid_argument& exception) {
             std::cerr << exception.what() << '\n';

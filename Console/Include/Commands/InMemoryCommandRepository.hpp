@@ -3,8 +3,8 @@
 #include <memory>
 #include <unordered_map>
 
-#include "Command.hpp"
-#include "CommandRepository.hpp"
+#include "Commands/Command.hpp"
+#include "Commands/CommandRepository.hpp"
 
 namespace Console {
 class InMemoryCommandRepository : public CommandRepository {

@@ -18,9 +18,9 @@ public:
     Command& operator=(Command&& other) noexcept = delete;
 
 public:
-    virtual void execute(const std::unordered_map<std::string, std::string>& parameters) noexcept = 0;
+    virtual void execute(const std::unordered_map<std::string, std::string>& parameters) = 0;
     virtual std::string getName() const noexcept = 0;
-    virtual std::string getHelp() const noexcept = 0;
+    virtual std::string getDescription() const noexcept = 0;
 
 protected:
     Context& context;

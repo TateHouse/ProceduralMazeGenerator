@@ -5,6 +5,7 @@ SET(HEADER_FILES
 		CommandParser.hpp
 		CommandRepository.hpp
 		InMemoryCommandRepository.hpp
-		ParsedCommandInput.hpp)
+		ParsedCommandInput.hpp
+		QuitCommand.hpp)
 
 TARGET_SOURCES(${PROJECT_NAME} PRIVATE ${HEADER_FILES})

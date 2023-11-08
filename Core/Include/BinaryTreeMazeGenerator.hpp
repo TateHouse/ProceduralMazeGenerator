@@ -1,5 +1,7 @@
 #pragma once
 
+#include <optional>
+
 #include "Grid.hpp"
 #include "MazeGenerator.hpp"
 
@@ -10,6 +12,6 @@ public:
 	virtual ~BinaryTreeMazeGenerator() noexcept override = default;
 
 public:
-	void generate(Grid* const grid, const unsigned long long int* seed) noexcept override;
+    void generate(Grid* const grid, const std::optional<unsigned long long>& seed) noexcept override;
 };
 }

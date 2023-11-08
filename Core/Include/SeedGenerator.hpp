@@ -9,7 +9,7 @@ public:
 	SeedGenerator() noexcept = default;
 	SeedGenerator(const SeedGenerator& seedGenerator) noexcept = delete;
 	SeedGenerator(SeedGenerator&& seedGenerator) noexcept = delete;
-	~SeedGenerator() noexcept;
+    ~SeedGenerator() noexcept = default;
 
 public:
 	SeedGenerator& operator=(const SeedGenerator& seedGenerator) noexcept = delete;
@@ -17,10 +17,10 @@ public:
 
 public:
 	[[nodiscard]] std::optional<unsigned long long> getSeed() const noexcept;
-	[[nodiscard]] const std::mt19937_64& getRandomEngine(const unsigned long long* seed) noexcept;
+    [[nodiscard]] const std::mt19937_64& getRandomEngine(const std::optional<unsigned long long>& seed) noexcept;
 
 private:
-	unsigned long long* seed {nullptr};
+    std::optional<unsigned long long> seed {};
 	std::mt19937_64 randomEngine {};
 };
 }

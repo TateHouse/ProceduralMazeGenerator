@@ -1,6 +1,7 @@
 #include <gmock/gmock.h>
 
 #include <memory>
+#include <optional>
 
 #include "BinaryTreeMazeGenerator.hpp"
 #include "SquareGrid.hpp"
@@ -10,7 +11,7 @@ class BinaryTreeMazeGeneratorTest : public testing::Test {
 public:
 	BinaryTreeMazeGeneratorTest() noexcept {
 		grid->initialize();
-		mazeGenerator->generate(grid.get(), nullptr);
+        mazeGenerator->generate(grid.get(), std::nullopt);
 	}
 	
 	virtual ~BinaryTreeMazeGeneratorTest() noexcept = default;

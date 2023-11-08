@@ -20,7 +20,7 @@ public:
     [[nodiscard]] const std::pair<const int, const int> getSize() const noexcept override;
 
 private:
-    [[nodiscard]] const bool validateCellPosition(const std::pair<const int, const int>& position) const noexcept;
+    [[nosiscard]] const bool validateCellPosition(const std::pair<const int, const int>& position) const noexcept;
     void instantiateCells();
     void setCellNeighbors() noexcept;
     void deleteCells() noexcept;

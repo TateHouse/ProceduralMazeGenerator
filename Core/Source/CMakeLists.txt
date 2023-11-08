@@ -4,7 +4,6 @@ SET(SOURCE_FILES
 		BinaryTreeMazeGenerator.cpp
 		Cell.cpp
 		SquareGrid.cpp
-		Grid.cpp
 		ImageVisualizer.cpp
 		ImageVisualizerBuilder.cpp
 		MazeGenerator.cpp

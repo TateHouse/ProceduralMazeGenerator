@@ -5,7 +5,7 @@
 namespace Core {
 class Grid {
 public:
-	virtual ~Grid() noexcept = 0;
+    virtual ~Grid() noexcept = default;
 
 public:
 	virtual Cell* operator[](const std::pair<const int, const int>& position) noexcept = 0;

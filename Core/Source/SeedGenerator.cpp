@@ -1,25 +1,19 @@
 #include "SeedGenerator.hpp"
 
 namespace Core {
-SeedGenerator::~SeedGenerator() noexcept {
-	delete seed;
-}
-
 std::optional<unsigned long long> SeedGenerator::getSeed() const noexcept {
-	return seed == nullptr ? std::nullopt : std::optional<unsigned long long>(*seed);
+    return seed.has_value() ? std::optional<unsigned long long>(seed.value()) : std::nullopt;
 }
 
-const std::mt19937_64& SeedGenerator::getRandomEngine(const unsigned long long* seed) noexcept {
-	delete this->seed;
-	
-	if (seed == nullptr) {
-		std::random_device randomDevice {};
-		this->seed = new unsigned long long(randomDevice());
-	} else {
-		this->seed = new unsigned long long(*seed);
-	}
-	
-	randomEngine.seed(*this->seed);
-	return randomEngine;
+const std::mt19937_64& SeedGenerator::getRandomEngine(const std::optional<unsigned long long>& seed) noexcept {
+    if (seed.has_value()) {
+        this->seed = seed.value();
+    } else {
+        std::random_device randomDevice {};
+        this->seed = randomDevice();
+    }
+
+    randomEngine.seed(this->seed.value());
+    return randomEngine;
 }
 }

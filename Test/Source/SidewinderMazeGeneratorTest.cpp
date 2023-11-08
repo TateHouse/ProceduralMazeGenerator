@@ -1,6 +1,7 @@
 #include <gmock/gmock.h>
 
 #include <memory>
+#include <optional>
 
 #include "SidewinderMazeGenerator.hpp"
 #include "SquareGrid.hpp"
@@ -10,7 +11,7 @@ class SidewinderMazeGeneratorTest : public testing::Test {
 public:
 	SidewinderMazeGeneratorTest() noexcept {
 		grid->initialize();
-		mazeGenerator->generate(grid.get(), nullptr);
+        mazeGenerator->generate(grid.get(), std::nullopt);
 	}
 	
 	virtual ~SidewinderMazeGeneratorTest() noexcept = default;

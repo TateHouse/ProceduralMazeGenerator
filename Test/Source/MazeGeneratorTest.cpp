@@ -1,6 +1,7 @@
 #include <gmock/gmock.h>
 
 #include <memory>
+#include <optional>
 
 #include "FakeMazeGenerator.hpp"
 #include "SquareGrid.hpp"
@@ -29,14 +30,14 @@ TEST_F(MazeGeneratorTest, GivenMazeGeneratorThatDoesNotContainSeed_WhenGetSeed_T
 }
 
 TEST_F(MazeGeneratorTest, GivenMazeGenerator_WhenGenerateWithoutSeed_ThenSetsRandomSeed) {
-	mazeGenerator->generate(grid.get(), nullptr);
+    mazeGenerator->generate(grid.get(), std::nullopt);
 	
 	EXPECT_THAT(mazeGenerator->getSeed(), testing::Ne(std::nullopt));
 }
 
 TEST_F(MazeGeneratorTest, GivenMazeGenerator_WhenGenerateWithSeed_ThenSetsSeed) {
 	const unsigned long long seed {100};
-	mazeGenerator->generate(grid.get(), &seed);
+    mazeGenerator->generate(grid.get(), seed);
 	
 	EXPECT_THAT(mazeGenerator->getSeed(), testing::Eq(seed));
 }

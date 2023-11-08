@@ -7,7 +7,7 @@ SidewinderMazeGenerator::SidewinderMazeGenerator() noexcept: MazeGenerator {"Sid
 
 }
 
-void SidewinderMazeGenerator::generate(Core::Grid* const grid, const unsigned long long* seed) noexcept {
+void SidewinderMazeGenerator::generate(Core::Grid* const grid, const std::optional<unsigned long long>& seed) noexcept {
 	auto randomEngine {getRandomEngine(seed)};
 	std::uniform_int_distribution<std::size_t> distribution {};
 	distribution.param(std::uniform_int_distribution<std::size_t>::param_type {0, 1});

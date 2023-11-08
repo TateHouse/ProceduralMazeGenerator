@@ -13,7 +13,7 @@ const std::optional<unsigned long long> MazeGenerator::getSeed() const noexcept 
 	return seedGenerator.getSeed();
 }
 
-const std::mt19937_64& MazeGenerator::getRandomEngine(const unsigned long long* seed) noexcept {
+const std::mt19937_64& MazeGenerator::getRandomEngine(const std::optional<unsigned long long>& seed) noexcept {
 	return seedGenerator.getRandomEngine(seed);
 }
 }

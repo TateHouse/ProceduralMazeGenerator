@@ -20,7 +20,7 @@ std::unique_ptr<Core::Grid> generateGrid() {
     return grid;
 }
 
-std::unique_ptr<Core::Grid> generateBinaryTreeMaze(const unsigned long long* seed) {
+std::unique_ptr<Core::Grid> generateBinaryTreeMaze(const std::optional<unsigned long long>& seed) {
     auto grid {std::make_unique<Core::SquareGrid>(GRID_SIZE)};
     grid->initialize();
     Core::BinaryTreeMazeGenerator binaryTreeMazeGenerator {};
@@ -29,7 +29,7 @@ std::unique_ptr<Core::Grid> generateBinaryTreeMaze(const unsigned long long* see
     return grid;
 }
 
-std::unique_ptr<Core::Grid> generateSidewinderMaze(const unsigned long long* seed) {
+std::unique_ptr<Core::Grid> generateSidewinderMaze(const std::optional<unsigned long long>& seed) {
     auto grid {std::make_unique<Core::SquareGrid>(GRID_SIZE)};
     grid->initialize();
     Core::SidewinderMazeGenerator sidewinderMazeGenerator {};
@@ -66,8 +66,8 @@ void printMaze(const Core::Grid* const grid) noexcept {
 
 int main(int argc, char* argv[]) {
     auto grid {generateGrid()};
-    auto binaryTreeMaze {generateBinaryTreeMaze(nullptr)};
-    auto sidewinderMaze {generateSidewinderMaze(nullptr)};
+    auto binaryTreeMaze {generateBinaryTreeMaze(std::nullopt)};
+    auto sidewinderMaze {generateSidewinderMaze(std::nullopt)};
 
     exportImage(grid.get(), "Images/Grid.png");
     exportImage(binaryTreeMaze.get(), "Images/BinaryTreeMaze.png");

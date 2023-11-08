@@ -4,22 +4,6 @@
 	"description": "A project for procedurally generating mazes using various algorithms.",
 	"dependencies": [
 		"gtest",
-		"opencv",
-		"glfw3",
-		{
-			"name": "glad",
-			"features": [
-				"gl-api-46"
-			]
-		},
-		"glm",
-		{
-			"name": "imgui",
-			"features": [
-				"glfw-binding",
-				"opengl3-binding",
-				"docking-experimental"
-			]
-		}
+		"opencv"
 	]
 }

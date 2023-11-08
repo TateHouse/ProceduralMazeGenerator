@@ -7,8 +7,14 @@
 namespace Core {
 class SquareGrid : public Grid {
 public:
-    SquareGrid(const std::size_t size);
+    explicit SquareGrid(const std::size_t size);
+    SquareGrid(const SquareGrid& other) = delete;
+    SquareGrid(SquareGrid&& other) noexcept = delete;
     ~SquareGrid() noexcept override;
+
+public:
+    SquareGrid& operator=(const SquareGrid& other) = delete;
+    SquareGrid& operator=(SquareGrid&& other) noexcept = delete;
 
 public:
     Cell* operator[](const std::pair<const int, const int>& position) noexcept override;
@@ -20,7 +26,7 @@ public:
     [[nodiscard]] const std::pair<const int, const int> getSize() const noexcept override;
 
 private:
-    [[nosiscard]] const bool validateCellPosition(const std::pair<const int, const int>& position) const noexcept;
+    [[nodiscard]] const bool validateCellPosition(const std::pair<const int, const int>& position) const noexcept;
     void instantiateCells();
     void setCellNeighbors() noexcept;
     void deleteCells() noexcept;

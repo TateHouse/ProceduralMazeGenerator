@@ -22,6 +22,15 @@ private:
                     const cv::Scalar& gridColor);
 
 public:
+    ImageVisualizer(const ImageVisualizer& other) = default;
+    ImageVisualizer(ImageVisualizer&& other) noexcept = default;
+    ~ImageVisualizer() noexcept override = default;
+
+public:
+    ImageVisualizer& operator=(const ImageVisualizer& other) = delete;
+    ImageVisualizer& operator=(ImageVisualizer&& other) noexcept = delete;
+
+public:
     void visualize() const noexcept override;
 
 private:

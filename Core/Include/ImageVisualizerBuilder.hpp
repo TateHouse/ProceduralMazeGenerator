@@ -13,6 +13,13 @@ class ImageVisualizer;
 class ImageVisualizerBuilder final {
 public:
     ImageVisualizerBuilder(const Core::Grid* const grid, const std::filesystem::path& imagePath);
+    ImageVisualizerBuilder(const ImageVisualizerBuilder&) = delete;
+    ImageVisualizerBuilder(ImageVisualizerBuilder&&) = delete;
+    ~ImageVisualizerBuilder() noexcept = default;
+
+public:
+    ImageVisualizerBuilder& operator=(const ImageVisualizerBuilder&) = delete;
+    ImageVisualizerBuilder& operator=(ImageVisualizerBuilder&&) = delete;
 
 public:
     ImageVisualizerBuilder& setCellSize(const int cellSize);

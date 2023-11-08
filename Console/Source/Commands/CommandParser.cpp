@@ -1,15 +1,15 @@
-#include "Commands/CommandInterpreter.hpp"
+#include "Commands/CommandParser.hpp"
 
 #include <sstream>
 #include <vector>
 
 namespace Console {
-CommandInterpreter::CommandInterpreter(CommandRepository& commandRepository) noexcept:
+CommandParser::CommandParser(CommandRepository& commandRepository) noexcept:
         commandRepository {commandRepository} {
 
 };
 
-ParsedCommandInput CommandInterpreter::interpret(const std::string& input) const {
+ParsedCommandInput CommandParser::interpret(const std::string& input) const {
     std::istringstream stringStream {input};
     std::vector<std::string> tokens {std::istream_iterator<std::string> {stringStream},
                                      std::istream_iterator<std::string> {}};

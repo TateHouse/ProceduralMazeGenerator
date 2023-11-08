@@ -2,7 +2,7 @@ CMAKE_MINIMUM_REQUIRED(VERSION 3.26)
 
 SET(SOURCE_FILES
 		Command.cpp
-		CommandInterpreter.cpp
+		CommandParser.cpp
 		CommandRepository.cpp
 		InMemoryCommandRepository.cpp
 		ParsedCommandInput.cpp)

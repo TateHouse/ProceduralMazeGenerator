@@ -14,3 +14,4 @@ const std::string& ParsedCommandInput::getName() const noexcept {
 const std::unordered_map<std::string, std::string>& ParsedCommandInput::getParameters() const noexcept {
     return parameters;
 }
+}

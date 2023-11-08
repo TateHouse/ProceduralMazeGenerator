@@ -2,7 +2,7 @@ CMAKE_MINIMUM_REQUIRED(VERSION 3.26)
 
 SET(HEADER_FILES
 		Command.hpp
-		CommandInterpreter.hpp
+		CommandParser.hpp
 		CommandRepository.hpp
 		InMemoryCommandRepository.hpp
 		ParsedCommandInput.hpp)

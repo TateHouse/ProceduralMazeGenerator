@@ -1,6 +1,7 @@
 #pragma once
 
 #include <string_view>
+#include <unordered_map>
 
 #include "../Context.hpp"
 
@@ -11,7 +12,8 @@ public:
     virtual ~CommandRepository() noexcept = default;
 
 public:
-    virtual void execute(const std::string_view command) = 0;
+    virtual void execute(const std::string_view command,
+                         const std::unordered_map<std::string, std::string>& parameters) = 0;
 
 protected:
     Context& context;

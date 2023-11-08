@@ -1,6 +1,7 @@
 #pragma once
 
 #include <string>
+#include <unordered_map>
 
 #include "../Context.hpp"
 
@@ -17,7 +18,7 @@ public:
     Command& operator=(Command&& other) noexcept = delete;
 
 public:
-    virtual void execute() noexcept = 0;
+    virtual void execute(const std::unordered_map<std::string, std::string>& parameters) noexcept = 0;
     virtual std::string getName() const noexcept = 0;
     virtual std::string getHelp() const noexcept = 0;
 

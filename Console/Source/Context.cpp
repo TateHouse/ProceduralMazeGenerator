@@ -11,6 +11,7 @@ void Context::setIsNotRunning() noexcept {
 
 void Context::setGrid(const std::size_t size) {
     grid = std::make_unique<Core::SquareGrid>(size);
+    grid->initialize();
 }
 
 const Core::Grid* const Context::getGrid() const noexcept {

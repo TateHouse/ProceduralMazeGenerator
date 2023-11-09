@@ -35,7 +35,7 @@ The current available maze generation algorithms are:
 3. First, run the following
    command: `cmake -B Build/ -S . -DCMAKE_TOOLCHAIN_FILE="path to vcpkg/scripts/buildsystems/vcpkg.cmake"`
 4. Then, run the following command: `cmake --build Build/ --config Config`, where Config is either Debug or Release.
-5. The executable will be located within the Build/Tests/Config/ directory, where Config is either Debug or Release.
+5. The executable will be located within the Build/Test/Config/ directory, where Config is either Debug or Release.
 6. Run the executable using the terminal.
 
 ## Usage

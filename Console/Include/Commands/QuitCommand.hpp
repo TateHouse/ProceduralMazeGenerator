@@ -16,7 +16,7 @@ public:
 
 public:
     virtual void execute(const std::unordered_map<std::string, std::string>& parameters) override;
-    virtual std::string getName() const noexcept override;
-    virtual std::string getDescription() const noexcept override;
+    [[nodiscard]] virtual std::string getName() const noexcept override;
+    [[nodiscard]] virtual std::string getDescription() const noexcept override;
 };
 }

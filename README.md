@@ -1,4 +1,4 @@
-# Procedural Maze Generator
+# Procedural Maze Generator <img src="Images/Logo.png" alt="Logo" width="256" height="256" align="right"/>
 
 ## Overview
 
@@ -28,7 +28,6 @@ The current available maze generation algorithms are:
 6. Copy the files in the Console/Resources/ directory to the directory where the executable is located.
 7. Run the executable.
 
-
 ## Running Tests
 
 1. Clone the repository and extract it to a directory.
@@ -38,6 +37,7 @@ The current available maze generation algorithms are:
 4. Then, run the following command: `cmake --build Build/ --config Config`, where Config is either Debug or Release.
 5. The executable will be located within the Build/Tests/Config/ directory, where Config is either Debug or Release.
 6. Run the executable using the terminal.
+
 ## Usage
 
 ### Commands
@@ -81,3 +81,17 @@ To get more information about the available commands, please refer to the 'help'
   ```
   > maze -a Sidewinder -s 12345
   ```
+
+## Sample Outputs
+
+### Grid
+
+<img src="Images/Grid.png" alt="Grid" width="410" height="410"/>
+
+### Binary Tree Algorithm
+
+<img src="Images/BinaryTree.png" alt="Binary Tree Maze" width="410" height="410"/>
+
+### Sidewinder Algorithm
+
+<img src="Images/Sidewinder.png" alt="Sidewinder Maze" width="410" height="410"/>

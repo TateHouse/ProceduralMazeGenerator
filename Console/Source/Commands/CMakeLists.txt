@@ -9,6 +9,7 @@ SET(SOURCE_FILES
 		ExportCommand.cpp
 		GridCommand.cpp
 		InMemoryCommandRepository.cpp
+		MazeCommand.cpp
 		ParsedCommandInput.cpp
 		QuitCommand.cpp)
 

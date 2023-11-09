@@ -9,6 +9,7 @@ SET(HEADER_FILES
 		ExportCommand.hpp
 		GridCommand.hpp
 		InMemoryCommandRepository.hpp
+		MazeCommand.hpp
 		ParsedCommandInput.hpp
 		QuitCommand.hpp)
 

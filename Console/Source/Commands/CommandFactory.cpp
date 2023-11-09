@@ -2,6 +2,7 @@
 
 #include "Commands/ExportCommand.hpp"
 #include "Commands/GridCommand.hpp"
+#include "Commands/MazeCommand.hpp"
 #include "Commands/QuitCommand.hpp"
 
 namespace Console {
@@ -16,6 +17,10 @@ std::unique_ptr<Command> CommandFactory::create(const std::string& name) const n
 
     if (name == "grid") {
         return std::make_unique<GridCommand>(context);
+    }
+
+    if (name == "maze") {
+        return std::make_unique<MazeCommand>(context);
     }
 
     if (name == "quit") {

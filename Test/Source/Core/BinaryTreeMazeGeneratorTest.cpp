@@ -78,6 +78,6 @@ TEST_F(BinaryTreeMazeGeneratorTest, GivenBinaryTreeMazeGenerator_WhenGenerate_Th
 
 TEST_F(BinaryTreeMazeGeneratorTest,
        GivenBinaryTreeMazeGenerator_WhenGetMazeGenerationAlgorithmName_ThenReturnBinaryTree) {
-    EXPECT_THAT(mazeGenerator->getAlgorithmName(), testing::StrCaseEq("Binary Tree"));
+    EXPECT_THAT(mazeGenerator->getAlgorithmName(), testing::StrCaseEq("BinaryTree"));
 }
 }

@@ -10,6 +10,7 @@ void initializeCommands(Console::Context& context, Console::InMemoryCommandRepos
     Console::CommandFactory commandFactory {context};
     commandRepository.add(commandFactory.create("export"));
     commandRepository.add(commandFactory.create("grid"));
+    commandRepository.add(commandFactory.create("maze"));
     commandRepository.add(commandFactory.create("quit"));
 }
 

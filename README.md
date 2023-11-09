@@ -20,12 +20,11 @@ The current available maze generation algorithms are:
 ## Building
 
 1. Clone the repository and extract it to a directory.
-2. Opena terminal and navigate to the directory.
+2. Open a terminal and navigate to the directory.
 3. First, run the following
    command: `cmake -B Build/ -S . -DCMAKE_TOOLCHAIN_FILE="path to vcpkg/scripts/buildsystems/vcpkg.cmake"`
 4. Then, run the following command: `cmake --build Build/ --config Config`, where Config is either Debug or Release.
 5. The executable will be located within the Build/Console/Config/ directory, where Config is either Debug or Release.
-6. Copy the files in the Console/Resources/ directory to the directory where the executable is located.
 7. Run the executable.
 
 ## Running Tests

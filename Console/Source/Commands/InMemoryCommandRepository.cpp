@@ -1,17 +1,15 @@
 #include "Commands/InMemoryCommandRepository.hpp"
 
-#include "Commands/GridCommand.hpp"
-#include "Commands/QuitCommand.hpp"
-
 #include <stdexcept>
 
 namespace Console {
 InMemoryCommandRepository::InMemoryCommandRepository(Console::Context& context) noexcept: CommandRepository {context} {
-    auto gridCommand {std::make_unique<GridCommand>(context)};
-    auto quitCommand {std::make_unique<QuitCommand>(context)};
 
-    commands.try_emplace(gridCommand->getName(), std::move(gridCommand));
-    commands.try_emplace(quitCommand->getName(), std::move(quitCommand));
+}
+
+void InMemoryCommandRepository::add(std::unique_ptr<Command> command) {
+    const auto name {command->getName()};
+    commands.try_emplace(name, std::move(command));
 }
 
 void InMemoryCommandRepository::execute(const std::string_view command,

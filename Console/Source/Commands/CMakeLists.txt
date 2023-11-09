@@ -2,6 +2,7 @@ CMAKE_MINIMUM_REQUIRED(VERSION 3.26)
 
 SET(SOURCE_FILES
 		Command.cpp
+		CommandFactory.cpp
 		CommandParser.cpp
 		CommandRepository.cpp
 		GridCommand.cpp

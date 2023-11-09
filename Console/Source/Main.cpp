@@ -1,13 +1,21 @@
 #include <iostream>
 #include <string>
 
+#include "Commands/CommandFactory.hpp"
 #include "Commands/CommandParser.hpp"
 #include "Commands/InMemoryCommandRepository.hpp"
 #include "Context.hpp"
 
+void initializeCommands(Console::Context& context, Console::InMemoryCommandRepository& commandRepository) {
+    Console::CommandFactory commandFactory {context};
+    commandRepository.add(commandFactory.create("grid"));
+    commandRepository.add(commandFactory.create("quit"));
+}
+
 int main(int argc, char* argv[]) {
     Console::Context context;
     Console::InMemoryCommandRepository commandRepository {context};
+    initializeCommands(context, commandRepository);
 
     std::string input {};
     while (context.getIsRunning()) {

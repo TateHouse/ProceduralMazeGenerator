@@ -19,6 +19,7 @@ public:
     InMemoryCommandRepository& operator=(InMemoryCommandRepository&& other) noexcept = delete;
 
 public:
+    virtual void add(std::unique_ptr<Command> command) override;
     virtual void execute(const std::string_view command,
                          const std::unordered_map<std::string, std::string>& parameters) override;
 

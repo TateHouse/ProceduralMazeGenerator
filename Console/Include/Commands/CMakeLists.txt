@@ -2,6 +2,7 @@ CMAKE_MINIMUM_REQUIRED(VERSION 3.26)
 
 SET(HEADER_FILES
 		Command.hpp
+		CommandFactory.hpp
 		CommandParser.hpp
 		CommandRepository.hpp
 		GridCommand.hpp

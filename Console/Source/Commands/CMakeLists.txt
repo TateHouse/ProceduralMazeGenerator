@@ -4,7 +4,9 @@ SET(SOURCE_FILES
 		Command.cpp
 		CommandFactory.cpp
 		CommandParser.cpp
+		CommandParserUtility.cpp
 		CommandRepository.cpp
+		ExportCommand.cpp
 		GridCommand.cpp
 		InMemoryCommandRepository.cpp
 		ParsedCommandInput.cpp

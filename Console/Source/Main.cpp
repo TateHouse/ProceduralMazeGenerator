@@ -8,6 +8,7 @@
 
 void initializeCommands(Console::Context& context, Console::InMemoryCommandRepository& commandRepository) {
     Console::CommandFactory commandFactory {context};
+    commandRepository.add(commandFactory.create("export"));
     commandRepository.add(commandFactory.create("grid"));
     commandRepository.add(commandFactory.create("quit"));
 }
@@ -23,7 +24,7 @@ int main(int argc, char* argv[]) {
             std::getline(std::cin, input);
             const auto parsedCommand {Console::CommandParser::parse(input)};
             commandRepository.execute(parsedCommand.getName(), parsedCommand.getParameters());
-        } catch (const std::invalid_argument& exception) {
+        } catch (const std::exception& exception) {
             std::cerr << exception.what() << '\n';
         }
     }

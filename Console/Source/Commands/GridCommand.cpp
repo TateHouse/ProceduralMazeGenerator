@@ -3,6 +3,8 @@
 #include <iostream>
 #include <stdexcept>
 
+#include "Commands/CommandParametersUtility.hpp"
+
 namespace Console {
 GridCommand::GridCommand(Console::Context& context) noexcept: Command {context} {
 
@@ -14,20 +16,7 @@ void GridCommand::execute(const std::unordered_map<std::string, std::string>& pa
             throw std::invalid_argument {"Size parameter is empty, the default size will be used."};
         }
 
-        auto iterator {parameters.find("-s")};
-        if (iterator == parameters.end()) {
-            throw std::invalid_argument {"Size parameter is empty, the default size will be used."};
-        }
-
-        if (iterator->second.empty()) {
-            throw std::invalid_argument {"Size parameter is empty, the default size will be used."};
-        }
-
-        const auto size {std::stoi(iterator->second)};
-        if (size < 1) {
-            throw std::invalid_argument {"Size parameter is invalid, the default size will be used."};
-        }
-
+        const auto size {std::stoi(CommandParametersUtility::getParameterValue(parameters, "-s"))};
         context.setGrid(size);
         std::cout << "Grid size set to " << size << '\n';
     } catch (const std::invalid_argument& exception) {

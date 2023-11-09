@@ -41,7 +41,7 @@ void MazeCommand::execute(const std::unordered_map<std::string, std::string>& pa
             (*generator)->generate(grid, std::nullopt);
         }
 
-        std::cout << "Grid modified by " << (*generator)->getAlgorithmName() << '\n';
+        std::cout << "Modified the grid using the " << algorithm << " algorithm." << '\n';
     } catch (const std::invalid_argument& exception) {
         std::cout << exception.what() << '\n';
     }

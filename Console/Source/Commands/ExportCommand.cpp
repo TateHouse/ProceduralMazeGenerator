@@ -36,6 +36,8 @@ void ExportCommand::execute(const std::unordered_map<std::string, std::string>& 
         imageVisualizerBuilder.setCellSize(cellSize);
         imageVisualizerBuilder.setBorderSize(borderSize);
         imageVisualizerBuilder.build()->visualize();
+
+        std::cout << "Exported the grid to '" << filePath << '.' << '\n';
     } catch (const std::invalid_argument& exception) {
         std::cout << exception.what() << '\n';
     }

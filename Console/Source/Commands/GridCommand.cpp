@@ -14,12 +14,14 @@ GridCommand::GridCommand(Console::Context& context) noexcept: Command {context} 
 void GridCommand::execute(const std::unordered_map<std::string, std::string>& parameters) {
     try {
         if (parameters.empty()) {
-            throw std::invalid_argument {"Size parameter is empty, the default size will be used."};
+            throw std::invalid_argument {
+                    "A new grid with the default size of " + std::to_string(GridCommand::defaultGridSize) +
+                    " has been generated."};
         }
 
         const auto size {std::stoi(CommandParametersUtility::getParameterValue(parameters, "-s"))};
         context.setGrid(size);
-        std::cout << "Grid size set to " << size << '\n';
+        std::cout << "A new grid with a size of " << size << " has been generated." << '\n';
     } catch (const std::invalid_argument& exception) {
         context.setGrid(GridCommand::defaultGridSize);
         std::cout << exception.what() << '\n';

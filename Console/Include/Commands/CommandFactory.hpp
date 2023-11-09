@@ -1,7 +1,9 @@
 #pragma once
 
+#include <functional>
 #include <memory>
 #include <string>
+#include <unordered_map>
 
 #include "Command.hpp"
 
@@ -22,5 +24,6 @@ public:
 
 private:
     Context& context;
+    std::unordered_map<std::string, std::function<std::unique_ptr<Command>(Context&)>> commands {};
 };
 }

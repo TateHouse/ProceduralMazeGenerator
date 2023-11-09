@@ -8,6 +8,7 @@ SET(HEADER_FILES
 		CommandRepository.hpp
 		ExportCommand.hpp
 		GridCommand.hpp
+		HelpCommand.hpp
 		InMemoryCommandRepository.hpp
 		MazeCommand.hpp
 		ParsedCommandInput.hpp

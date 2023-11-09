@@ -4,6 +4,7 @@ SET(HEADER_FILES
 		Command.hpp
 		CommandParser.hpp
 		CommandRepository.hpp
+		GridCommand.hpp
 		InMemoryCommandRepository.hpp
 		ParsedCommandInput.hpp
 		QuitCommand.hpp)

@@ -4,6 +4,7 @@ SET(SOURCE_FILES
 		Command.cpp
 		CommandParser.cpp
 		CommandRepository.cpp
+		GridCommand.cpp
 		InMemoryCommandRepository.cpp
 		ParsedCommandInput.cpp
 		QuitCommand.cpp)

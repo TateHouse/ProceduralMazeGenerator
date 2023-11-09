@@ -42,13 +42,13 @@ The current available maze generation algorithms are:
 
 ### Commands
 
-- 'export' - Exports a grid, modified or unmodified, to a PNG image.
-- 'grid' - Generates a grid.
-- 'help' - Displays the name and description of all commands.
-- 'maze' - Modifies a grid by applying a maze generation algorithm.
-- 'quit' Quits the application.
+- `export` - Exports a grid, modified or unmodified, to a PNG image.
+- `grid` - Generates a grid.
+- `help` - Displays the name and description of all commands.
+- `maze` - Modifies a grid by applying a maze generation algorithm.
+- `quit` Quits the application.
 
-To get more information about the available commands, please refer to the 'help' command.
+To get more information about the available commands, please refer to the `help` command.
 
 ### Examples
 

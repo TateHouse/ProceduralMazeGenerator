@@ -1,5 +1,6 @@
 #include "Commands/GridCommand.hpp"
 
+#include <iostream>
 #include <stdexcept>
 
 namespace Console {
@@ -18,14 +19,20 @@ void GridCommand::execute(const std::unordered_map<std::string, std::string>& pa
             throw std::invalid_argument {"Size parameter is empty, the default size will be used."};
         }
 
+        if (iterator->second.empty()) {
+            throw std::invalid_argument {"Size parameter is empty, the default size will be used."};
+        }
+
         const auto size {std::stoi(iterator->second)};
         if (size < 1) {
             throw std::invalid_argument {"Size parameter is invalid, the default size will be used."};
         }
 
         context.setGrid(size);
-    } catch (const std::invalid_argument&) {
+        std::cout << "Grid size set to " << size << '\n';
+    } catch (const std::invalid_argument& exception) {
         context.setGrid(GridCommand::defaultGridSize);
+        std::cout << exception.what() << '\n';
     }
 }
 

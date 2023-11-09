@@ -1,6 +1,7 @@
 #include "Commands/GridCommand.hpp"
 
 #include <iostream>
+#include <sstream>
 #include <stdexcept>
 
 #include "Commands/CommandParametersUtility.hpp"
@@ -30,6 +31,17 @@ std::string GridCommand::getName() const noexcept {
 }
 
 std::string GridCommand::getDescription() const noexcept {
-    return "Generates a square grid.";
+    std::ostringstream descriptionStream {};
+
+    descriptionStream << "\tGenerates a grid. The default size is " << GridCommand::defaultGridSize << ".\n\n";
+    descriptionStream << "\tParameters (Optional):\n"
+                      << "\t\t-s: The size of the grid.\n\n";
+    descriptionStream << "\tUsage:\n"
+                      << "\t\t" << getName() << " -s <size>\n\n";
+    descriptionStream << "\tExample:\n"
+                      << "\t\t" << getName() << " -s 20\n"
+                                             << "\t\tThis will generate a grid with a size of 20.";
+
+    return descriptionStream.str();
 }
 }

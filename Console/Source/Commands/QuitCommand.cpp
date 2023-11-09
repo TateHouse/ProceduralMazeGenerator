@@ -1,5 +1,6 @@
 #include "Commands/QuitCommand.hpp"
 
+#include <sstream>
 #include <stdexcept>
 
 namespace Console {
@@ -20,6 +21,13 @@ std::string QuitCommand::getName() const noexcept {
 }
 
 std::string QuitCommand::getDescription() const noexcept {
-    return "Quits the application.";
+    std::ostringstream descriptionStream {};
+
+    descriptionStream << "\tQuits the application.\n\n";
+
+    descriptionStream << "\tUsage:\n"
+                      << "\t\t" << getName();
+
+    return descriptionStream.str();
 }
 }

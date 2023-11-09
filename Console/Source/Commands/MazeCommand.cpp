@@ -1,6 +1,7 @@
 #include "Commands/MazeCommand.hpp"
 
 #include <iostream>
+#include <sstream>
 
 #include "Commands/CommandParametersUtility.hpp"
 #include "BinaryTreeMazeGenerator.hpp"
@@ -51,6 +52,32 @@ std::string MazeCommand::getName() const noexcept {
 }
 
 std::string MazeCommand::getDescription() const noexcept {
-    return "Modifies a grid to create a maze using a specified algorithm.";
+    std::ostringstream descriptionStream {};
+
+    descriptionStream
+            << "\tModifies a grid by applying a maze generation algorithm to it. The grid must be generated before it can be modified.\n\n";
+
+    descriptionStream << "\tParameters (Required):\n"
+                      << "\t\t-a: The algorithm to use. The available algorithms are:\n";
+
+    for (const auto& mazeGenerator : mazeGenerators) {
+        descriptionStream << "\t\t\t" << mazeGenerator->getAlgorithmName() << '\n';
+    }
+
+    descriptionStream << "\n";
+
+    descriptionStream << "\tParameters (Optional):\n"
+                      << "\t\t-s: An unsigned integer to use as the seed. If no seed is provided, a random seed will be used.\n\n";
+
+    descriptionStream << "\tUsage:\n"
+                      << "\t\t" << getName() << " -a <algorithm> -s <seed>\n\n";
+
+    descriptionStream << "\tExample:\n"
+                      << "\t\t" << getName() << " -a BinaryTree -s 1234\n"
+                      << "\t\tThis will modify the grid using the binary tree algorithm with a seed of 1234.\n\n"
+                      << "\t\t" << getName() << "-a Sidewinder\n"
+                      << "\t\tThis will modify the grid using the sidewinder algorithm with a random seed.";
+
+    return descriptionStream.str();
 }
 }

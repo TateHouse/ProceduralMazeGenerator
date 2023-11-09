@@ -17,7 +17,6 @@ ImageVisualizerBuilder::ImageVisualizerBuilder(const Core::Grid* const grid, con
         try {
             std::filesystem::create_directory(directoryPath);
         } catch (const std::filesystem::filesystem_error& exception) {
-            // TODO: Log the exception.
             throw std::invalid_argument {"The directory path is invalid."};
         }
     }

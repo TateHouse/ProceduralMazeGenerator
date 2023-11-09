@@ -1,11 +1,8 @@
 CMAKE_MINIMUM_REQUIRED(VERSION 3.26)
 
-SET(SOURCE_FILES
-		BinaryTreeMazeGeneratorTest.cpp
-		CellAttributeTest.cpp
-		CellLinkingTest.cpp
-		SquareGridTest.cpp
-		MazeGeneratorTest.cpp
-		SidewinderMazeGeneratorTest.cpp)
+SET(SOURCE_FILES)
 
 TARGET_SOURCES(${PROJECT_NAME} PRIVATE ${SOURCE_FILES})
+
+ADD_SUBDIRECTORY(Console)
+ADD_SUBDIRECTORY(Core)

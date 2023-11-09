@@ -34,7 +34,7 @@ private:
     const std::filesystem::path& imagePath;
     int cellSize {5};
     int borderSize {0};
-    cv::Scalar backgroundColor {0.0f, 0.0f, 0.0f};
-    cv::Scalar gridColor {255.0f, 255.0f, 255.0f};
+    cv::Scalar backgroundColor {255.0f, 255.0f, 255.0f};
+    cv::Scalar gridColor {0.0f, 0.0f, 0.0f};
 };
 }

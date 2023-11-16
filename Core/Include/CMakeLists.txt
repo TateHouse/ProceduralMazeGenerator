@@ -1,6 +1,7 @@
 CMAKE_MINIMUM_REQUIRED(VERSION 3.26)
 
 SET(HEADER_FILES
+		AldousBroderMazeGenerator.hpp
 		BinaryTreeMazeGenerator.hpp
 		Cell.hpp
 		SquareGrid.hpp

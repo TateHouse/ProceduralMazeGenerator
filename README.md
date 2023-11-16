@@ -86,12 +86,16 @@ To get more information about the available commands, please refer to the `help`
 
 ### Grid
 
-<img src="Images/Grid.png" alt="Grid" width="410" height="410"/>
+<img src="Images/Grid.png" alt="Grid" width="420" height="420"/>
+
+### Aldous-Broder Algorithm
+
+<img src="Images/AldousBroder.png" alt="Aldous-Broder Maze" width="420" height="420"/>
 
 ### Binary Tree Algorithm
 
-<img src="Images/BinaryTree.png" alt="Binary Tree Maze" width="410" height="410"/>
+<img src="Images/BinaryTree.png" alt="Binary Tree Maze" width="420" height="420"/>
 
 ### Sidewinder Algorithm
 
-<img src="Images/Sidewinder.png" alt="Sidewinder Maze" width="410" height="410"/>
+<img src="Images/Sidewinder.png" alt="Sidewinder Maze" width="420" height="420"/>

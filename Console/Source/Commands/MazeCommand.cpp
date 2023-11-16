@@ -4,11 +4,13 @@
 #include <sstream>
 
 #include "Commands/CommandParametersUtility.hpp"
+#include "AldousBroderMazeGenerator.hpp"
 #include "BinaryTreeMazeGenerator.hpp"
 #include "SidewinderMazeGenerator.hpp"
 
 namespace Console {
 MazeCommand::MazeCommand(Console::Context& context) noexcept: Command {context} {
+	mazeGenerators.emplace_back(std::make_unique<Core::AldousBroderMazeGenerator>());
     mazeGenerators.emplace_back(std::make_unique<Core::BinaryTreeMazeGenerator>());
     mazeGenerators.emplace_back(std::make_unique<Core::SidewinderMazeGenerator>());
 }

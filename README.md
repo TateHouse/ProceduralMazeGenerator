@@ -6,6 +6,7 @@ A project for procedurally generating and solving two-dimensional mazes using va
 
 The current available maze generation algorithms are:
 
+- Aldous-Broder
 - Binary Tree
 - Sidewinder
 

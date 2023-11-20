@@ -9,6 +9,7 @@ The current available maze generation algorithms are:
 - Aldous-Broder
 - Binary Tree
 - Sidewinder
+- Wilson's
 
 ## Dependencies
 
@@ -99,3 +100,7 @@ To get more information about the available commands, please refer to the `help`
 ### Sidewinder Algorithm
 
 <img src="Images/Sidewinder.png" alt="Sidewinder Maze" width="420" height="420"/>
+
+### Wilson's Algorithm
+
+<img src="Images/Wilsons.png" alt="Wilson's Maze" width="420" height="420"/>

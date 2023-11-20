@@ -13,30 +13,17 @@ void AldousBroderMazeGenerator::generate(Core::Grid* const grid,
 	const auto randomX {static_cast<int>(distribution(randomEngine) % width)};
 	const auto randomY {static_cast<int>(distribution(randomEngine) % height)};
 	auto* cell {(*grid)[{randomX, randomY}]};
-	const auto totalCells {width * height};
-	auto unvisitedCells {totalCells - 1};
+	auto unvisitedCells {width * height - 1};
 	
 	while (unvisitedCells > 0) {
-		std::vector<Cell*> neighbors {};
+		std::vector<Cell*> neighbors {cell->getNeighbors()};
 		
-		if (auto* northCell {cell->getNorth()}; northCell != nullptr) {
-			neighbors.push_back(northCell);
-		}
-		
-		if (auto* westCell {cell->getWest()}; westCell != nullptr) {
-			neighbors.push_back(westCell);
-		}
-		
-		if (auto* southCell {cell->getSouth()}; southCell != nullptr) {
-			neighbors.push_back(southCell);
-		}
-		
-		if (auto* eastCell {cell->getEast()}; eastCell != nullptr) {
-			neighbors.push_back(eastCell);
+		if (neighbors.empty()) {
+			continue;
 		}
 		
 		distribution.param(std::uniform_int_distribution<std::size_t>::param_type {0, neighbors.size() - 1});
-		const auto index {distribution(randomEngine) % neighbors.size()};
+		const auto index {distribution(randomEngine)};
 		auto* neighbor {neighbors[index]};
 		
 		if (neighbor->getLinks().empty()) {

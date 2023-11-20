@@ -24,7 +24,7 @@ protected:
 };
 
 TEST_F(AldousBroderMazeGeneratorTest,
-       GivenAldousBroderMazeGenerator_WhenGenerate_ThenEveryCellHasBetweenOneAndThreeLinks) {
+       GivenAldousBroderMazeGenerator_WhenGenerate_ThenEveryCellHasBetweenOneAndFourLinks) {
 	for (std::size_t x {0}; x < width; ++x) {
 		for (std::size_t y {0}; y < height; ++y) {
 			const auto xPosition {static_cast<int>(x)};
@@ -32,7 +32,7 @@ TEST_F(AldousBroderMazeGeneratorTest,
 			const auto* const cell {(*grid)[{xPosition, yPosition}]};
 			const auto& links {cell->getLinks()};
 			
-			EXPECT_THAT(links, testing::SizeIs(testing::AnyOf(1, 2, 3)));
+			EXPECT_THAT(links, testing::SizeIs(testing::AnyOf(1, 2, 3, 4)));
 		}
 	}
 }

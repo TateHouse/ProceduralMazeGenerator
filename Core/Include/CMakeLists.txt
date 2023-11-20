@@ -4,7 +4,6 @@ SET(HEADER_FILES
 		AldousBroderMazeGenerator.hpp
 		BinaryTreeMazeGenerator.hpp
 		Cell.hpp
-		SquareGrid.hpp
 		Grid.hpp
 		GridVisualizer.hpp
 		ImageVisualizer.hpp
@@ -12,6 +11,7 @@ SET(HEADER_FILES
 		MazeGenerator.hpp
 		SeedGenerator.hpp
 		SidewinderMazeGenerator.hpp
-)
+		SquareGrid.hpp
+		WilsonsMazeGenerator.hpp)
 
 TARGET_SOURCES(${PROJECT_NAME} PUBLIC ${HEADER_FILES})

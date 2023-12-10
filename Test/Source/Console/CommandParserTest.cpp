@@ -40,11 +40,11 @@ TEST_F(CommandParserTest,
     EXPECT_THAT(parsedCommandInput.getName(), testing::Eq("quit"));
 
     const auto parameters {parsedCommandInput.getParameters()};
-    for (const auto& parameter : parameters) {
-        ASSERT_THAT(parameter.first, testing::StartsWith("-"));
-        EXPECT_THAT(parameter.first, testing::AnyOf(testing::Eq("-f"), testing::Eq("-s")));
-        EXPECT_THAT(parameter.second, testing::IsEmpty());
-    }
+	for (const auto& [key, value] : parameters) {
+		ASSERT_THAT(key, testing::StartsWith("-"));
+		EXPECT_THAT(key, testing::AnyOf(testing::Eq("-f"), testing::Eq("-s")));
+		EXPECT_THAT(value, testing::IsEmpty());
+	}
 }
 
 TEST_F(CommandParserTest,
@@ -54,11 +54,12 @@ TEST_F(CommandParserTest,
 
     EXPECT_THAT(parsedCommandInput.getName(), testing::Eq("quit"));
 
-    const auto parameters {parsedCommandInput.getParameters()};
-    for (const auto& parameter : parameters) {
-        ASSERT_THAT(parameter.first, testing::StartsWith("-"));
-        EXPECT_THAT(parameter.first, testing::AnyOf(testing::Eq("-f"), testing::Eq("-s")));
-        EXPECT_THAT(parameter.second, testing::AnyOf(testing::Eq("value"), testing::Eq("50")));
-    }
+    const auto& parameters {parsedCommandInput.getParameters()};
+	
+	for (const auto& [key, value] : parameters) {
+		ASSERT_THAT(key, testing::StartsWith("-"));
+		EXPECT_THAT(key, testing::AnyOf(testing::Eq("-f"), testing::Eq("-s")));
+		EXPECT_THAT(value, testing::AnyOf(testing::Eq("value"), testing::Eq("50")));
+	}
 }
 }

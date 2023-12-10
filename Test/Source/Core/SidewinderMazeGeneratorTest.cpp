@@ -48,9 +48,9 @@ TEST_F(SidewinderMazeGeneratorTest,
 TEST_F(SidewinderMazeGeneratorTest, GivenSidewinderMazeGenerator_WhenGenerate_ThenEveryCellHasBetweenOneAndFourLinks) {
     for (std::size_t x {0}; x < width; ++x) {
         for (std::size_t y {0}; y < height; ++y) {
-            const auto xPos {static_cast<int>(x)};
-            const auto yPos {static_cast<int>(y)};
-            const auto* const cell {(*grid)[{xPos, yPos}]};
+            const auto xPosition {static_cast<int>(x)};
+            const auto yPosition {static_cast<int>(y)};
+            const auto* const cell {(*grid)[{xPosition, yPosition}]};
             const auto& links {cell->getLinks()};
 
             EXPECT_THAT(links, testing::SizeIs(testing::AnyOf(1, 2, 3, 4)));

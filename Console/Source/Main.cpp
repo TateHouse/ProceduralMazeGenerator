@@ -26,9 +26,11 @@ int main(int argc, char* argv[]) {
             std::getline(std::cin, input);
             const auto parsedCommand {Console::CommandParser::parse(input)};
             commandRepository.execute(parsedCommand.getName(), parsedCommand.getParameters());
-        } catch (const std::exception& exception) {
+        } catch (const std::runtime_error& exception) {
             std::cerr << exception.what() << '\n';
-        }
+        } catch (const std::invalid_argument& exception) {
+			std::cerr << exception.what() << '\n';
+		}
     }
 
     return 0;

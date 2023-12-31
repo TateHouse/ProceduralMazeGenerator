@@ -12,7 +12,8 @@ SET(HEADER_FILES
 		InMemoryCommandRepository.hpp
 		MazeCommand.hpp
 		ParsedCommandInput.hpp
-		QuitCommand.hpp)
+		QuitCommand.hpp
+		VisualizeCommand.hpp)
 
 TARGET_SOURCES(${CONSOLE_LIBRARY_PROJECT_NAME} PRIVATE ${HEADER_FILES})
 TARGET_SOURCES(${PROJECT_NAME} PRIVATE ${HEADER_FILES})

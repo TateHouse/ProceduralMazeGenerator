@@ -42,7 +42,8 @@ The current available maze generation algorithms are:
 - `grid` - Generates a grid.
 - `help` - Displays the name and description of all commands.
 - `maze` - Modifies a grid by applying a maze generation algorithm.
-- `quit` Quits the application.
+- `quit` - Quits the application.
+- `visualize` - Visualizes the generated grid or maze in the console using ASCII.
 
 To get more information about the available commands, please refer to the `help` command.
 
@@ -78,7 +79,19 @@ To get more information about the available commands, please refer to the `help`
   > maze -a Sidewinder -s 12345
   ```
 
-## Sample Outputs
+#### Visualizing a Grid
+
+  ```
+  > visualize -t grid
+  ```
+
+#### Visualizing a Maze
+
+  ```
+  > visualize -t maze
+  ```
+
+## Samples of Exported Grids and Mazes
 
 ### Grid
 

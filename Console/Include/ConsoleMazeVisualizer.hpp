@@ -52,7 +52,6 @@ public:
 	void visualize() const noexcept override;
 
 private:
-	
 	const Core::Grid* const grid;
 };
 }

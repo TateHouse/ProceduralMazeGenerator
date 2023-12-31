@@ -12,7 +12,8 @@ SET(SOURCE_FILES
 		InMemoryCommandRepository.cpp
 		MazeCommand.cpp
 		ParsedCommandInput.cpp
-		QuitCommand.cpp)
+		QuitCommand.cpp
+		VisualizeCommand.cpp)
 
 TARGET_SOURCES(${CONSOLE_LIBRARY_PROJECT_NAME} PRIVATE ${SOURCE_FILES})
 TARGET_SOURCES(${PROJECT_NAME} PRIVATE ${SOURCE_FILES})

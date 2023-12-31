@@ -14,7 +14,7 @@ The current available maze generation algorithms are:
 ## Dependencies
 
 - C++ 23 (Tested with MSVC Version 19.37.32824)
-- CMake (Minimum Version Required: 3.26)
+- CMake (Minimum Version Required: 3.28)
 - vcpkg
     - Google Test / Google Mock
     - OpenCV

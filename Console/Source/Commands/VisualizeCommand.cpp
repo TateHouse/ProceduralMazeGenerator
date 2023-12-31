@@ -51,6 +51,11 @@ std::string VisualizeCommand::getDescription() const noexcept {
 	                  << "\t\t-t: The type of visualization to use. Valid values are 'grid' and 'maze'.\n\n";
 	descriptionStream << "\tUsage:\n"
 	                  << "\t\t" << getName() << " -t <visualization type>\n\n";
+	descriptionStream << "\tExample:\n"
+	                  << "\t\t" << getName() << " -t grid\n"
+	                  << "\t\tThis will visualize the generated grid in the console using ASCII.\n\n"
+	                  << "\t\t" << getName() << " -t maze\n"
+	                  << "\t\tThis will visualize the generated maze in the console using ASCII.\n\n";
 	
 	return descriptionStream.str();
 }

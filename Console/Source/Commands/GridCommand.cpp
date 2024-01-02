@@ -34,7 +34,6 @@ std::string GridCommand::getName() const noexcept {
 
 std::string GridCommand::getDescription() const noexcept {
     std::ostringstream descriptionStream {};
-
     descriptionStream << "\tGenerates a grid. The default size is " << GridCommand::defaultGridSize << ".\n\n";
     descriptionStream << "\tParameters (Optional):\n"
                       << "\t\t-s: The size of the grid.\n\n";

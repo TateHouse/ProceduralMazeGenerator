@@ -22,9 +22,7 @@ std::string QuitCommand::getName() const noexcept {
 
 std::string QuitCommand::getDescription() const noexcept {
     std::ostringstream descriptionStream {};
-
     descriptionStream << "\tQuits the application.\n\n";
-
     descriptionStream << "\tUsage:\n"
                       << "\t\t" << getName();
 

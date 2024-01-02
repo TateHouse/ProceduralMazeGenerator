@@ -43,17 +43,13 @@ std::string HelpCommand::getName() const noexcept {
 
 std::string HelpCommand::getDescription() const noexcept {
     std::ostringstream descriptionStream {};
-
     descriptionStream << "\tDisplays the name and description of all commands.\n\n";
-
     descriptionStream << "\tParameters (Optional):\n"
                       << "\t\t-c <command name>\n"
                       << "\t\t\tDisplays the name and description of the specified command.\n\n";
-
     descriptionStream << "\tUsage:\n"
                       << "\t\thelp\n"
                       << "\t\thelp -c <command name>\n\n";
-
     descriptionStream << "\tExamples:\n"
                       << "\t\thelp\n"
                       << "\t\tThis will display the name and description of all commands.\n\n"

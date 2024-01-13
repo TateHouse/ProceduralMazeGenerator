@@ -2,7 +2,7 @@
 
 ## Overview
 
-A project for procedurally generating and solving two-dimensional mazes using various algorithms.
+A project for procedurally generating two-dimensional mazes using various algorithms.
 
 The current available maze generation algorithms are:
 

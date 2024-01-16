@@ -7,7 +7,7 @@ namespace Console::Test {
 class QuitCommandTest : public ::testing::Test {
 public:
     QuitCommandTest() noexcept = default;
-    virtual ~QuitCommandTest() noexcept override = default;
+	~QuitCommandTest() noexcept override = default;
 
 protected:
     Context context {};

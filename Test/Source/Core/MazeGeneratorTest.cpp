@@ -13,7 +13,7 @@ public:
         grid->initialize();
     }
 
-    virtual ~MazeGeneratorTest() noexcept = default;
+    ~MazeGeneratorTest() noexcept override = default;
 
 protected:
     std::unique_ptr<Grid> grid {std::make_unique<SquareGrid>(5)};

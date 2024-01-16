@@ -14,7 +14,7 @@ public:
         mazeGenerator->generate(grid.get(), std::nullopt);
     }
 
-    virtual ~SidewinderMazeGeneratorTest() noexcept = default;
+    ~SidewinderMazeGeneratorTest() noexcept override = default;
 
 protected:
     std::unique_ptr<Grid> grid {std::make_unique<SquareGrid>(5)};

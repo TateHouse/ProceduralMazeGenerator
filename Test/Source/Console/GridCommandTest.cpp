@@ -7,7 +7,7 @@ namespace Console::Test {
 class GridCommandTest : public ::testing::Test {
 public:
     GridCommandTest() noexcept = default;
-    virtual ~GridCommandTest() noexcept override = default;
+    ~GridCommandTest() noexcept override = default;
 
 protected:
     Context context {};

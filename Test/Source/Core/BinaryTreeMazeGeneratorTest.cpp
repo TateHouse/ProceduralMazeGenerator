@@ -14,7 +14,7 @@ public:
 		mazeGenerator->generate(grid.get(), std::nullopt);
 	}
 	
-	virtual ~BinaryTreeMazeGeneratorTest() noexcept = default;
+	~BinaryTreeMazeGeneratorTest() noexcept override = default;
 
 protected:
 	std::unique_ptr<Grid> grid {std::make_unique<SquareGrid>(5)};

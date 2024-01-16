@@ -43,6 +43,7 @@ The current available maze generation algorithms are:
 - `help` - Displays the name and description of all commands.
 - `maze` - Modifies a grid by applying a maze generation algorithm.
 - `quit` - Quits the application.
+- `version` - Displays the project version.
 - `visualize` - Visualizes the generated grid or maze in the console using ASCII.
 
 To get more information about the available commands, please refer to the `help` command.

@@ -12,7 +12,7 @@ ExportCommand::ExportCommand(Context& context) noexcept: Command {context} {
 }
 
 void ExportCommand::execute(const std::unordered_map<std::string, std::string>& parameters) {
-	const auto* const grid {context.getGrid()};
+	auto* grid {context.getGrid()};
 	if (grid == nullptr) {
 		throw std::runtime_error {"A grid must be generated before it can be exported"};
 	}
@@ -28,7 +28,7 @@ void ExportCommand::execute(const std::unordered_map<std::string, std::string>& 
 			throw std::invalid_argument {"The file name must not contain a file extension or a path"};
 		}
 		
-		const auto filePath {std::filesystem::path {"Images/" + fileName + ".png"}};
+		auto filePath {std::filesystem::path {"Images/" + fileName + ".png"}};
 		const auto cellSize {std::stoi(CommandParametersUtility::getParameterValue(parameters, "-cs"))};
 		const auto borderSize {std::stoi(CommandParametersUtility::getParameterValue(parameters, "-bs"))};
 		

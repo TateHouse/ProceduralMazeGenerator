@@ -3,12 +3,12 @@
 #include <stdexcept>
 
 namespace Core {
-ImageVisualizerBuilder ImageVisualizer::create(const Core::Grid* const grid, const std::filesystem::path& imagePath) {
+ImageVisualizerBuilder ImageVisualizer::create(Core::Grid* grid, std::filesystem::path& imagePath) {
     return ImageVisualizerBuilder {grid, imagePath};
 }
 
-ImageVisualizer::ImageVisualizer(const Core::Grid* const grid,
-                                 const std::filesystem::path& imagePath,
+ImageVisualizer::ImageVisualizer(Core::Grid* grid,
+                                 std::filesystem::path& imagePath,
                                  const int cellSize,
                                  const int borderSize,
                                  const cv::Scalar& backgroundColor,

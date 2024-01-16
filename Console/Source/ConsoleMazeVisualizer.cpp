@@ -4,7 +4,7 @@
 #include <sstream>
 
 namespace Console {
-ConsoleMazeVisualizer::ConsoleMazeVisualizer(const Core::Grid* const grid) noexcept: grid {grid} {
+ConsoleMazeVisualizer::ConsoleMazeVisualizer(Core::Grid* grid) noexcept: grid {grid} {
 
 }
 

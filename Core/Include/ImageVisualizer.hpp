@@ -21,7 +21,7 @@ public:
 	 * @param imagePath The path to the image to save.
 	 * @return The new image visualizer builder.
 	 */
-    static ImageVisualizerBuilder create(const Core::Grid* const grid, const std::filesystem::path& imagePath);
+	static ImageVisualizerBuilder create(Core::Grid* grid, std::filesystem::path& imagePath);
 
 private:
 	/**
@@ -33,30 +33,30 @@ private:
 	 * @param backgroundColor The background color of the image.
 	 * @param gridColor The color of the grid in the image.
 	 */
-    ImageVisualizer(const Core::Grid* const grid,
-                    const std::filesystem::path& imagePath,
-                    const int cellSize,
-                    const int borderSize,
-                    const cv::Scalar& backgroundColor,
-                    const cv::Scalar& gridColor);
+	ImageVisualizer(Core::Grid* grid,
+	                std::filesystem::path& imagePath,
+	                const int cellSize,
+	                const int borderSize,
+	                const cv::Scalar& backgroundColor,
+	                const cv::Scalar& gridColor);
 
 public:
 	/**
 	 * @brief Instantiates a new image visualizer by copying the given image visualizer.
 	 * @param other The image visualizer to copy.
 	 */
-    ImageVisualizer(const ImageVisualizer& other) = default;
+	ImageVisualizer(const ImageVisualizer& other) = default;
 	
 	/**
 	 * @brief Instantiates a new image visualizer by moving the given image visualizer.
 	 * @param other The image visualizer to move.
 	 */
-    ImageVisualizer(ImageVisualizer&& other) noexcept = default;
+	ImageVisualizer(ImageVisualizer&& other) noexcept = default;
 	
 	/**
 	 * @brief Destroys the image visualizer.
 	 */
-    ~ImageVisualizer() noexcept override = default;
+	~ImageVisualizer() noexcept override = default;
 
 public:
 	/**
@@ -64,17 +64,17 @@ public:
 	 * @param other The image visualizer to copy.
 	 * @return A reference to this image visualizer.
 	 */
-    ImageVisualizer& operator=(const ImageVisualizer& other) = delete;
+	ImageVisualizer& operator=(const ImageVisualizer& other) = delete;
 	
 	/**
 	 * @brief Assigns the given image visualizer to this image visualizer using move semantics.
 	 * @param other The image visualizer to move.
 	 * @return A reference to this image visualizer.
 	 */
-    ImageVisualizer& operator=(ImageVisualizer&& other) noexcept = delete;
+	ImageVisualizer& operator=(ImageVisualizer&& other) noexcept = delete;
 
 public:
-    void visualize() const noexcept override;
+	void visualize() const noexcept override;
 
 private:
 	/**
@@ -84,9 +84,9 @@ private:
 	 * @param topLeftY The y position of the top left corner of the cell.
 	 * @return
 	 */
-    [[nodiscard]] std::pair<const cv::Point, const cv::Point> calculateVerticalPoints(const bool isFirstRow,
-                                                                                      const int topLeftX,
-                                                                                      const int topLeftY) const noexcept;
+	[[nodiscard]] std::pair<const cv::Point, const cv::Point> calculateVerticalPoints(const bool isFirstRow,
+	                                                                                  const int topLeftX,
+	                                                                                  const int topLeftY) const noexcept;
 	
 	/**
 	 * @brief Calculates the points of the horizontal line of the given cell.
@@ -95,23 +95,23 @@ private:
 	 * @param topLeftY The y position of the top left corner of the cell.
 	 * @return
 	 */
-    [[nodiscard]] std::pair<const cv::Point, const cv::Point> calculateHorizontalPoints(const bool isLastColumn,
-                                                                                        const int topLeftX,
-                                                                                        const int topLeftY) const noexcept;
-
+	[[nodiscard]] std::pair<const cv::Point, const cv::Point> calculateHorizontalPoints(const bool isLastColumn,
+	                                                                                    const int topLeftX,
+	                                                                                    const int topLeftY) const noexcept;
+	
 	/**
 	 * @brief Draws the outer north wall of the maze.
 	 * @param imageWidth The width of the image.
 	 * @param image The image to draw on.
 	 */
-    void drawOuterNorthWall(const int imageWidth, cv::Mat& image) const noexcept;
+	void drawOuterNorthWall(const int imageWidth, cv::Mat& image) const noexcept;
 	
 	/**
 	 * @brief Draws the outer west wall of the maze.
 	 * @param imageHeight The height of the image.
 	 * @param image The image to draw on.
 	 */
-    void drawOuterWestWall(const int imageHeight, cv::Mat& image) const noexcept;
+	void drawOuterWestWall(const int imageHeight, cv::Mat& image) const noexcept;
 	
 	/**
 	 * @brief Draws the outer south wall of the maze.
@@ -119,7 +119,7 @@ private:
 	 * @param imageHeight The height of the image.
 	 * @param image The image to draw on.
 	 */
-    void drawOuterSouthWall(const int imageWidth, const int imageHeight, cv::Mat& image) const noexcept;
+	void drawOuterSouthWall(const int imageWidth, const int imageHeight, cv::Mat& image) const noexcept;
 	
 	/**
 	 * @brief Draws the outer east wall of the maze.
@@ -127,16 +127,16 @@ private:
 	 * @param imageHeight The height of the image.
 	 * @param image The image to draw on.
 	 */
-    void drawOuterEastWall(const int imageWidth, const int imageHeight, cv::Mat& image) const noexcept;
+	void drawOuterEastWall(const int imageWidth, const int imageHeight, cv::Mat& image) const noexcept;
 
 private:
-    const Core::Grid* const grid;
-    const std::filesystem::path& imagePath;
-    const int cellSize {5};
-    const int borderSize {0};
-    const cv::Scalar backgroundColor {0.0f, 0.0f, 0.0f};
-    const cv::Scalar gridColor {255.0f, 255.0f, 255.0f};
-
-    friend class ImageVisualizerBuilder;
+	Core::Grid* grid;
+	std::filesystem::path& imagePath;
+	int cellSize {5};
+	int borderSize {0};
+	cv::Scalar backgroundColor {0.0f, 0.0f, 0.0f};
+	cv::Scalar gridColor {255.0f, 255.0f, 255.0f};
+	
+	friend class ImageVisualizerBuilder;
 };
 }

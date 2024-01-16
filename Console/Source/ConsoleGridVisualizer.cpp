@@ -4,7 +4,7 @@
 #include <sstream>
 
 namespace Console {
-ConsoleGridVisualizer::ConsoleGridVisualizer(const Core::Grid* const grid) noexcept: grid {grid} {
+ConsoleGridVisualizer::ConsoleGridVisualizer(Core::Grid* grid) noexcept: grid {grid} {
 
 }
 

@@ -18,7 +18,7 @@ void VisualizeCommand::execute(const std::unordered_map<std::string, std::string
 			throw std::invalid_argument {"No parameters were provided"};
 		}
 		
-		const auto* const grid {context.getGrid()};
+		auto* grid {context.getGrid()};
 		if (grid == nullptr) {
 			throw std::runtime_error {"A grid must be generated before it can be visualized"};
 		}

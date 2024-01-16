@@ -14,19 +14,19 @@ public:
 	 * @brief Instantiates a new console grid visualizer.
 	 * @param grid The grid to visualize.
 	 */
-	explicit ConsoleGridVisualizer(const Core::Grid* const grid) noexcept;
+	explicit ConsoleGridVisualizer(Core::Grid* grid) noexcept;
 	
 	/**
 	 * @brief Instantiates a new console grid visualizer by copying the given console grid visualizer.
 	 * @param other The console grid visualizer to copy.
 	 */
-    ConsoleGridVisualizer(const ConsoleGridVisualizer& other) = delete;
+	ConsoleGridVisualizer(const ConsoleGridVisualizer& other) = default;
 	
 	/**
 	 * @brief Instantiates a new console grid visualizer by moving the given console grid visualizer.
 	 * @param other The console grid visualizer to move.
 	 */
-    ConsoleGridVisualizer(ConsoleGridVisualizer&& other) = delete;
+	ConsoleGridVisualizer(ConsoleGridVisualizer&& other) = default;
 	
 	/**
 	 * @brief Destroys the console grid visualizer.
@@ -39,19 +39,19 @@ public:
 	 * @param other The console grid visualizer to copy.
 	 * @return A reference to this console grid visualizer.
 	 */
-    ConsoleGridVisualizer& operator=(const ConsoleGridVisualizer& other) = delete;
+	ConsoleGridVisualizer& operator=(const ConsoleGridVisualizer& other) = default;
 	
 	/**
 	 * @brief Assigns the given console grid visualizer to this console grid visualizer using move semantics.
 	 * @param other The console grid visualizer to move.
 	 * @return
 	 */
-    ConsoleGridVisualizer& operator=(ConsoleGridVisualizer&& other) = delete;
+	ConsoleGridVisualizer& operator=(ConsoleGridVisualizer&& other) = default;
 
 public:
 	void visualize() const noexcept override;
 
 private:
-	const Core::Grid* const grid;
+	Core::Grid* grid;
 };
 }

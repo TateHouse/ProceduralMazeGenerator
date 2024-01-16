@@ -147,12 +147,10 @@ public:
 private:
 	int xPosition;
 	int yPosition;
-	
 	Cell* north {nullptr};
 	Cell* west {nullptr};
 	Cell* south {nullptr};
 	Cell* east {nullptr};
-	
 	std::vector<Cell*> links;
 };
 }

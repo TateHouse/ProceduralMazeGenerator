@@ -5,7 +5,7 @@
 #include "ImageVisualizer.hpp"
 
 namespace Core {
-ImageVisualizerBuilder::ImageVisualizerBuilder(const Core::Grid* const grid, const std::filesystem::path& imagePath) :
+ImageVisualizerBuilder::ImageVisualizerBuilder(Core::Grid* grid, std::filesystem::path& imagePath) :
         grid {grid}, imagePath {imagePath} {
     if (grid == nullptr) {
         throw std::invalid_argument {"The grid cannot be null."};

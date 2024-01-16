@@ -5,6 +5,7 @@ SET(SOURCE_FILES
 		GridCommandTest.cpp
 		InMemoryCommandRepositoryTest.cpp
 		MockCommand.cpp
-		QuitCommandTest.cpp)
+		QuitCommandTest.cpp
+		VersionCommandTest.cpp)
 
 TARGET_SOURCES(${PROJECT_NAME} PRIVATE ${SOURCE_FILES})

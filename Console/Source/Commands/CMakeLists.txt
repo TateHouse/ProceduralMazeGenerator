@@ -13,6 +13,7 @@ SET(SOURCE_FILES
 		MazeCommand.cpp
 		ParsedCommandInput.cpp
 		QuitCommand.cpp
+		VersionCommand.cpp
 		VisualizeCommand.cpp)
 
 TARGET_SOURCES(${CONSOLE_LIBRARY_PROJECT_NAME} PRIVATE ${SOURCE_FILES})

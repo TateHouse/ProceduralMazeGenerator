@@ -13,6 +13,7 @@ void initializeCommands(Console::Context& context, Console::InMemoryCommandRepos
 	commandRepository.add(commandFactory.create("help"));
 	commandRepository.add(commandFactory.create("maze"));
 	commandRepository.add(commandFactory.create("quit"));
+	commandRepository.add(commandFactory.create("version"));
 	commandRepository.add(commandFactory.create("visualize"));
 }
 

@@ -13,6 +13,7 @@ SET(HEADER_FILES
 		MazeCommand.hpp
 		ParsedCommandInput.hpp
 		QuitCommand.hpp
+		VersionCommand.hpp
 		VisualizeCommand.hpp)
 
 TARGET_SOURCES(${CONSOLE_LIBRARY_PROJECT_NAME} PRIVATE ${HEADER_FILES})

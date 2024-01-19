@@ -72,7 +72,7 @@ public:
 	 * @brief Gets the seed used by the maze generator.
 	 * @return The seed used by the maze generator.
 	 */
-    [[nodiscard]] const std::optional<unsigned long long> getSeed() const noexcept;
+    [[nodiscard]] std::optional<unsigned long long> getSeed() const noexcept;
 
 protected:
 	/**

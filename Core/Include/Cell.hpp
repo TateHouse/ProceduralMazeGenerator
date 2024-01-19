@@ -68,7 +68,7 @@ public:
 	 * @param cell The cell to check.
 	 * @return True if this cell is linked to the given cell, false otherwise.
 	 */
-	[[nodiscard]] const bool isLinked(const Cell* const cell) const noexcept;
+	[[nodiscard]] bool isLinked(const Cell* const cell) const noexcept;
 	
 	/**
 	 * @brief Gets the links of this cell.
@@ -80,13 +80,13 @@ public:
 	 * @brief Gets the x position of this cell.
 	 * @return The x position of this cell.
 	 */
-	[[nodiscard]] const int getXPosition() const noexcept;
+	[[nodiscard]] int getXPosition() const noexcept;
 	
 	/**
 	 * @brief Gets the y position of this cell.
 	 * @return The y position of this cell.
 	 */
-	[[nodiscard]] const int getYPosition() const noexcept;
+	[[nodiscard]] int getYPosition() const noexcept;
 	
 	/**
 	 * @brief Gets the neighbors of this cell.

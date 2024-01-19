@@ -65,7 +65,7 @@ private:
 	 * @param position The cell position to validate.
 	 * @return True if the given cell position is valid; false otherwise.
 	 */
-    [[nodiscard]] const bool validateCellPosition(const std::pair<const int, const int>& position) const noexcept;
+    [[nodiscard]] bool validateCellPosition(const std::pair<const int, const int>& position) const noexcept;
 	
 	/**
 	 * @brief Instantiates the cells of the grid.

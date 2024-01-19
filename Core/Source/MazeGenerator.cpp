@@ -9,7 +9,7 @@ const std::string& MazeGenerator::getAlgorithmName() const noexcept {
     return algorithmName;
 }
 
-const std::optional<unsigned long long> MazeGenerator::getSeed() const noexcept {
+std::optional<unsigned long long> MazeGenerator::getSeed() const noexcept {
 	return seedGenerator.getSeed();
 }
 

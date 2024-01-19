@@ -59,7 +59,7 @@ const std::pair<const int, const int> SquareGrid::getSize() const noexcept {
     return {xSize, ySize};
 }
 
-const bool SquareGrid::validateCellPosition(const std::pair<const int, const int>& position) const noexcept {
+bool SquareGrid::validateCellPosition(const std::pair<const int, const int>& position) const noexcept {
     const auto [xPosition, yPosition] {position};
     const auto size {cells.size()};
 
